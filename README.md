@@ -238,24 +238,17 @@ To resolve the tension between pure human data collection and massive computatio
 
 ```
 ┌────────────────────────────────────────────────────────┐
-│ Tier 1: 100% Real Human Ground Truth (15 Real Datasets)│
-│ - Live Scraped Discographies & Tracks:                 │
-│   • Wakadinali: Nyuria, Last Dance, Mjanja Mjini       │
-│   • Mejja: Ya Mwisho ("Unarecord", "una-overthink")    │
-│   • Boutross: Angela ft Juicee Mann ("Angela my dawa") │
-│   • Boutross ft Mejja: Bad Habit ("Siclear up my name")│
-│   • Buruklyn Boyz: Genje Sana ("Ma-small fish")        │
-│   • Khaligraph Jones: Chocha ("Doba napiga..."),       │
-│     Confused ("Mnaniconfuse", "kudecide")              │
-│   • Ssaru, Domani & Khali: Spy App ("hapangingi line") │
-│   • Matata ft Bien: Mpishi ("najinice")                │
-│   • Bien ft Breeder LW: Maandamano ("mabeast", "mboka")│
-│   • Ranzscooby, Mejja, Scar: Tic Tac Remix ("maguy")   │
-│ - Public Comment Archives (2,235 lines / 27,298 words):│
-│   • YouTube music & podcast reactions (Mic Cheque, CTA)│
-│   • TikTok street trends & viral banter                │
-│   • Kenyans on X (#KOT) viral discussions              │
-│   • KenyaTalk community forum threads                  │
+│ Tier 1: Authentic Human Empirical Ground Truth         │
+│ - Contemporary East African Urban Music Corpora:       │
+│   • Multi-genre coverage: Gengetone, Arbantone, Drill, │
+│     Kenyan Hip-Hop, Genge, and Contemporary Afro-Fusion│
+│   • Ground-truth validation of Bantu-English roots     │
+│     (e.g., 'ku-record', 'ku-decide', 'ku-clear')       │
+│   • Cultural invariants verification ('doba', 'dawa')  │
+│ - Public Conversational Dialogue & Social Discourse:   │
+│   • East African conversational podcasts & interviews  │
+│   • Community street dialogue & social commentary      │
+│   • Validates natural demonstratives & reduplications  │
 └──────────────────────────┬─────────────────────────────┘
                            │ 5x Priors & Seed Weights
                            ▼
