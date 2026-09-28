@@ -2,10 +2,12 @@
 
 [![PyPI version](https://img.shields.io/pypi/v/loosely-swahili.svg?color=blue)](https://pypi.org/project/loosely-swahili/)
 [![GitHub Repo](https://img.shields.io/badge/GitHub-Eminek--marz%2Floosely--swahili-181717.svg?logo=github)](https://github.com/Eminek-marz/loosely-swahili)
+[![Hugging Face Instruct](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Instruct%2050K-yellow)](https://huggingface.co/datasets/Maxyelow/kenyan-code-switch-instruct-50k)
+[![Hugging Face Pretrain](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-1M%20Corpus-orange)](https://huggingface.co/datasets/Maxyelow/kenyan-code-switch-1m)
 [![Python versions](https://img.shields.io/pypi/pyversions/loosely-swahili.svg)](https://pypi.org/project/loosely-swahili/)
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache%202.0-green.svg)](https://opensource.org/licenses/Apache-2.0)
 
-> **Empowering East African AI**: The premier open-source Python library, morphological deconstructor, and linguistic engine engineered specifically for Kenyan urban youth slang (Sheng) and mixed Swahili-English code-switching. Developed by **[@Eminek-marz](https://github.com/Eminek-marz)**.
+> **Empowering East African AI**: The premier open-source Python library, morphological deconstructor, and linguistic engine engineered specifically for Kenyan urban youth slang (Sheng) and mixed Swahili-English code-switching. Developed by **Maxwell Ng'ang'a** ([@Eminek-marz](https://github.com/Eminek-marz)).
 
 ```bash
 pip install loosely-swahili
@@ -126,6 +128,22 @@ python tests/test_sheng_nlp.py
 ### Export Hugging Face Tokenizer Vocab:
 ```bash
 python export_hf_tokenizer.py
+```
+
+### 📦 Official Hugging Face Datasets
+
+Directly load our officially published datasets in Python using the Hugging Face `datasets` library:
+
+```python
+from datasets import load_dataset
+
+# 1. Multi-Task Instruction Dataset (50,000 pairs: Tech, Health, Law, Finance, Street Slang)
+instruct_ds = load_dataset("Maxyelow/kenyan-code-switch-instruct-50k")
+print(instruct_ds["train"][0])
+
+# 2. Monolingual Pretraining Corpus (1,000,000 sentences / 17 Million words)
+pretrain_ds = load_dataset("Maxyelow/kenyan-code-switch-1m")
+print(pretrain_ds["train"][0])
 ```
 
 ---
@@ -278,3 +296,52 @@ To resolve the tension between pure human data collection and massive computatio
 ```bash
 python src/hybrid_trainer.py
 ```
+
+---
+
+## 👥 Authors & Maintainers
+
+- **Maxwell Ng'ang'a** - *Lead Researcher & Creator*
+  - GitHub: [@Eminek-marz](https://github.com/Eminek-marz)
+  - Hugging Face: [@Maxyelow](https://huggingface.co/Maxyelow)
+  - PyPI: [loosely-swahili](https://pypi.org/project/loosely-swahili/)
+
+---
+
+## 📜 Citation
+
+If you use `loosely-swahili`, its morphological engine, or the accompanying Hugging Face datasets in your academic research or engineering applications, please cite:
+
+```bibtex
+@software{loosely_swahili_2026,
+  author = {Maxwell Ng'ang'a},
+  title = {loosely-swahili: The Premier NLP Toolkit and Morphological Engine for East African Kenyan Code-Switching and Sheng},
+  year = {2026},
+  version = {0.1.3},
+  url = {https://github.com/Eminek-marz/loosely-swahili},
+  publisher = {Python Package Index & Hugging Face}
+}
+
+@dataset{kenyan_code_switch_datasets_2026,
+  author = {Maxwell Ng'ang'a},
+  title = {Kenyan Code-Switching Pretraining Corpus and 50K Multi-Task Instruction Dataset},
+  year = {2026},
+  publisher = {Hugging Face},
+  url = {https://huggingface.co/datasets/Maxyelow/kenyan-code-switch-instruct-50k}
+}
+```
+
+---
+
+## 🤝 Acknowledgements & Cultural Grounding
+
+- **The Kenyan Speech Community**: Sincere gratitude to the vibrant urban youth and creatives across Nairobi and East Africa who organically generate, evolve, and sustain Sheng and contemporary East African code-switching.
+- **Open-Source NLP Ecosystem**: Built with appreciation for the broader African NLP research movement (including Masakhane) and the Hugging Face open-source community.
+
+---
+
+## 📄 License
+
+Distributed under the **Apache License 2.0**. See the [LICENSE](LICENSE) file for complete terms.
+Copyright (c) 2026 Maxwell Ng'ang'a.
+

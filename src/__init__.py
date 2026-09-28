@@ -3,7 +3,8 @@ Loosely Swahili NLP (ls-nlp) - Python Package Initialization
 The premier Python library for East African Kenyan Code-Switching, Sheng, and Kiswahili NLP.
 """
 
-__version__ = "0.1.2"
+__version__ = "0.1.3"
+__author__ = "Maxwell Ng'ang'a"
 
 from .morphology import KenyanMorphologyEngine, MorphemeBreakdown
 from .lexicon_manager import ShengLexiconManager
