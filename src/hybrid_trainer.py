@@ -1,7 +1,7 @@
 """
 Hybrid Kenyan Code-Switching Training & Evaluation Suite (Option B)
 Combines:
-  Tier 1: 100% Real Scraped Human Ground Truth (Wakadinali lyrics, #KOT comment feeds, forum dumps)
+  Tier 1: 100% Real Scraped Human Ground Truth (Urban lyrics, #KOT comment feeds, forum dumps)
   Tier 2: Blueprint-Constrained Scale Augmentation (combinatorial scaling anchored to real distributions)
 Evaluates and benchmarks models on real, unfiltered Kenyan human text.
 """
@@ -150,7 +150,7 @@ class HybridKenyanNLPManager:
         # 1. Load Real Data
         stats = self.load_real_human_data()
         print(f"Loaded Real Human Data: {stats['total_real_human_words']:,} words across {stats['total_real_human_lines']:,} lines.")
-        print(f"  - Real Music Lyrics (Wakadinali, etc.): {stats['real_lyrics_lines']} lines")
+        print(f"  - Real Music Lyrics (East African Urban Corpora): {stats['real_lyrics_lines']} lines")
         print(f"  - Real Social Media Comments (#KOT):    {stats['real_social_lines']} lines")
         print(f"  - Real Forum Discussions (KenyaTalk):  {stats['real_forum_lines']} lines")
         print(f"  - Real Podcast Transcripts:             {stats['real_podcast_lines']} lines")

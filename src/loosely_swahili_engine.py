@@ -1495,7 +1495,7 @@ class UniversalGenitiveEngine:
     Rule XIII: Universal Genitive Collapse ("Wa" & "Za")
     Bypasses traditional Kiswahili associative concords (cha, vya, la, ya, mwa, kwa, pa):
       - 'wa' strictly connects singular animates, creators, and leaders:
-        e.g. 'mkuu wa shule', 'dereva wa matatu', 'chali wa mtaa', 'track wa Wakadinali'
+        e.g. 'mkuu wa shule', 'dereva wa matatu', 'chali wa mtaa', 'track wa artist'
       - 'za' strictly connects all plurals and inanimates:
         e.g. 'ngoma za Arbantone', 'issue za life', 'vitu za keja'
     """

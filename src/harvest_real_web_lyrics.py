@@ -60,13 +60,16 @@ def harvest_cached_step(step_path: Path, track_name: str, artist: str) -> Dict[s
     }
 
 if __name__ == "__main__":
-    step_554 = Path(r"C:\Users\USER\.gemini\antigravity\brain\15c211d8-c81d-4beb-af4a-32d04b20e54a\.system_generated\steps\554\content.md")
-    step_570 = Path(r"C:\Users\USER\.gemini\antigravity\brain\15c211d8-c81d-4beb-af4a-32d04b20e54a\.system_generated\steps\570\content.md")
-    step_586 = Path(r"C:\Users\USER\.gemini\antigravity\brain\15c211d8-c81d-4beb-af4a-32d04b20e54a\.system_generated\steps\586\content.md")
+    raw_dir = DATA_DIR / "raw_lyrics"
+    if raw_dir.exists():
+        results = []
+        for html_file in raw_dir.glob("*.html"):
+            track_name = html_file.stem
+            lines = extract_lyrics_from_html(html_file.read_text(encoding="utf-8", errors="replace"))
+            out_file = REAL_CORPUS_DIR / f"track_{track_name}.txt"
+            out_file.write_text("\n".join(lines), encoding="utf-8")
+            results.append({"track": track_name, "line_count": len(lines)})
+        print(f"Harvested {len(results)} tracks from raw lyrics cache.")
+    else:
+        print("Raw lyrics directory not found. Ready for input files.")
 
-    r1 = harvest_cached_step(step_554, "Nyuria", "Wakadinali")
-    r2 = harvest_cached_step(step_570, "Last Dance", "Wakadinali")
-    r3 = harvest_cached_step(step_586, "Mjanja Mjini", "Wakadinali")
-
-    print("Harvested Real Lyrics from Doba KE:")
-    print(json.dumps([r1, r2, r3], indent=2, ensure_ascii=False))

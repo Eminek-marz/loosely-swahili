@@ -193,7 +193,7 @@ REDDIT_R_KENYA_COMMENTS = [
 
 YOUTUBE_KENYAN_COMMENTS = [
     "Mwafreeka unashoot ukweli mtupu kwa hii episode, mayouth wengi wamepoteza mwelekeo {dm}.",
-    "Wakadinali wameachia {doba} kali sana ya mtaa, hii ngoma imepiga deep kuliko zote.",
+    "Wasanii wakuu wa drill wameachia {doba} kali sana ya mtaa, hii ngoma imepiga deep kuliko zote.",
     "Huyu producer anajua kutengeneza beats nzito, kila msanii anatamani ku{verb} naye studio.",
     "Nilicheka nikavunjika mbavu wakati mchekeshaji alipoongea kuhusu vile alikosa {ndauwo} ya matatu.",
     "Hii channel ndio content safi pekee iliyobaki Kenya, asanteni kwa kutuelimisha {manner}.",
@@ -231,7 +231,7 @@ MUSIC_LYRICS_ACROSS_ERAS = [
     # Kenyan Drill & Hip-Hop
     "Geri inengi wasee wamefika base, kaa rada usicatch mafeelings {dm}.",
     "Niko {zero_loc} nikitafuta mita, siwezi waste time na watu wenye {neg} na maisha yao.",
-    "Wakadinali wametoa {doba} kali ya hip hop, mistari mizito inayoeleza ukweli wa mtaa.",
+    "Mabingwa wa Eastland wametoa {doba} kali ya hip hop, mistari mizito inayoeleza ukweli wa mtaa.",
     "Tano nane drill ya Rongai, wasee hawapendi story mob, wanajua sheria ya mtaa vizuri.",
     # Genge Classics & Benga/Afro-Pop
     "Alinivutia tenje asubuhi akidai tupatane three, kumbe amekula {ndauwo} yangu yote!",

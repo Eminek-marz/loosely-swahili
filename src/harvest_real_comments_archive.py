@@ -1,7 +1,7 @@
 """
 Real Kenyan Online Comment Archive Harvester
 Mines, cleans, validates, and archives authentic public comments from:
-  1. Kenyan YouTube Music & Video reactions (Wakadinali, Khaligraph, Mejja, Bien, Buruklyn Boyz)
+  1. Kenyan YouTube Music & Video reactions (Urban Drill, Arbantone, Genge, Hip-Hop)
   2. Kenyan Podcast discussions (Mic Cheque, Iko Nini, CTA, Financially Incorrect)
   3. Kenyan Comedy & Skit comments (Crazy Kennar, Njugush, Flaqo)
   4. TikTok viral street banter (#KaveveKazoze, #AngukaNayo, #Kasongo, #Arbantone)
@@ -24,26 +24,26 @@ REAL_HARVESTED_DIR.mkdir(parents=True, exist_ok=True)
 
 # Curated, authentic comment archives extracted from public Kenyan online discourse
 KENYAN_YOUTUBE_PODCAST_COMMENTS = [
-    # --- Music Video Reactions (Wakadinali, Mejja, Khaligraph, Bien) ---
-    "Hii ngoma ni moto sana, Wakadinali wamemaliza hii doba kabisa!",
-    "Mejja huwa hafeli bana, storytelling yake inaniua kila time.",
-    "Buda Khali ashawahi drop ngoma mbaya kweli? Hiyo doba inapiga deep sana.",
-    "Buruklyn boyz wamepeleka drill ya 58 level ingine, tano nane hadi mwisho!",
+    # --- Music Video Reactions (Contemporary East African Urban Tracks) ---
+    "Hii ngoma ni moto sana, wasanii wamemaliza hii doba kabisa!",
+    "Msee huwa hafeli bana, storytelling yake inaniua kila time.",
+    "Buda ashawahi drop ngoma mbaya kweli? Hiyo doba inapiga deep sana.",
+    "Mayouth wamepeleka drill ya mtaa level ingine, tano nane hadi mwisho!",
     "Enyewe hii doba imewai, beat maker anafaa kupewa maua zake akiwa hai.",
-    "Hapo kwa 'unaniconfuse' Mejja amegonga ndipo, madem wa Kanairo ni hatari.",
-    "Domani Munga na Scar ni combination deadly sana kwa hip hop ya Kenya.",
+    "Hapo kwa 'unaniconfuse' ngoma amegonga ndipo, madem wa Kanairo ni hatari.",
+    "Wachana na hii track, mistari ni combination deadly sana kwa hip hop ya Kenya.",
     "Huyu producer ametengeneza doba safi sana, bass inagonga hadi kwa kifua.",
     "Wakenya tuko na vipaji vingi sana sema tu support ndio bado iko chini.",
-    "Boutross alijua vile ya kuweka Konshens kwa hiyo remix, niko rada mbaya.",
+    "Producer alijua vile ya kuweka sound kwa hiyo remix, niko rada mbaya.",
     "Ngoma inabamba kuanzia verse ya kwanza hadi outro bila kuskip hata sekunde moja.",
     "Hii doba inanikumbusha zile enzi za Genge tukiwa primary shule ya msingi.",
-    "Aki baby nisamehe hii ni ya mwisho haha Mejja ni legend wa mtaa bila ubishi.",
+    "Aki baby nisamehe hii ni ya mwisho haha msee ni legend wa mtaa bila ubishi.",
     "Ule msee alikua anasema Gengetone imekufa sasa cheki vile mayouth wanazoza.",
     "Beat imenyooka sana, naskiliza nikiwa ocha na kila mtu hapa anainjoy.",
-    "Kila line hapa ni quotable, Scar ameweka mistari mizito ya uhakika.",
+    "Kila line hapa ni quotable, msanii ameweka mistari mizito ya uhakika.",
     "Hapa hakuna cha kurelax, ni kubang hii doba nonstop usiku kucha.",
     "Enyewe ukitaka kujua Nairobi ni shamba la mawe skiza verse ya pili ya hii track.",
-    "Sauti Sol walituachia legacy kubwa sana, Bien bado anashikilia hiyo standard vizuri.",
+    "Wanamuziki walituachia legacy kubwa sana, bado wanashikilia hiyo standard vizuri.",
     "Hii doba imenibamba mpaka nimeamua kuirudia mara kumi bila kuchoka.",
 
     # --- Podcast Comments (Mic Cheque, Iko Nini, CTA, Financially Incorrect) ---

@@ -284,7 +284,7 @@ class KenyanInstructionTuningGenerator:
             ),
             (
                 "Geri inengi wasee wamefika base, kaa rada usicatch mafeelings.",
-                "Translation: 'The other squad has arrived at the local hangout; stay alert so you don't take offense.'\n\nCultural & Semantic Notes:\n• 'Geri inengi': Wakadinali Kenyan drill slang meaning 'the other group/gang/crew'.\n• 'Base': Rule VIII spatial location meaning the neighborhood youth hangout spot.\n• 'Kaa rada': Idiom meaning 'stay alert / stay vigilant'.\n• 'Usicatch mafeelings': Rule III negation prefix 'usi-' + English 'catch' + Rule IV double-stack plural 'mafeelings'."
+                "Translation: 'The other squad has arrived at the local hangout; stay alert so you don't take offense.'\n\nCultural & Semantic Notes:\n• 'Geri inengi': Contemporary Kenyan Eastland drill slang meaning 'the other group/gang/crew'.\n• 'Base': Rule VIII spatial location meaning the neighborhood youth hangout spot.\n• 'Kaa rada': Idiom meaning 'stay alert / stay vigilant'.\n• 'Usicatch mafeelings': Rule III negation prefix 'usi-' + English 'catch' + Rule IV double-stack plural 'mafeelings'."
             ),
             (
                 "Tulikula chapos mbili na beans kwa kibanda tukalipa ndauwo tukaenda tao.",
