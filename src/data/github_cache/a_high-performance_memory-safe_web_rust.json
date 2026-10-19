@@ -1,0 +1,26 @@
+[
+  {
+    "full_name": "fxrdhan/katana-rust",
+    "stars": 2,
+    "description": "A fast, memory-safe, asynchronous web crawler for offensive-security automation \u2014 high-performance Rust port of ProjectDiscovery Katana",
+    "html_url": "https://github.com/fxrdhan/katana-rust",
+    "topics": [],
+    "default_branch": "dev"
+  },
+  {
+    "full_name": "makalin/protext",
+    "stars": 1,
+    "description": "Protext is a high-performance text layout engine written in Rust and compiled to WebAssembly. It solves the \"Canvas Measurement Problem\" by using the browser's native API as the ground truth while offloading complex line-breaking and Unicode logic to a memory-safe, blazing-fast core. Ideal for precision web typography.",
+    "html_url": "https://github.com/makalin/protext",
+    "topics": [],
+    "default_branch": "main"
+  },
+  {
+    "full_name": "zyxevls/backend-api-jwt-rust",
+    "stars": 0,
+    "description": "A robust backend API built with Rust, featuring JWT (JSON Web Token) authentication for secure user sessions. This project provides a high-performance, memory-safe foundation for web services, with endpoints for authentication, user management, and data handling. Leveraging Rust's speed and reliability, it's ideal for developers seeking a scalable ",
+    "html_url": "https://github.com/zyxevls/backend-api-jwt-rust",
+    "topics": [],
+    "default_branch": "main"
+  }
+]

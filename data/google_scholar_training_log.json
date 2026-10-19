@@ -1,0 +1,22 @@
+{
+  "total_papers_translated": 28,
+  "total_sections_translated": 76,
+  "trained_sentences_count": 76,
+  "model_perplexity_evaluations": [
+    {
+      "timestamp": "2026-09-30T15:58:29Z",
+      "pre_training_perplexity": 660.59,
+      "post_training_perplexity": 23.28,
+      "perplexity_reduction": 637.31,
+      "status": "IMPROVED"
+    },
+    {
+      "timestamp": "2026-09-30T16:05:03Z",
+      "pre_training_perplexity": 660.59,
+      "post_training_perplexity": 23.36,
+      "perplexity_reduction": 637.23,
+      "status": "IMPROVED"
+    }
+  ],
+  "ingested_papers": []
+}

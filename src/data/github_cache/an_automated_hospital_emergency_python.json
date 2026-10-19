@@ -1,0 +1,26 @@
+[
+  {
+    "full_name": "AitorMasa/hospital-emergency-analysis",
+    "stars": 0,
+    "description": "Emergency department data analysis using Python and Power BI, featuring an automated cleaning pipeline, operational KPIs and data quality monitoring.",
+    "html_url": "https://github.com/AitorMasa/hospital-emergency-analysis",
+    "topics": [],
+    "default_branch": "main"
+  },
+  {
+    "full_name": "SatguruSaran1/Emergency-Hospital-and-Bed-Management-System",
+    "stars": 0,
+    "description": "A full-stack Emergency Hospital Management System built with FastAPI and MySQL, featuring automated bed allocation and doctor fatigue tracking.",
+    "html_url": "https://github.com/SatguruSaran1/Emergency-Hospital-and-Bed-Management-System",
+    "topics": [],
+    "default_branch": "main"
+  },
+  {
+    "full_name": "Rashmioffcialpage/-Automated-Speech-Processing-Risk-for-Hospitalizations-and-Emergency-Department-Visits-in-HHR",
+    "stars": 0,
+    "description": "The system is built using the Coswara COVID-19 speech dataset and focuses on binary classification between healthy individuals and those identified as positive or at-risk.",
+    "html_url": "https://github.com/Rashmioffcialpage/-Automated-Speech-Processing-Risk-for-Hospitalizations-and-Emergency-Department-Visits-in-HHR",
+    "topics": [],
+    "default_branch": "main"
+  }
+]

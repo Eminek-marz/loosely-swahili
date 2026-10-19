@@ -11,6 +11,7 @@ from .morphology import KenyanMorphologyEngine, MorphemeBreakdown
 from .lexicon_manager import ShengLexiconManager
 from .tokenizer import ShengCodeSwitchTokenizer
 from .kamusi import KamusiEngine
+from .english_to_codeswitch import EnglishToKenyanCodeSwitcher
 
 @dataclass
 class TokenAnnotation:
@@ -30,6 +31,8 @@ class NormalizationResult:
     code_switch_metrics: Dict[str, float]
     token_efficiency: Dict[str, Any]
     disambiguation_alerts: List[Dict[str, Any]] = field(default_factory=list)
+    kenyan_codeswitch: str = ""
+    is_english_input: bool = False
 
 class ShengNormalizerPipeline:
     EMPLOYMENT_COLLOCATES = {
@@ -53,6 +56,7 @@ class ShengNormalizerPipeline:
         self.morphology = KenyanMorphologyEngine()
         self.tokenizer = ShengCodeSwitchTokenizer(self.lexicon)
         self.kamusi = KamusiEngine()
+        self.english_switcher = EnglishToKenyanCodeSwitcher()
 
         # Baseline Swahili words with English translations for smooth sentence generation
         self.swahili_core = {
@@ -149,7 +153,32 @@ class ShengNormalizerPipeline:
         }
 
     def process(self, text: str) -> NormalizationResult:
-        """Process a code-switched Kenyan text end-to-end."""
+        """Process a code-switched Kenyan text end-to-end, or code-switch English text into Kenyan Sheng."""
+        # 0. Check if input is predominantly English and perform bidirectional code-switching
+        if self.english_switcher.is_english_text(text):
+            cs_res = self.english_switcher.code_switch_sentence(text)
+            tokens = [
+                TokenAnnotation(
+                    surface_form=w,
+                    token_type="english",
+                    standard_swahili="",
+                    english=w
+                )
+                for w in text.split()
+            ]
+            eff = self.tokenizer.compare_efficiency(cs_res.kenyan_codeswitch)
+            return NormalizationResult(
+                original_text=text,
+                normalized_swahili=cs_res.formal_swahili,
+                english_translation=cs_res.original_english,
+                tokens=tokens,
+                code_switch_metrics={"english": 100.0, "sheng": 0.0, "swahili": 0.0, "hybrid": 0.0},
+                token_efficiency=eff,
+                disambiguation_alerts=[],
+                kenyan_codeswitch=cs_res.kenyan_codeswitch,
+                is_english_input=True
+            )
+
         # 1. First check for multi-word idioms
         idiom_matches = self.lexicon.find_idioms(text)
         

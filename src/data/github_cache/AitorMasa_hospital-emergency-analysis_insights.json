@@ -1,0 +1,11 @@
+{
+  "repo": "AitorMasa/hospital-emergency-analysis",
+  "readme_summary": "# Hospital Emergency Data Quality Pipeline\n\nPython data-cleaning project built around a deliberately dirty synthetic hospital emergency admissions dataset.\n\nThe goal of the project is to transform raw records into clean, traceable outputs while keeping a complete record of the data-quality problems found during processing.\n\n> This dataset is synthetic and does not contain real patients or real hospital activity.\n\n## Project objectives\n\n- Load the raw admissions dataset and hospital catalogue.\n- Detect invalid, missing, duplicated and suspicious values.\n- Apply reusable cleaning functions to each field.\n- Export cleaned datasets.\n- Export detailed issue tables for audit and review.\n- Build an issue registry linked to each original source row.\n\n## Dataset\n\nThe main dataset contains approximately 86,500 emergency admission records and 22 original fields. It includes admission and patient identifiers, hospital information, dates, demographic fields, triage priority, admission details, estimated costs, discharge status and vital signs.\n\nThe data was intentionally generated with realistic quality problems, including:\n\n- Missing and malformed identifiers.\n- Duplicate admission IDs.\n- Invalid or inconsistent dates.\n- Unknown categorical values.\n- Negative and sentinel numeric values.\n- Implausible temperatures, heart rates and oxygen saturation values.\n- Suspicious costs and legacy fields.\n\n## Project structure\n\n```text\nhospital-data-quality/\n|-- RAW/\n|   |-- urgencias_2025_dirty.csv\n|   `-- catalogo_centros.csv\n|-- Clean/\n|   |-- urgencias_2025_clean.csv\n|   `-- catalogo_centros_clean.csv\n|-- Issues/\n|   |-- issues_registry.csv\n|   `-- individual issue files\n|-- cleaning.py\n|-- helpers.py\n|-- config.py\n|-- run_pipeline.py\n|-- requirements.txt\n`-- README.md\n```\n\n## Pipeline\n\nThe project is executed from `run_pipeline.py` in five stages:\n\n```text\n1/5 Loading datasets\n2/5 Cleaning datasets\n3/5 Saving cleaned datasets\n4/5 Exporting issues\n5/5 Pipeline complete\n```\n\nCleaning ru",
+  "dependencies": [
+    "pandas",
+    "numpy"
+  ],
+  "architecture_patterns": [
+    "RESTful API Gateway"
+  ]
+}

@@ -23,6 +23,7 @@ if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
 from src.gemini_concept_client import query_gemini_tri_set
+from src.gemini_api_client import call_gemini_generate
 from src.self_teaching_engine import AutonomousSelfTeachingEngine
 from src.mass_100m_auditor import Mass100MAuditor
 
@@ -78,9 +79,6 @@ class AutonomousExplorer:
 
     def generate_autonomous_seed_concept(self, domain: str) -> Optional[str]:
         """Asks the model itself to formulate an advanced conceptual seed in a given domain."""
-        from src.gemini_concept_client import API_KEY, MODEL_NAME
-        url = f"https://generativelanguage.googleapis.com/v1beta/models/{MODEL_NAME}:generateContent?key={API_KEY}"
-        
         prompt = f"""You are an autonomous scientific and philosophical curriculum explorer.
 Select a profound, advanced, or nuanced concept in the domain of '{domain}'.
 State a single, dense, meaningful sentence or paradox explaining this concept in academic English.
@@ -90,31 +88,9 @@ Examples:
 - 'Judicial review empowers courts to nullify legislative enactments that violate constitutional supremacy.'
 - 'Enzyme catalysis lowers the activation energy of metabolic reactions without altering thermodynamic equilibrium.'
 """
-        payload = {
-            "contents": [{"parts": [{"text": prompt}]}],
-            "generationConfig": {"temperature": 0.85, "maxOutputTokens": 300}
-        }
-        for attempt in range(3):
-            try:
-                req = urllib.request.Request(url, data=json.dumps(payload).encode("utf-8"), headers={"Content-Type": "application/json"})
-                with urllib.request.urlopen(req, timeout=25) as resp:
-                    data = json.loads(resp.read().decode("utf-8"))
-                    candidates = data.get("candidates", [])
-                    if not candidates or "content" not in candidates[0]:
-                        return None
-                    parts = candidates[0]["content"].get("parts", [])
-                    if not parts or "text" not in parts[0]:
-                        return None
-                    seed = parts[0]["text"].strip().strip('"')
-                    return seed
-            except urllib.error.HTTPError as he:
-                if he.code == 429:
-                    wait_time = (attempt + 1) * 8
-                    time.sleep(wait_time)
-                else:
-                    break
-            except Exception as e:
-                time.sleep(2)
+        res = call_gemini_generate(prompt, timeout=25)
+        if res:
+            return res.strip().strip('"')
         return None
 
     def explore_cycle(self, domain: Optional[str] = None) -> Optional[Dict[str, Any]]:

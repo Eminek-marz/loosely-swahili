@@ -1,0 +1,11 @@
+{
+  "is_active_streaming": true,
+  "status": "TRANSLATING_LIVE",
+  "timestamp": "2026-10-01T13:46:48Z",
+  "iteration": 10033,
+  "current_domain": "Theoretical Physics & Quantum Mechanics",
+  "total_sentences_translated": 137696,
+  "last_paper_title": "Local Automorphism-Aware Syndrome Compilation for General Quantum LDPC Codes",
+  "latest_sample_english": "For quantum Tanner codes, we give conditions under which square-complex symmetries extend to Tanner graph automorphisms.",
+  "latest_sample_loosely_swahili": "For quantum Tanner codes, sisi give conditions under which square-complex symmetries extend to Tanner graph automorphisms."
+}

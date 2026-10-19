@@ -1,0 +1,1151 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>loosely-swahili | AI Linguistic Engine</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; }
+    code, pre, .font-mono { font-family: 'JetBrains Mono', monospace; }
+    /* Sleek dark scrollbar */
+    ::-webkit-scrollbar { width: 5px; height: 5px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #2e3036; border-radius: 9999px; }
+    ::-webkit-scrollbar-thumb:hover { background: #44474e; }
+  </style>
+</head>
+<body class="bg-[#101114] text-[#e3e3e3] min-h-screen flex flex-col antialiased selection:bg-emerald-500/30 selection:text-emerald-200">
+
+  <!-- Minimalist Top Navigation -->
+  <header class="w-full border-b border-[#222429] bg-[#101114]/80 backdrop-blur-md sticky top-0 z-40">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <span class="font-bold text-sm tracking-tight text-white flex items-center gap-1.5">
+          <span>loosely-swahili</span>
+        </span>
+        <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-[#1e2024] text-[#9da3ae] border border-[#2e3138]">
+          v0.2.0
+        </span>
+        <span class="inline-flex items-center gap-1.5 text-[11px] text-emerald-400 font-medium">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+          Engine Active
+        </span>
+      </div>
+
+      <div class="flex items-center gap-3 text-xs text-[#9da3ae]">
+        <a href="https://github.com/Eminek-marz/loosely-swahili" target="_blank" class="hover:text-white transition flex items-center gap-1">
+          <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+          <span>GitHub</span>
+        </a>
+        <span>&bull;</span>
+        <a href="https://huggingface.co/datasets/Maxyelow/kenyan-code-switch-instruct-50k" target="_blank" class="hover:text-white transition">Hugging Face</a>
+        <span>&bull;</span>
+        <a href="https://pypi.org/project/loosely-swahili/" target="_blank" class="hover:text-white transition">PyPI</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Workspace -->
+  <main class="max-w-4xl mx-auto px-4 sm:px-6 pt-10 pb-16 flex-1 w-full space-y-8">
+    
+    <!-- Hero Title -->
+    <div class="text-center space-y-2">
+      <h1 class="text-2xl sm:text-3xl font-bold tracking-tight text-white">
+        East African Code-Switching & NLP
+      </h1>
+      <p class="text-xs sm:text-sm text-[#8e9196] max-w-lg mx-auto">
+        Bantu-English morphotactic fusion, Sheng-Sanifu translation, and token-preserving architecture.
+      </p>
+    </div>
+
+    <!-- =================================================================== -->
+    <!-- UNIFIED AI PROMPT BAR (JUST LIKE GEMINI / ANTIGRAVITY)              -->
+    <!-- =================================================================== -->
+    <div class="relative w-full max-w-3xl mx-auto">
+      
+      <!-- Prompt Bar Container -->
+      <div id="promptBar" class="bg-[#1c1d21] border border-[#2d2f35] rounded-3xl p-4 shadow-2xl transition-all focus-within:border-[#4b4e57] focus-within:bg-[#1f2025]">
+        
+        <!-- Textarea Input -->
+        <textarea id="mainPromptInput" rows="2" 
+          class="w-full bg-transparent text-white placeholder-[#85888e] text-sm sm:text-base outline-none resize-none leading-relaxed font-normal"
+          placeholder="Enter English verb stem (e.g. vibe, book, fire, share) or fused word..."></textarea>
+
+        <!-- Mode-Specific Quick Controls (Inline in Prompt Box) -->
+        <div id="inlineFusionKnobs" class="flex flex-wrap items-center gap-1.5 pt-2 pb-3 border-t border-[#292b31] mt-2">
+          
+          <!-- Subject Selector -->
+          <div class="relative">
+            <select id="knobWhoSubj" onchange="runCurrentMode()" class="appearance-none bg-[#26282e] hover:bg-[#2e3038] text-[#c4c7c5] text-xs font-medium pl-2.5 pr-6 py-1 rounded-lg border border-[#383a42] outline-none cursor-pointer transition">
+              <option value="1s">1s (Ni- / I)</option>
+              <option value="2s">2s (U- / You)</option>
+              <option value="3s">3s (A- / He/She)</option>
+              <option value="1p" selected>1p (Tu- / We)</option>
+              <option value="2p">2p (M- / You all)</option>
+              <option value="3p">3p (Wa- / They)</option>
+            </select>
+            <span class="pointer-events-none absolute right-2 top-1.5 text-[10px] text-[#8e9196]">▾</span>
+          </div>
+
+          <!-- Tense Selector -->
+          <div class="relative">
+            <select id="knobWhenTense" onchange="runCurrentMode()" class="appearance-none bg-[#26282e] hover:bg-[#2e3038] text-[#c4c7c5] text-xs font-medium pl-2.5 pr-6 py-1 rounded-lg border border-[#383a42] outline-none cursor-pointer transition">
+              <option value="present">Present (-na-)</option>
+              <option value="past">Past (-li-)</option>
+              <option value="future">Future (-ta-)</option>
+              <option value="perfect">Perfect (-me-)</option>
+              <option value="conditional">Conditional (-ki-)</option>
+            </select>
+            <span class="pointer-events-none absolute right-2 top-1.5 text-[10px] text-[#8e9196]">▾</span>
+          </div>
+
+          <!-- Object Selector -->
+          <div class="relative">
+            <select id="knobWhoObj" onchange="runCurrentMode()" class="appearance-none bg-[#26282e] hover:bg-[#2e3038] text-[#c4c7c5] text-xs font-medium pl-2.5 pr-6 py-1 rounded-lg border border-[#383a42] outline-none cursor-pointer transition">
+              <option value="none" selected>No Object</option>
+              <option value="me">Obj: Me (-ni-)</option>
+              <option value="you">Obj: You (-ku-)</option>
+              <option value="him_her">Obj: Him/Her (-m-)</option>
+              <option value="us">Obj: Us (-tu-)</option>
+              <option value="them">Obj: Them (-wa-)</option>
+            </select>
+            <span class="pointer-events-none absolute right-2 top-1.5 text-[10px] text-[#8e9196]">▾</span>
+          </div>
+
+          <!-- Voice / Extension -->
+          <div class="relative">
+            <select id="knobHowExt" onchange="runCurrentMode()" class="appearance-none bg-[#26282e] hover:bg-[#2e3038] text-[#c4c7c5] text-xs font-medium pl-2.5 pr-6 py-1 rounded-lg border border-[#383a42] outline-none cursor-pointer transition">
+              <option value="kutenda">Active</option>
+              <option value="kutendea">Applicative (-ia)</option>
+              <option value="kutendwa">Passive (-wa)</option>
+              <option value="kutendeka">Stative (-eka)</option>
+              <option value="kutendesha">Causative (-sha)</option>
+              <option value="kutendana" selected>Reciprocal (pamoja)</option>
+            </select>
+            <span class="pointer-events-none absolute right-2 top-1.5 text-[10px] text-[#8e9196]">▾</span>
+          </div>
+
+          <!-- Negation Toggle -->
+          <label class="inline-flex items-center gap-1.5 px-2 py-1 bg-[#26282e] hover:bg-[#2e3038] rounded-lg border border-[#383a42] text-xs font-medium text-[#c4c7c5] cursor-pointer transition">
+            <input type="checkbox" id="knobIsNegative" onchange="runCurrentMode()" class="rounded border-[#444] bg-transparent text-emerald-500 w-3.5 h-3.5 focus:ring-0">
+            <span>Negative</span>
+          </label>
+        </div>
+
+        <!-- Bottom Action Bar (Identical to Screenshot!) -->
+        <div class="flex items-center justify-between pt-1">
+          
+          <!-- Left: Action '+' and Mode Selector Dropdown -->
+          <div class="flex items-center gap-2 relative">
+            
+            <!-- Quick Presets Button '+' -->
+            <button onclick="togglePresetsPopup()" title="Quick Presets" class="p-1.5 text-[#9da3ae] hover:text-white hover:bg-[#2b2d33] rounded-full transition">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+            </button>
+
+            <!-- Mode Selector Dropdown Button -->
+            <button id="modeSelectorBtn" onclick="toggleModeDropdown()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium text-[#c4c7c5] hover:text-white bg-[#26282e] hover:bg-[#2e3038] border border-[#383a42] transition">
+              <span id="selectedModeIcon">⚡</span>
+              <span id="selectedModeLabel" class="font-semibold text-white">Verbal Fusion</span>
+              <span class="text-[10px] font-mono text-[#8e9196]">v0.2.0</span>
+              <svg class="w-3 h-3 text-[#9da3ae] transition-transform duration-200" id="dropdownChevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            </button>
+
+            <!-- FLOATING DROPDOWN MENU (The requested model-like picker) -->
+            <div id="modeDropdownMenu" class="hidden absolute left-0 bottom-full mb-2 w-80 sm:w-96 bg-[#1a1b1e] border border-[#31333a] rounded-2xl shadow-2xl p-1.5 z-50 divide-y divide-[#26282e]">
+              
+              <div class="px-3 py-2 text-[10px] font-mono uppercase tracking-wider text-[#8e9196]">
+                Select Loosely Swahili Engine Mode
+              </div>
+
+              <div class="py-1 space-y-0.5">
+                
+                <!-- 1. Verbal Fusion -->
+                <button onclick="selectMode('fusion')" class="w-full text-left p-2.5 rounded-xl hover:bg-[#26282e] transition flex items-start gap-3 group">
+                  <span class="text-base p-1.5 bg-[#26282e] group-hover:bg-[#31333b] rounded-lg">⚡</span>
+                  <div>
+                    <div class="flex items-center gap-2">
+                      <span class="text-xs font-bold text-white">Verbal Fusion</span>
+                      <span class="text-[10px] font-mono px-1.5 py-0.2 rounded bg-indigo-500/20 text-indigo-300 font-semibold">Flagship v0.2.0</span>
+                    </div>
+                    <p class="text-[11px] text-[#9da3ae] leading-relaxed mt-0.5">
+                      Interactive 4D composer (English root &rarr; Bantu inflections) + real-time reverse deconstructor.
+                    </p>
+                  </div>
+                </button>
+
+                <!-- 2. Sentence Analyzer -->
+                <button onclick="selectMode('analyzer')" class="w-full text-left p-2.5 rounded-xl hover:bg-[#26282e] transition flex items-start gap-3 group">
+                  <span class="text-base p-1.5 bg-[#26282e] group-hover:bg-[#31333b] rounded-lg">🔍</span>
+                  <div>
+                    <div class="flex items-center gap-2">
+                      <span class="text-xs font-bold text-white">Sentence Analyzer</span>
+                      <span class="text-[10px] font-mono px-1.5 py-0.2 rounded bg-emerald-500/20 text-emerald-300 font-semibold">Bidirectional</span>
+                    </div>
+                    <p class="text-[11px] text-[#9da3ae] leading-relaxed mt-0.5">
+                      Bidirectional translation: English &rarr; Living Kenyan Code-Switch (Sheng) &amp; Sanifu Swahili, or Sheng &rarr; Sanifu &amp; English.
+                    </p>
+                  </div>
+                </button>
+
+                <!-- 3. Concept Recreator -->
+                <button onclick="selectMode('recreator')" class="w-full text-left p-2.5 rounded-xl hover:bg-[#26282e] transition flex items-start gap-3 group">
+                  <span class="text-base p-1.5 bg-[#26282e] group-hover:bg-[#31333b] rounded-lg">🔄</span>
+                  <div>
+                    <div class="flex items-center gap-2">
+                      <span class="text-xs font-bold text-white">Concept Recreator</span>
+                      <span class="text-[10px] font-mono px-1.5 py-0.2 rounded bg-purple-500/20 text-purple-300 font-semibold">Observer Studio</span>
+                    </div>
+                    <p class="text-[11px] text-[#9da3ae] leading-relaxed mt-0.5">
+                      Vast English Concept &rarr; Our Language (Loosely Swahili) + Observer Workbench to inspect, tune, and teach the engine.
+                    </p>
+                  </div>
+                </button>
+
+                <!-- 4. Rule Auditor -->
+                <button onclick="selectMode('linter')" class="w-full text-left p-2.5 rounded-xl hover:bg-[#26282e] transition flex items-start gap-3 group">
+                  <span class="text-base p-1.5 bg-[#26282e] group-hover:bg-[#31333b] rounded-lg">🛡️</span>
+                  <div>
+                    <div class="flex items-center gap-2">
+                      <span class="text-xs font-bold text-white">Rule Auditor</span>
+                      <span class="text-[10px] font-mono px-1.5 py-0.2 rounded bg-amber-500/20 text-amber-300 font-semibold">17 Invariants</span>
+                    </div>
+                    <p class="text-[11px] text-[#9da3ae] leading-relaxed mt-0.5">
+                      Minimalist sentence audit against Kenyan code-switching grammar rules.
+                    </p>
+                  </div>
+                </button>
+
+                <!-- 5. Lexicon -->
+                <button onclick="selectMode('lexicon')" class="w-full text-left p-2.5 rounded-xl hover:bg-[#26282e] transition flex items-start gap-3 group">
+                  <span class="text-base p-1.5 bg-[#26282e] group-hover:bg-[#31333b] rounded-lg">📚</span>
+                  <div>
+                    <div class="flex items-center gap-2">
+                      <span class="text-xs font-bold text-white">Lexicon</span>
+                      <span class="text-[10px] font-mono px-1.5 py-0.2 rounded bg-blue-500/20 text-blue-300 font-semibold">Dictionary</span>
+                    </div>
+                    <p class="text-[11px] text-[#9da3ae] leading-relaxed mt-0.5">
+                      Fast search and semantic slang dictionary lookup.
+                    </p>
+                  </div>
+                </button>
+
+              </div>
+            </div>
+
+            <!-- Quick Presets Popover (Triggered by '+') -->
+            <div id="presetsPopup" class="hidden absolute left-0 bottom-full mb-2 w-72 bg-[#1a1b1e] border border-[#31333a] rounded-2xl shadow-2xl p-2 z-50 space-y-1">
+              <div class="text-[10px] font-mono uppercase tracking-wider text-[#8e9196] px-2 py-1">Quick Kenyan Presets</div>
+              <div id="presetsList" class="space-y-1">
+                <!-- Dynamically populated per mode -->
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Right: Keyboard Hint & Circular Send Arrow Button -->
+          <div class="flex items-center gap-2">
+            <span class="hidden sm:inline-block text-[11px] font-mono text-[#666870]">Enter ↵</span>
+            <button onclick="runCurrentMode()" id="sendBtn" class="w-8 h-8 rounded-full bg-[#2a2c33] hover:bg-[#373942] active:scale-95 text-white flex items-center justify-center transition shadow-md" title="Execute">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- =================================================================== -->
+    <!-- DYNAMIC RESULTS DISPLAY AREA                                       -->
+    <!-- =================================================================== -->
+    <div id="resultsContainer" class="w-full max-w-3xl mx-auto space-y-4">
+      
+      <!-- 1. VERBAL FUSION RESULT CARD -->
+      <div id="viewFusion" class="space-y-4">
+        
+        <!-- Synthesized Card -->
+        <div class="bg-[#18191d] border border-[#27292f] rounded-2xl p-6 shadow-xl space-y-4">
+          <div class="flex items-center justify-between pb-3 border-b border-[#26282e]">
+            <span class="text-xs font-mono font-medium text-[#8e9196] uppercase tracking-wider">Synthesized Fused Verb</span>
+            <button onclick="copyToClipboard('fusionResultC')" class="text-xs text-[#9da3ae] hover:text-white flex items-center gap-1 font-medium transition">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+              <span>Copy</span>
+            </button>
+          </div>
+
+          <div class="py-2">
+            <div id="fusionResultC" class="text-3xl sm:text-4xl font-extrabold tracking-tight text-white font-mono">
+              tunavibe pamoja
+            </div>
+          </div>
+
+          <!-- Morpheme breakdown chips -->
+          <div id="fusionMorphemes" class="flex flex-wrap gap-1.5 pt-1"></div>
+
+          <!-- Parallel Translations -->
+          <div class="pt-4 border-t border-[#26282e] space-y-2 text-xs">
+            <div class="flex items-baseline justify-between gap-2">
+              <span class="text-[#8e9196]">Standard Kiswahili (Sanifu):</span>
+              <span id="fusionResultA" class="font-semibold text-white text-right">tunastarehe pamoja</span>
+            </div>
+            <div class="flex items-baseline justify-between gap-2">
+              <span class="text-[#8e9196]">Clean English Meaning:</span>
+              <span id="fusionResultB" class="font-semibold text-white text-right">we are vibing together</span>
+            </div>
+            <p id="fusionExplanation" class="text-[11px] text-[#8e9196] leading-relaxed pt-1">
+              1st Person Plural (tu-) + Present (-na-) + English verb 'vibe' + natural periphrastic reciprocal 'pamoja'.
+            </p>
+          </div>
+        </div>
+
+        <!-- Semantic Alert Banner (Shown only if transitivity/orthography violation) -->
+        <div id="fusionSemanticWarning" class="hidden p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-200 text-xs flex items-start gap-2 leading-relaxed"></div>
+
+        <!-- Reverse Deconstructor Card -->
+        <div class="bg-[#18191d] border border-[#27292f] rounded-2xl p-5 shadow-xl space-y-3">
+          <div class="flex items-center justify-between pb-2 border-b border-[#26282e]">
+            <span class="text-xs font-semibold text-white">Reverse Deconstruction Engine</span>
+            <span class="text-[11px] text-[#8e9196]">Parses Kenyan surface forms back to root</span>
+          </div>
+          <div id="deconstructOutputArea" class="text-xs text-[#9da3ae]">
+            <!-- Injected dynamically -->
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. SENTENCE ANALYZER RESULT CARD -->
+      <div id="viewAnalyzer" class="hidden space-y-4">
+        
+        <!-- Kenyan Code-Switching Hero Card (Living Loosely Swahili) -->
+        <div id="codeswitchHeroCard" class="bg-gradient-to-r from-[#171a22] to-[#1a1724] border border-indigo-500/30 rounded-2xl p-5 shadow-xl flex flex-col justify-between relative overflow-hidden">
+          <div class="absolute -right-10 -top-10 w-40 h-40 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <div class="flex items-center gap-2">
+                <span class="text-xs">🇰🇪</span>
+                <span class="text-[11px] font-bold text-white uppercase tracking-wider">Living Kenyan Code-Switch (Loosely Swahili / Sheng)</span>
+              </div>
+              <span id="codeswitchBadge" class="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
+                ✨ Living Kenyan Code-Switch
+              </span>
+            </div>
+            <p id="outputCodeSwitch" class="text-lg font-semibold text-white leading-relaxed pt-1 font-sans">
+              Hata kama mvua ilikuwa inanyesha heavy sana, market ya nje ilicanceliwa.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-indigo-500/20 flex items-center justify-between">
+            <span id="codeswitchSubtext" class="text-[11px] text-[#8e9196] font-mono">Bantu Syntax + English Root Morphological Fusion</span>
+            <button onclick="copyToClipboard('outputCodeSwitch')" class="text-xs text-indigo-300 hover:text-white font-medium flex items-center gap-1">
+              <span>Copy</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Side-by-Side Translations -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- Standard Kiswahili -->
+          <div class="bg-[#18191d] border border-[#27292f] rounded-2xl p-5 shadow-xl flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-[11px] font-semibold text-[#8e9196] uppercase tracking-wider">Standard Kiswahili (Sanifu)</span>
+                <span class="text-[10px] font-medium px-2 py-0.5 rounded-md bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">Pure Sanifu</span>
+              </div>
+              <p id="outputSwahili" class="text-base font-medium text-white leading-relaxed pt-1">
+                Ingawa mvua ilikuwa inanyesha kwa wingi, soko la nje lilifutiliwa mbali.
+              </p>
+            </div>
+            <div class="mt-4 pt-3 border-t border-[#26282e] flex justify-end">
+              <button onclick="copyToClipboard('outputSwahili')" class="text-xs text-[#9da3ae] hover:text-white font-medium">Copy</button>
+            </div>
+          </div>
+
+          <!-- English Meaning (Editable) -->
+          <div class="bg-[#18191d] border border-[#27292f] rounded-2xl p-5 shadow-xl flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-[11px] font-semibold text-[#8e9196] uppercase tracking-wider">Clean English Meaning</span>
+                <span class="text-[10px] font-medium text-[#71737d]">Editable</span>
+              </div>
+              <textarea id="outputEnglish" rows="2" class="w-full text-base font-medium text-white bg-transparent border-0 p-0 focus:ring-0 resize-y outline-none leading-relaxed" placeholder="English translation..."></textarea>
+            </div>
+            <div class="mt-4 pt-3 border-t border-[#26282e] flex items-center justify-between">
+              <span id="correctionToast" class="hidden text-xs text-emerald-400 font-medium">Saved to corpus!</span>
+              <div class="flex items-center gap-2 ml-auto">
+                <button onclick="revertEnglishTranslation()" class="text-xs text-[#71737d] hover:text-white font-medium">Revert</button>
+                <button onclick="saveEnglishCorrection()" class="px-2.5 py-1 bg-[#26282e] hover:bg-[#31333b] text-white text-xs font-semibold rounded-lg transition">Save</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Token Economy Bar -->
+        <div class="bg-[#18191d] border border-[#27292f] rounded-2xl p-5 shadow-xl space-y-4">
+          <div class="flex items-center justify-between pb-3 border-b border-[#26282e]">
+            <div>
+              <h3 class="text-xs font-bold text-white uppercase tracking-wider">Token Economy & Fragmentation</h3>
+              <p class="text-[11px] text-[#8e9196]">Preserving morphemes reduces LLM context cost.</p>
+            </div>
+            <span id="savingsBadge" class="px-3 py-1 bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-xs font-bold rounded-lg font-mono">
+              72.4% Savings
+            </span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+            <div class="p-3 bg-[#131417] rounded-xl border border-[#22242a]">
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-[#8e9196]">Standard BPE (LLaMA/GPT)</span>
+                <span id="bpeCount" class="font-mono text-rose-400 font-bold">29 tokens</span>
+              </div>
+              <div id="bpeTokensContainer" class="flex flex-wrap gap-1 font-mono text-[11px] text-[#9da3ae]"></div>
+            </div>
+
+            <div class="p-3 bg-[#131417] rounded-xl border border-emerald-500/20">
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-emerald-400">Sheng-Aware Tokenizer</span>
+                <span id="shengCount" class="font-mono text-emerald-400 font-bold">8 tokens</span>
+              </div>
+              <div id="shengTokensContainer" class="flex flex-wrap gap-1 font-mono text-[11px] text-white font-medium"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. CONCEPT RECREATOR: VAST ENGLISH CONCEPT -> OUR LANGUAGE (LOOSELY SWAHILI) -->
+      <div id="viewRecreator" class="hidden space-y-4">
+        
+        <!-- Primary Spotlight: Recreated in Our Language (Loosely Swahili / Sheng) -->
+        <div class="bg-gradient-to-br from-[#161820] to-[#1a1728] border border-indigo-500/30 rounded-2xl p-6 shadow-2xl relative overflow-hidden space-y-4">
+          <div class="absolute -right-12 -top-12 w-48 h-48 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+          <div class="flex items-center justify-between pb-3 border-b border-[#252834]">
+            <div class="flex items-center gap-2.5">
+              <span class="text-xl">🇰🇪</span>
+              <div>
+                <h3 class="text-xs font-bold text-white uppercase tracking-wider">Recreated in Our Language</h3>
+                <p class="text-[11px] text-indigo-300/80 font-mono">Kenyan Loosely Swahili &bull; Living Morphotactics</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-2">
+              <span id="recreatorCuratedBadge" class="hidden text-[10px] font-semibold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                ⭐ Observer Curated
+              </span>
+              <button onclick="copyToClipboard('conceptResultOurLanguage')" class="px-3 py-1 rounded-lg bg-[#222530] hover:bg-[#2c303f] text-xs font-medium text-white transition flex items-center gap-1.5 border border-[#313647]">
+                <svg class="w-3.5 h-3.5 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
+                <span>Copy</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- The Recreated Speech Output in Our Language -->
+          <div>
+            <p id="conceptResultOurLanguage" class="text-lg sm:text-xl font-medium text-white leading-relaxed tracking-wide pt-1">
+              —
+            </p>
+          </div>
+
+          <!-- Linguistic breakdown chips -->
+          <div id="conceptBreakdownChips" class="pt-1 flex flex-wrap gap-1.5 text-[11px] font-mono text-[#9da3ae]">
+          </div>
+        </div>
+
+        <!-- Reference: Vast English Concept Input -->
+        <div class="bg-[#15161a] border border-[#23252c] rounded-xl p-4 text-xs space-y-1.5">
+          <div class="flex items-center justify-between text-[10px] font-mono uppercase tracking-wider text-[#8e9196]">
+            <span>Vast English Concept Specification</span>
+            <span id="conceptInputLangBadge" class="text-indigo-400">Original English</span>
+          </div>
+          <p id="conceptResultEn" class="text-xs text-[#c4c7c5] leading-relaxed">
+            —
+          </p>
+        </div>
+
+        <!-- 👁️ THE OBSERVER WORKBENCH (You & I as Observers) -->
+        <div class="bg-[#18191d] border border-amber-500/20 rounded-2xl p-5 shadow-xl space-y-3.5">
+          <div class="flex items-center justify-between pb-3 border-b border-[#252830]">
+            <div class="flex items-center gap-2">
+              <span class="text-sm">👁️</span>
+              <div>
+                <h4 class="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-2">
+                  <span>Observer Workbench</span>
+                  <span class="text-[10px] font-mono px-1.5 py-0.2 rounded bg-amber-500/15 text-amber-300 border border-amber-500/30">You &amp; I Curating</span>
+                </h4>
+                <p class="text-[11px] text-[#8e9196]">Inspect the phrasing. If you or I can make it sound even more punchy, natural, or authentic to Kenyan speech, polish it below and teach the engine.</p>
+              </div>
+            </div>
+            <span id="observerMemoryCountBadge" class="hidden sm:inline-flex text-[10px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">
+              ⚡ Learned Memory Active
+            </span>
+          </div>
+
+          <!-- Observer Edit Area -->
+          <div class="space-y-2">
+            <label class="block text-[11px] font-semibold text-[#c4c7c5]">
+              Fine-tune Phrasing in Our Language:
+            </label>
+            <textarea id="observerEditInput" rows="3" class="w-full bg-[#121316] border border-[#2b2d35] focus:border-indigo-500 rounded-xl p-3 text-sm text-white font-sans outline-none leading-relaxed transition" placeholder="Tuned / improved phrasing in Loosely Swahili..."></textarea>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
+            <div>
+              <label class="block text-[10px] font-mono text-[#8e9196] uppercase mb-1">Observer Nuance Note</label>
+              <input type="text" id="observerNoteInput" placeholder="e.g. 'Natural tech phrasing for Kenyan developers'" class="w-full bg-[#121316] border border-[#2b2d35] focus:border-indigo-500 rounded-lg px-3 py-1.5 text-xs text-white outline-none" />
+            </div>
+            <div class="flex items-end justify-end gap-2">
+              <button onclick="resetObserverToGenerated()" class="px-3 py-1.5 text-xs text-[#8e9196] hover:text-white rounded-lg hover:bg-[#22242a] transition">
+                Reset
+              </button>
+              <button onclick="commitObserverImprovement()" class="px-4 py-1.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white text-xs font-bold shadow-lg transition flex items-center gap-1.5">
+                <span>💾 Teach Engine &amp; Commit</span>
+              </button>
+            </div>
+          </div>
+
+          <div id="observerSuccessToast" class="hidden p-2.5 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-xs font-medium flex items-center gap-2">
+            <span>✓</span>
+            <span id="observerToastMsg">Concept successfully learned and committed to engine memory!</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- 4. RULE AUDITOR RESULT CARD -->
+      <div id="viewLinter" class="hidden space-y-4">
+        <div class="bg-[#18191d] border border-[#27292f] rounded-2xl p-5 shadow-xl space-y-3">
+          <div class="flex items-center justify-between pb-3 border-b border-[#26282e]">
+            <div class="flex items-center gap-2">
+              <span id="linterStatusBadge" class="px-3 py-1 rounded-full text-xs font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                ✓ Fully Compliant
+              </span>
+              <span id="linterScoreText" class="text-xs text-[#8e9196]">17/17 Invariants Verified</span>
+            </div>
+          </div>
+          <div id="linterRulesGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2"></div>
+        </div>
+      </div>
+
+      <!-- 5. LEXICON RESULT CARD -->
+      <div id="viewLexicon" class="hidden space-y-4">
+        <div class="bg-[#18191d] border border-[#27292f] rounded-2xl shadow-xl overflow-hidden">
+          <div class="p-3 border-b border-[#26282e] flex items-center justify-between gap-2">
+            <span class="text-xs font-semibold text-white">Active Sheng Lexicon</span>
+            <span id="lexiconCountBadge" class="text-[11px] font-mono text-[#8e9196]">52+ entries</span>
+          </div>
+          <div class="max-h-80 overflow-y-auto">
+            <table class="w-full text-left text-xs">
+              <thead class="bg-[#131417] text-[#8e9196] font-mono uppercase text-[10px] sticky top-0">
+                <tr>
+                  <th class="py-2.5 px-4">Sheng</th>
+                  <th class="py-2.5 px-4">Sanifu</th>
+                  <th class="py-2.5 px-4">English</th>
+                  <th class="py-2.5 px-4">Cat</th>
+                </tr>
+              </thead>
+              <tbody id="lexiconTableBody" class="divide-y divide-[#222429]"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Minimalist Footer -->
+  <footer class="border-t border-[#222429] bg-[#101114] py-6 mt-auto">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-[#8e9196]">
+      <div>
+        <strong>loosely-swahili</strong> &bull; Created by <a href="https://github.com/Eminek-marz" target="_blank" class="hover:text-white underline">Maxwell Ng'ang'a (@Eminek-marz)</a>
+      </div>
+      <div>Apache License 2.0</div>
+    </div>
+  </footer>
+
+  <!-- =================================================================== -->
+  <!-- JAVASCRIPT CONTROLLER                                               -->
+  <!-- =================================================================== -->
+  <script>
+    let currentMode = 'fusion'; // 'fusion', 'analyzer', 'recreator', 'linter', 'lexicon'
+    let allLexiconEntries = [];
+    let originalEngineEnglish = "";
+
+    const modeConfigs = {
+      fusion: {
+        name: "Verbal Fusion",
+        icon: "⚡",
+        badge: "v0.2.0",
+        placeholder: "Enter English verb stem (e.g. vibe, book, fire, share) or fused word (e.g. walitubookia)...",
+        viewId: "viewFusion",
+        showKnobs: true,
+        presets: [
+          { label: "tunavibe pamoja", text: "vibe", who: "1p", tense: "present", ext: "kutendana" },
+          { label: "alifiriwa", text: "fire", who: "3s", tense: "past", ext: "kutendwa" },
+          { label: "walitubookia", text: "book", who: "3p", tense: "past", ext: "kutendea", obj: "us" },
+          { label: "tutashareriwa", text: "share", who: "1p", tense: "future", ext: "kutendwa" }
+        ]
+      },
+      analyzer: {
+        name: "Sentence Analyzer",
+        icon: "🔍",
+        badge: "Bidirectional",
+        placeholder: "Enter English or Kenyan Sheng text to translate, code-switch & tokenize...",
+        viewId: "viewAnalyzer",
+        showKnobs: false,
+        presets: [
+          { label: "English: Although the rain was pouring...", text: "Although the rain was pouring down heavily, the outdoor market was canceled." },
+          { label: "English: The teacher fired the student...", text: "The teacher fired the student because the system was delayed." },
+          { label: "Sheng: Niko mtaani na mayouth...", text: "Niko mtaani na mayouth tukipiga luku safi." },
+          { label: "Sheng: Bro unaniconfuse...", text: "Bro unaniconfuse, hiyo form ilichoma kitambo." }
+        ]
+      },
+      recreator: {
+        name: "Concept Recreator",
+        icon: "🔄",
+        badge: "Observer",
+        placeholder: "Paste any vast English concept (distributed caching, load balancing, neural networks, sharding)...",
+        viewId: "viewRecreator",
+        showKnobs: false,
+        presets: [
+          { label: "Distributed Caching: The database caches data in local memory...", text: "The database caches data in local memory to prevent the main server from being overloaded." },
+          { label: "Load Balancer: Distributes incoming user traffic across servers...", text: "The load balancer distributes incoming user traffic across multiple redundant servers to prevent total system downtime if one server crashes." },
+          { label: "McCulloch Number: What is a number, that a man may know it...", text: "What is a number, that a man may know it, and a man, that he may know a number?" },
+          { label: "Heraclitus River: You cannot step into the same river twice...", text: "You cannot step into the same river twice." }
+        ]
+      },
+      linter: {
+        name: "Rule Auditor",
+        icon: "🛡️",
+        badge: "17 Rules",
+        placeholder: "Enter sentence to verify against 17 Master Blueprint linguistic rules...",
+        viewId: "viewLinter",
+        showKnobs: false,
+        presets: [
+          { label: "Compliant: amepick mabooks...", text: "Alikuwa amepick mabooks zangu coz niko job." },
+          { label: "Violation: *amepicked bookszangu...", text: "Alikuwa amepicked bookszangu kwa job." }
+        ]
+      },
+      lexicon: {
+        name: "Lexicon",
+        icon: "📚",
+        badge: "Dictionary",
+        placeholder: "Search slang word, canonical Swahili, or English definition...",
+        viewId: "viewLexicon",
+        showKnobs: false,
+        presets: [
+          { label: "chapaa", text: "chapaa" },
+          { label: "luku", text: "luku" },
+          { label: "nduthi", text: "nduthi" },
+          { label: "mayouth", text: "mayouth" }
+        ]
+      }
+    };
+
+    document.addEventListener("DOMContentLoaded", async () => {
+      await loadLexicon();
+      selectMode('fusion');
+      
+      // Submit on Enter
+      document.getElementById('mainPromptInput').addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+          e.preventDefault();
+          runCurrentMode();
+        }
+      });
+
+      // Close dropdowns on outside click
+      document.addEventListener('click', (e) => {
+        const modeMenu = document.getElementById('modeDropdownMenu');
+        const modeBtn = document.getElementById('modeSelectorBtn');
+        if (modeMenu && !modeMenu.contains(e.target) && !modeBtn.contains(e.target)) {
+          modeMenu.classList.add('hidden');
+          document.getElementById('dropdownChevron').classList.remove('rotate-180');
+        }
+
+        const presetsPopup = document.getElementById('presetsPopup');
+        if (presetsPopup && !presetsPopup.contains(e.target) && !e.target.closest('button[title="Quick Presets"]')) {
+          presetsPopup.classList.add('hidden');
+        }
+      });
+    });
+
+    // -------------------------------------------------------------------------
+    // MODE SWITCHER & DROPDOWN CONTROLLER
+    // -------------------------------------------------------------------------
+    function toggleModeDropdown() {
+      const menu = document.getElementById('modeDropdownMenu');
+      const chevron = document.getElementById('dropdownChevron');
+      const isHidden = menu.classList.contains('hidden');
+      if (isHidden) {
+        menu.classList.remove('hidden');
+        chevron.classList.add('rotate-180');
+      } else {
+        menu.classList.add('hidden');
+        chevron.classList.remove('rotate-180');
+      }
+    }
+
+    function togglePresetsPopup() {
+      const popup = document.getElementById('presetsPopup');
+      popup.classList.toggle('hidden');
+    }
+
+    function selectMode(modeKey) {
+      currentMode = modeKey;
+      const config = modeConfigs[modeKey];
+      if (!config) return;
+
+      // Update button label & icon
+      document.getElementById('selectedModeLabel').innerText = config.name;
+      document.getElementById('selectedModeIcon').innerText = config.icon;
+
+      // Update placeholder
+      const input = document.getElementById('mainPromptInput');
+      input.placeholder = config.placeholder;
+
+      // Toggle inline fusion knobs
+      const knobs = document.getElementById('inlineFusionKnobs');
+      if (config.showKnobs) {
+        knobs.classList.remove('hidden');
+      } else {
+        knobs.classList.add('hidden');
+      }
+
+      // Toggle Views
+      ['viewFusion', 'viewAnalyzer', 'viewRecreator', 'viewLinter', 'viewLexicon'].forEach(id => {
+        document.getElementById(id).classList.add('hidden');
+      });
+      document.getElementById(config.viewId).classList.remove('hidden');
+
+      // Populate Presets in Popup
+      const presetsList = document.getElementById('presetsList');
+      presetsList.innerHTML = config.presets.map(p => `
+        <button onclick="applyPreset(${JSON.stringify(p).replace(/"/g, '&quot;')})" class="w-full text-left px-2.5 py-1.5 text-xs text-[#c4c7c5] hover:text-white hover:bg-[#26282e] rounded-lg transition font-mono truncate">
+          ${p.label}
+        </button>
+      `).join('');
+
+      // Close Dropdowns
+      document.getElementById('modeDropdownMenu').classList.add('hidden');
+      document.getElementById('dropdownChevron').classList.remove('rotate-180');
+
+      // If input is empty, seed with first preset
+      if (!input.value.trim() && config.presets.length > 0) {
+        input.value = config.presets[0].text;
+      }
+
+      runCurrentMode();
+    }
+
+    function applyPreset(preset) {
+      const input = document.getElementById('mainPromptInput');
+      input.value = preset.text;
+
+      if (currentMode === 'fusion') {
+        if (preset.who) document.getElementById('knobWhoSubj').value = preset.who;
+        if (preset.tense) document.getElementById('knobWhenTense').value = preset.tense;
+        if (preset.ext) document.getElementById('knobHowExt').value = preset.ext;
+        if (preset.obj) document.getElementById('knobWhoObj').value = preset.obj;
+      }
+
+      document.getElementById('presetsPopup').classList.add('hidden');
+      runCurrentMode();
+    }
+
+    function runCurrentMode() {
+      const val = document.getElementById('mainPromptInput').value.trim();
+      if (currentMode === 'fusion') {
+        executeFusion(val || "vibe");
+      } else if (currentMode === 'analyzer') {
+        executeAnalyzer(val || "Niko mtaani na mayouth tukipiga luku safi.");
+      } else if (currentMode === 'recreator') {
+        executeRecreator(val || "The database caches data in local memory.");
+      } else if (currentMode === 'linter') {
+        executeLinter(val || "Alikuwa amepick mabooks zangu coz niko job.");
+      } else if (currentMode === 'lexicon') {
+        executeLexicon(val);
+      }
+    }
+
+    // -------------------------------------------------------------------------
+    // 1. VERBAL FUSION RUNNER
+    // -------------------------------------------------------------------------
+    async function executeFusion(inputVerb) {
+      const whoSubj = document.getElementById('knobWhoSubj').value;
+      const whenTense = document.getElementById('knobWhenTense').value;
+      const whoObj = document.getElementById('knobWhoObj').value;
+      const howExt = document.getElementById('knobHowExt').value;
+      const isNegative = document.getElementById('knobIsNegative').checked;
+
+      // 1. Synthesize
+      try {
+        const res = await fetch('/api/fusion/synthesize', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            english_verb: inputVerb,
+            who_subj: whoSubj,
+            who_obj: whoObj,
+            when_tense: whenTense,
+            where_loc: 'none',
+            how_ext: howExt,
+            is_negative: isNegative
+          })
+        });
+
+        if (res.ok) {
+          const data = await res.json();
+          document.getElementById('fusionResultC').innerText = data.set_c_fused;
+          document.getElementById('fusionResultA').innerText = data.set_a_sanifu;
+          document.getElementById('fusionResultB').innerText = data.set_b_english;
+          document.getElementById('fusionExplanation').innerText = data.explanation;
+
+          // Semantic / Transitivity warning
+          const elWarn = document.getElementById('fusionSemanticWarning');
+          if (!data.is_valid && data.semantic_warning) {
+            elWarn.classList.remove('hidden');
+            elWarn.innerHTML = `<span class="font-bold">⚠️ Kenyan Speech Invariant:</span> <span>${data.semantic_warning}</span>`;
+          } else {
+            elWarn.classList.add('hidden');
+          }
+
+          // Morpheme chips
+          const morphContainer = document.getElementById('fusionMorphemes');
+          if (data.morpheme_chain) {
+            morphContainer.innerHTML = data.morpheme_chain.map(m => `
+              <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#22242a] border border-[#31333a] text-xs font-mono">
+                <strong class="text-white">${m.morpheme}</strong>
+                <span class="text-[#8e9196] text-[10px]">(${m.type})</span>
+              </span>
+            `).join('');
+          }
+        }
+      } catch (e) {
+        console.error("Fusion error", e);
+      }
+
+      // 2. Also run Deconstruct on the input word or synthesized word
+      executeDeconstruct(inputVerb);
+    }
+
+    async function executeDeconstruct(word) {
+      const area = document.getElementById('deconstructOutputArea');
+      try {
+        const res = await fetch('/api/fusion/deconstruct', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ word })
+        });
+        if (res.ok) {
+          const data = await res.json();
+          if (data.is_fused_verb) {
+            area.innerHTML = `
+              <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1 font-mono">
+                <div class="p-2 bg-[#121316] rounded-lg border border-[#22242a]">
+                  <span class="text-[#8e9196] block text-[10px] uppercase font-sans">Root</span>
+                  <span class="font-bold text-white text-xs">${data.english_verb_root}</span>
+                </div>
+                <div class="p-2 bg-[#121316] rounded-lg border border-[#22242a]">
+                  <span class="text-[#8e9196] block text-[10px] uppercase font-sans">Subject</span>
+                  <span class="font-bold text-white text-xs">${data.who}</span>
+                </div>
+                <div class="p-2 bg-[#121316] rounded-lg border border-[#22242a]">
+                  <span class="text-[#8e9196] block text-[10px] uppercase font-sans">Tense</span>
+                  <span class="font-bold text-white text-xs">${data.when}</span>
+                </div>
+                <div class="p-2 bg-[#121316] rounded-lg border border-[#22242a]">
+                  <span class="text-[#8e9196] block text-[10px] uppercase font-sans">Voice / Ext</span>
+                  <span class="font-bold text-white text-xs">${data.how}</span>
+                </div>
+              </div>
+            `;
+          } else {
+            area.innerHTML = `<span class="text-[#71737d]">Stem "${word}" is in base root form. Add inflections above or type a surface form like <em>walitubookia</em>.</span>`;
+          }
+        }
+      } catch (e) {
+        console.error("Deconstruct error", e);
+      }
+    }
+
+    // -------------------------------------------------------------------------
+    // 2. SENTENCE ANALYZER RUNNER
+    // -------------------------------------------------------------------------
+    async function executeAnalyzer(text) {
+      try {
+        const res = await fetch('/api/analyze', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ text })
+        });
+        if (res.ok) {
+          const data = await res.json();
+          document.getElementById('outputSwahili').innerText = data.normalized_swahili;
+          document.getElementById('outputEnglish').value = data.english_translation;
+          originalEngineEnglish = data.english_translation;
+
+          // Living Kenyan Code-Switch Hero Card
+          const heroCard = document.getElementById('codeswitchHeroCard');
+          const csText = document.getElementById('outputCodeSwitch');
+          const csBadge = document.getElementById('codeswitchBadge');
+          const csSubtext = document.getElementById('codeswitchSubtext');
+
+          if (data.is_english_input) {
+            heroCard.classList.remove('hidden');
+            csText.innerText = data.kenyan_codeswitch || "Hata kama mvua ilikuwa inanyesha heavy sana, market ya nje ilicanceliwa.";
+            csBadge.innerText = "✨ English → Kenyan Code-Switch";
+            csSubtext.innerText = "Natural Kenyan Speech (Sheng Morphotactics & Bare Root Constraints)";
+          } else if (data.kenyan_codeswitch) {
+            heroCard.classList.remove('hidden');
+            csText.innerText = data.kenyan_codeswitch;
+            csBadge.innerText = "✨ Living Kenyan Code-Switch";
+            csSubtext.innerText = "Bantu Syntax + English Root Morphological Fusion";
+          } else {
+            heroCard.classList.remove('hidden');
+            csText.innerText = data.original_text;
+            csBadge.innerText = "✨ Original Kenyan Sheng Input";
+            csSubtext.innerText = "Kenyan Sheng Slang / Code-Switched Expression";
+          }
+
+          const eff = data.token_efficiency;
+          if (eff) {
+            document.getElementById('bpeCount').innerText = eff.standard_bpe_count + " tokens";
+            document.getElementById('shengCount').innerText = eff.sheng_aware_count + " tokens";
+            document.getElementById('savingsBadge').innerText = eff.token_reduction_savings_pct + "% Savings";
+
+            document.getElementById('bpeTokensContainer').innerHTML = eff.standard_bpe_tokens.map(t => 
+              `<span class="px-1.5 py-0.5 bg-[#202227] border border-[#2d2f36] rounded text-[#9da3ae]">${t}</span>`
+            ).join('');
+
+            document.getElementById('shengTokensContainer').innerHTML = eff.sheng_aware_tokens.map(t => 
+              `<span class="px-1.5 py-0.5 bg-emerald-500/20 border border-emerald-500/40 rounded text-emerald-300">${t}</span>`
+            ).join('');
+          }
+        }
+      } catch (e) {
+        console.error("Analyze error", e);
+      }
+    }
+
+    function revertEnglishTranslation() {
+      document.getElementById('outputEnglish').value = originalEngineEnglish;
+    }
+
+    async function saveEnglishCorrection() {
+      const shengText = document.getElementById('mainPromptInput').value.trim();
+      const correctedEnglish = document.getElementById('outputEnglish').value.trim();
+      const swahiliText = document.getElementById('outputSwahili').innerText.trim();
+      if (!shengText || !correctedEnglish) return;
+
+      try {
+        const res = await fetch('/api/save_correction', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            original_sheng: shengText,
+            sanifu_swahili: swahiliText,
+            english_corrected: correctedEnglish
+          })
+        });
+        if (res.ok) {
+          const toast = document.getElementById('correctionToast');
+          toast.classList.remove('hidden');
+          setTimeout(() => toast.classList.add('hidden'), 2500);
+        }
+      } catch (e) {
+        console.error("Save error", e);
+      }
+    }
+
+    // -------------------------------------------------------------------------
+    // 3. CONCEPT RECREATOR RUNNER (OUR LANGUAGE + OBSERVER WORKBENCH)
+    // -------------------------------------------------------------------------
+    async function executeRecreator(concept) {
+      try {
+        const res = await fetch('/api/recreate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ concept })
+        });
+        if (res.ok) {
+          const data = await res.json();
+          const ourLang = data.our_language || data.reconstructed_codeswitch || data.sheng_code_switch || "—";
+          
+          document.getElementById('conceptResultOurLanguage').innerText = ourLang;
+          document.getElementById('conceptResultEn').innerText = data.english_concept || concept;
+          document.getElementById('observerEditInput').value = ourLang;
+          
+          const curBadge = document.getElementById('recreatorCuratedBadge');
+          if (data.is_observer_curated) {
+            curBadge.classList.remove('hidden');
+            if (data.observer_note) {
+              document.getElementById('observerNoteInput').value = data.observer_note;
+            }
+          } else {
+            curBadge.classList.add('hidden');
+            document.getElementById('observerNoteInput').value = "";
+          }
+
+          // Populate breakdown chips
+          const chipsEl = document.getElementById('conceptBreakdownChips');
+          const rules = data.applied_rules || [];
+          const mappings = data.recreated_mappings || [];
+          let chipsHtml = rules.map(r => `<span class="px-2 py-0.5 rounded-md bg-[#222530] text-indigo-300 border border-indigo-500/20">${r}</span>`).join('');
+          if (mappings.length > 0) {
+            chipsHtml += mappings.slice(0, 3).map(m => `<span class="px-2 py-0.5 rounded-md bg-[#1d1f27] text-emerald-300/80 border border-emerald-500/20">${m.english} &rarr; ${m.recreated_codeswitch}</span>`).join('');
+          }
+          chipsEl.innerHTML = chipsHtml;
+        }
+      } catch (e) {
+        console.error("Recreator error", e);
+      }
+    }
+
+    function resetObserverToGenerated() {
+      const generated = document.getElementById('conceptResultOurLanguage').innerText;
+      document.getElementById('observerEditInput').value = generated;
+    }
+
+    async function commitObserverImprovement() {
+      const english = document.getElementById('conceptResultEn').innerText.trim();
+      const ourLanguage = document.getElementById('observerEditInput').value.trim();
+      const note = document.getElementById('observerNoteInput').value.trim();
+      if (!english || !ourLanguage) return;
+
+      try {
+        const res = await fetch('/api/observer/teach', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            english: english,
+            our_language: ourLanguage,
+            note: note
+          })
+        });
+        if (res.ok) {
+          const resData = await res.json();
+          document.getElementById('conceptResultOurLanguage').innerText = ourLanguage;
+          document.getElementById('recreatorCuratedBadge').classList.remove('hidden');
+          
+          const toast = document.getElementById('observerSuccessToast');
+          const msg = document.getElementById('observerToastMsg');
+          msg.innerText = `Concept learned! Engine now has ${resData.total_learned} observer-curated concepts in memory.`;
+          toast.classList.remove('hidden');
+          setTimeout(() => toast.classList.add('hidden'), 4000);
+        }
+      } catch (e) {
+        console.error("Observer teach error", e);
+      }
+    }
+
+    // -------------------------------------------------------------------------
+    // 4. RULE AUDITOR RUNNER
+    // -------------------------------------------------------------------------
+    async function executeLinter(sentence) {
+      try {
+        const res = await fetch('/api/audit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ sentence })
+        });
+        if (res.ok) {
+          const data = await res.json();
+          const badge = document.getElementById('linterStatusBadge');
+          if (data.compliant) {
+            badge.className = "px-3 py-1 rounded-full text-xs font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30";
+            badge.innerText = "✓ Fully Compliant";
+          } else {
+            badge.className = "px-3 py-1 rounded-full text-xs font-bold bg-rose-500/20 text-rose-300 border border-rose-500/30";
+            badge.innerText = "⚠️ Violation Detected";
+          }
+
+          const checks = data.rule_checks || [];
+          const passedCount = checks.filter(c => c.passed).length;
+          document.getElementById('linterScoreText').innerText = `${passedCount}/${checks.length} Rules Passed`;
+
+          const grid = document.getElementById('linterRulesGrid');
+          grid.innerHTML = checks.map(c => `
+            <div class="p-2 rounded-lg border ${c.passed ? 'bg-[#121316] border-[#22242a]' : 'bg-rose-500/10 border-rose-500/30'}">
+              <div class="flex items-center justify-between text-xs">
+                <span class="font-medium text-white truncate mr-2">${c.name}</span>
+                <span class="${c.passed ? 'text-emerald-400 font-bold' : 'text-rose-400 font-bold'} text-[11px]">${c.passed ? 'PASS' : 'FAIL'}</span>
+              </div>
+            </div>
+          `).join('');
+        }
+      } catch (e) {
+        console.error("Linter error", e);
+      }
+    }
+
+    // -------------------------------------------------------------------------
+    // 5. LEXICON RUNNER
+    // -------------------------------------------------------------------------
+    async function loadLexicon() {
+      try {
+        const res = await fetch('/api/lexicon');
+        if (res.ok) {
+          const data = await res.json();
+          allLexiconEntries = data.entries || [];
+          renderLexicon(allLexiconEntries);
+        }
+      } catch (e) {
+        console.error("Load lexicon error", e);
+      }
+    }
+
+    function renderLexicon(entries) {
+      const tbody = document.getElementById('lexiconTableBody');
+      if (!tbody) return;
+      if (!entries.length) {
+        tbody.innerHTML = `<tr><td colspan="4" class="py-6 text-center text-[#8e9196]">No matching slang terms found.</td></tr>`;
+        return;
+      }
+      tbody.innerHTML = entries.map(item => `
+        <tr class="hover:bg-[#1f2025] transition border-b border-[#222429]">
+          <td class="py-2.5 px-4 font-mono font-bold text-white">${item.sheng_term}</td>
+          <td class="py-2.5 px-4 text-[#c4c7c5]">${item.canonical_form || item.standard_swahili || '—'}</td>
+          <td class="py-2.5 px-4 text-[#9da3ae]">${item.english_definition || item.english || '—'}</td>
+          <td class="py-2.5 px-4">
+            <span class="px-2 py-0.5 rounded text-[10px] bg-[#22242a] text-[#8e9196] border border-[#2e3138]">
+              ${item.category || 'general'}
+            </span>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function executeLexicon(query) {
+      const q = (query || '').toLowerCase().trim();
+      if (!q) {
+        renderLexicon(allLexiconEntries);
+        return;
+      }
+      const filtered = allLexiconEntries.filter(e => 
+        (e.sheng_term && e.sheng_term.toLowerCase().includes(q)) ||
+        (e.standard_swahili && e.standard_swahili.toLowerCase().includes(q)) ||
+        (e.english_definition && e.english_definition.toLowerCase().includes(q))
+      );
+      renderLexicon(filtered);
+    }
+
+    // -------------------------------------------------------------------------
+    // UTILITY: CLIPBOARD COPY
+    // -------------------------------------------------------------------------
+    function copyToClipboard(id) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const text = el.innerText || el.value || '';
+      navigator.clipboard.writeText(text).then(() => {
+        const orig = el.style.opacity;
+        el.style.opacity = '0.5';
+        setTimeout(() => el.style.opacity = orig || '1', 150);
+      });
+    }
+  </script>
+</body>
+</html>

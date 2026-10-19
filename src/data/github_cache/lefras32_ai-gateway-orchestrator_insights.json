@@ -1,0 +1,28 @@
+{
+  "repo": "lefras32/ai-gateway-orchestrator",
+  "readme_summary": "# AI Gateway Orchestrator\n\nAn asynchronous FastAPI gateway scaffold for OpenAI-compatible LLMs with exact\nRedis caching, semantic caching backed by PostgreSQL/pgvector, SSE responses,\nand a bounded ReAct agent runner.\n\n## Architecture\n\n```text\napp/\n\u251c\u2500\u2500 api/v1/endpoints/       # Chat/SSE and cache management endpoints\n\u251c\u2500\u2500 core/                   # Settings, constants, and API-key authentication\n\u251c\u2500\u2500 db/                     # Async SQLAlchemy session and models\n\u2514\u2500\u2500 services/\n    \u251c\u2500\u2500 cache/              # Redis exact cache, pgvector cache, embeddings\n    \u251c\u2500\u2500 llm/                # OpenAI-compatible and local clients\n    \u2514\u2500\u2500 orchestrator/       # ReAct router, runner, and tools\nalembic/                    # Async migrations\ndocker/postgres/            # pgvector initialization\ntests/                      # Unit tests\n```\n\n## Quick start with Docker Compose\n\nRequirements: Docker Desktop (or Docker Engine with Compose v2) and an\nOpenAI-compatible LLM server reachable from the Docker host.\n\n```powershell\nCopy-Item .env.example .env\n```\n\nEdit `.env` before starting:\n\n1. Set unique values for `API_KEY`, `POSTGRES_PASSWORD`, and the password in\n   `DATABASE_URL`. The database URL password must match `POSTGRES_PASSWORD`.\n2. Configure `LLM_BASE_URL`, `LLM_MODEL`, and `LLM_API_KEY` for your model\n   server. For LM Studio on the host, use\n   `http://host.docker.internal:1234/v1`. For Ollama's OpenAI-compatible API,\n   use `http://host.docker.internal:11434/v1`.\n3. Keep `CODE_EXECUTION_ENABLED=false` unless the Docker sandbox has been\n   deliberately configured and reviewed.\n\nStart the API, PostgreSQL/pgvector, Redis, and the one-shot migration service:\n\n```powershell\ndocker compose up --build -d\ndocker compose ps\ndocker compose logs --tail 100 app migrate\n```\n\nCheck application health at <http://localhost:8000/health> and interactive API\ndocumentation at <http://localhost:8000/docs>.\n\nStop the services with `docker compose down`. Persistent database and Redis\nvolumes are retained; ",
+  "dependencies": [
+    "[build-system]",
+    "requires = [\"hatchling",
+    "build-backend = \"hatchling.build\"",
+    "[project]",
+    "name = \"ai-gateway-orchestrator\"",
+    "version = \"0.1.0\"",
+    "description = \"Async AI gateway with exact and semantic response caching.\"",
+    "readme = \"README.md\"",
+    "requires-python = \"",
+    "dependencies = [",
+    "\"alembic",
+    "\"asyncpg",
+    "\"fastapi",
+    "\"httpx",
+    "\"pgvector"
+  ],
+  "architecture_patterns": [
+    "RESTful API Gateway",
+    "ACID Relational Persistence",
+    "Decoupled Microservice Topology",
+    "Asynchronous Concurrent Processing",
+    "Containerized Deployment"
+  ]
+}

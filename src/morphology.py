@@ -72,6 +72,8 @@ class KenyanMorphologyEngine:
         "mu": ("Object: him/her (-mu-)", "m"),
         "tu": ("Object: us (-tu-)", "tu"),
         "wa": ("Object: them (-wa-)", "wa"),
+        "i": ("Object: it (-i-) [Class 9 Inanimate Singular]", "i"),
+        "zi": ("Object: them (-zi-) [Class 10 Inanimate Plural]", "zi"),
         "ji": ("Reflexive: self (-ji-)", "ji"),
         "ka": ("Soft-Target Infix: delicate/cute target (-ka-) [Bantu Cl. 12 Affective]", "ka"),
     }
@@ -130,6 +132,12 @@ class KenyanMorphologyEngine:
         "ban": ("piga marufuku", "ban"),
         "scam": ("tapeli", "scam / con"),
         "cancel": ("futa / simamisha", "cancel"),
+        "stop": ("simama / simamisha", "stop"),
+        "monitor": ("chunguza / fuatilia kwa makini", "monitor"),
+        "run": ("endesha / kimbia", "run"),
+        "change": ("badilisha", "change"),
+        "clear": ("safisha / kamilisha malipo", "clear"),
+        "work": ("fanya kazi", "work"),
         "say": ("sema", "say"),
         "surrender": ("salimu amri / kata tamaa", "surrender / give up"),
         "sarrender": ("salimu amri / kata tamaa", "surrender / give up"),
@@ -225,22 +233,77 @@ class KenyanMorphologyEngine:
                         confidence=0.98
                     )
 
-        # 3. Check for Infinitive prefix 'ku-' (e.g. kucome, kuenjoy, kuchill)
-        if cleaned.startswith("ku") and len(cleaned) > 4:
-            stem_candidate = cleaned[2:]
-            if stem_candidate in self.COMMON_ENGLISH_ROOTS:
-                sw_trans, en_trans = self.COMMON_ENGLISH_ROOTS[stem_candidate]
+        # 3. Check for Infinitive prefix 'ku-' (e.g. kucome, kuenjoy, kuchill, kurun, kuchange)
+        # and Infinitive with Object Infix (e.g. kuistop -> ku-i-stop, kuzistop -> ku-zi-stop, kumcall -> ku-m-call)
+        if cleaned.startswith("ku") and len(cleaned) > 3:
+            rem = cleaned[2:]
+            if rem in self.COMMON_ENGLISH_ROOTS:
+                sw_trans, en_trans = self.COMMON_ENGLISH_ROOTS[rem]
                 return MorphemeBreakdown(
                     original_word=word,
                     is_hybrid=True,
                     prefix="ku-",
                     prefix_meaning="Infinitive prefix (to ...)",
-                    stem=stem_candidate,
+                    stem=rem,
                     stem_language="English",
                     swahili_normalized_stem=f"ku{sw_trans}" if not sw_trans.startswith("ku") else sw_trans,
                     english_translation=f"to {en_trans}",
                     confidence=0.95
                 )
+            for o_key in ["zi", "wa", "tu", "ni", "ku", "ji", "mu", "m", "i"]:
+                if rem.startswith(o_key) and len(rem) > len(o_key) + 1:
+                    cand = rem[len(o_key):]
+                    if cand in self.COMMON_ENGLISH_ROOTS:
+                        sw_trans, en_trans = self.COMMON_ENGLISH_ROOTS[cand]
+                        return MorphemeBreakdown(
+                            original_word=word,
+                            is_hybrid=True,
+                            prefix=f"ku-{o_key}-",
+                            prefix_meaning=f"Infinitive prefix (to) + Object infix (-{o_key}-)",
+                            stem=cand,
+                            stem_language="English",
+                            swahili_normalized_stem=f"ku{sw_trans}",
+                            english_translation=f"to {en_trans} it/them",
+                            confidence=0.96
+                        )
+
+        # 3b. Check for Habitual prefix 'hu-' (e.g. huwork, huplay)
+        if cleaned.startswith("hu") and len(cleaned) > 3:
+            rem = cleaned[2:]
+            if rem in self.COMMON_ENGLISH_ROOTS:
+                sw_trans, en_trans = self.COMMON_ENGLISH_ROOTS[rem]
+                return MorphemeBreakdown(
+                    original_word=word,
+                    is_hybrid=True,
+                    prefix="hu-",
+                    prefix_meaning="Habitual prefix (usually / habitually ...)",
+                    stem=rem,
+                    stem_language="English",
+                    swahili_normalized_stem=f"hu{sw_trans}",
+                    english_translation=f"usually {en_trans}s",
+                    confidence=0.95
+                )
+
+        # 3c. Check for Subjunctive/Imperative complex [Subject] + [Object] + [Stem] (e.g. tuzimonitor, tuwacall, tumcall)
+        for s_key in ["tu", "wa", "a", "u", "ni"]:
+            if cleaned.startswith(s_key):
+                rem_s = cleaned[len(s_key):]
+                for o_key in ["zi", "wa", "tu", "ni", "ku", "ji", "mu", "m", "i"]:
+                    if rem_s.startswith(o_key) and len(rem_s) > len(o_key) + 1:
+                        cand = rem_s[len(o_key):]
+                        if cand in self.COMMON_ENGLISH_ROOTS:
+                            sw_trans, en_trans = self.COMMON_ENGLISH_ROOTS[cand]
+                            return MorphemeBreakdown(
+                                original_word=word,
+                                is_hybrid=True,
+                                prefix=f"{s_key}-{o_key}-",
+                                prefix_meaning=f"Subject ({s_key}-) + Object infix (-{o_key}-)",
+                                stem=cand,
+                                stem_language="English",
+                                swahili_normalized_stem=f"{s_key}{sw_trans}",
+                                english_translation=f"{s_key} {en_trans}",
+                                confidence=0.96
+                            )
 
         # 4. Check for Full Swahili Verbal Complex: [Subject] + [Tense] + [Optional Object] + [Stem]
         # Example: 'unaniconfuse' -> u- + na- + ni- + confuse
@@ -257,7 +320,7 @@ class KenyanMorphologyEngine:
                         # Try with Object Infix
                         has_object = False
                         o_match = ""
-                        for o_key in ["ni", "ku", "tu", "wa", "mu", "ji", "ka", "m"]:
+                        for o_key in ["ni", "ku", "tu", "wa", "mu", "ji", "ka", "m", "zi", "i"]:
                             if st_rem.startswith(o_key) and len(st_rem) > len(o_key) + 2:
                                 potential_stem = st_rem[len(o_key):]
                                 if potential_stem in self.COMMON_ENGLISH_ROOTS:

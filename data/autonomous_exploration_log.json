@@ -1,0 +1,33 @@
+{
+  "total_cycles": 4,
+  "total_concepts_explored": 4,
+  "domains_explored": {
+    "Neuroscience & Cognitive Science": 2,
+    "Environmental Science & Climate Systems": 1,
+    "Urban Sociology & Subcultural Anthropology": 1
+  },
+  "verified_tri_sets_harvested": 4,
+  "last_active": "2026-09-27T20:14:43Z",
+  "recent_discoveries": [
+    {
+      "domain": "Neuroscience & Cognitive Science",
+      "english": "The brain, a predictive organ, constantly generates and updates",
+      "codeswitch": "Brain, kama organ ya ku-predict, kila time hu-generate na hu-update."
+    },
+    {
+      "domain": "Environmental Science & Climate Systems",
+      "english": "The paradox of the Anthropocene posits that human",
+      "codeswitch": "Paradox ya Anthropocene ina-posits ati human activities, though zime-bring unprecedented technological na societal advancements, at the same time zina-threaten ecological systems hizo hizo zenye ni essential for its long-term survival."
+    },
+    {
+      "domain": "Urban Sociology & Subcultural Anthropology",
+      "english": "The very act of subcultural resistance, through its",
+      "codeswitch": "Hiyo act yenyewe ya subcultural resistance, kwa defiance yake yaani, hu-challenge zile dominant norms za society na power structures."
+    },
+    {
+      "domain": "Neuroscience & Cognitive Science",
+      "english": "The brain, a predictive organ, constantly generates",
+      "codeswitch": "Brain, kama predictive organ, ina-generate constantly internal models za world. Hii ni ili ku-anticipate future events na ku-guide behavior yetu."
+    }
+  ]
+}

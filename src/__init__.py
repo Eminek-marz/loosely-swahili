@@ -3,8 +3,9 @@ Loosely Swahili NLP (ls-nlp) - Python Package Initialization
 The premier Python library for East African Kenyan Code-Switching, Sheng, and Kiswahili NLP.
 """
 
-__version__ = "0.1.3"
-__author__ = "Maxwell Ng'ang'a"
+__version__ = "0.3.0"
+__author__ = "Maxwell Ng'ang'a (@Eminek-marz)"
+__license__ = "Apache-2.0"
 
 from .morphology import KenyanMorphologyEngine, MorphemeBreakdown
 from .lexicon_manager import ShengLexiconManager
@@ -37,12 +38,23 @@ from .loosely_swahili_engine import (
     SentenceComplianceReport,
     RuleValidationIssue,
     FinancialAnalysis,
-    ConversationalStatusAnalysis
+    ConversationalStatusAnalysis,
+    LooselySwahili125RulesRegistry,
+    get_125_rules_registry,
+    RuleDefinition
 )
-
-__version__ = "0.1.1"
-__author__ = "Eminek-marz"
-__license__ = "Apache-2.0"
+from .english_to_codeswitch import EnglishToKenyanCodeSwitcher, EnglishCodeSwitchResult
+from .kamusi import KamusiEngine
+from .safety_filter import AnjiruSafetyFilter
+from .anjiru_agent import AnjiruAgent
+from .anjiru_orchestrator import (
+    CodebaseOrchestrator,
+    sanitize_user_prompt,
+    classify_intent,
+    get_orchestrator
+)
+from .execution_engine import AnjiruExecutionEngine
+from .anjiru_memory import AnjiruMemoryManager
 
 # ------------------------------------------------------------------------------
 # CONVENIENCE SINGLETONS & HIGH-LEVEL API
@@ -51,6 +63,8 @@ _default_normalizer = None
 _default_fusion = None
 _default_auditor = None
 _default_recreator = None
+_default_switcher = None
+_default_agent = None
 
 def get_normalizer() -> ShengNormalizerPipeline:
     global _default_normalizer
@@ -77,27 +91,62 @@ def get_recreator() -> ConceptRecreationEngine:
         _default_recreator = ConceptRecreationEngine()
     return _default_recreator
 
+def get_code_switcher() -> EnglishToKenyanCodeSwitcher:
+    global _default_switcher
+    if _default_switcher is None:
+        _default_switcher = EnglishToKenyanCodeSwitcher()
+    return _default_switcher
+
+def get_agent() -> AnjiruAgent:
+    global _default_agent
+    if _default_agent is None:
+        _default_agent = AnjiruAgent()
+    return _default_agent
+
 # Top-level functional API for end-users
 def analyze(text: str) -> NormalizationResult:
     """Analyzes, normalizes, and translates Kenyan code-switched or Sheng text."""
     return get_normalizer().process(text)
 
 def deconstruct(fused_word: str) -> FusedDeconstructionResult:
-    """Deconstructs any Kenyan fused verb (e.g. 'walitubookia') into Who, When, Where, How, and English root."""
-    return get_fusion_engine().deconstruct(fused_word)
+    """Deconstructs any Kenyan fused verb into Who, When, Where, How, and English root."""
+    return get_fusion_engine().deconstruct_fused_verb(fused_word)
 
-def fuse(english_verb: str, who_subject: str = "1s", when_tense: str = "present", how_extension: str = "simple") -> FusionResult:
+def fuse(
+    english_verb: str,
+    who_subj: str = "1s",
+    who_obj: str = "none",
+    when_tense: str = "present",
+    where_loc: str = "none",
+    how_ext: str = "kutenda",
+    is_negative: bool = False
+) -> FusionResult:
     """Synthesizes a Kenyan code-switched fused verb from an English root and Swahili morphological parameters."""
     return get_fusion_engine().fuse(
-        english_verb_root=english_verb,
-        who_subject_key=who_subject,
-        when_tense_key=when_tense,
-        how_extension_key=how_extension
+        english_verb=english_verb,
+        who_subj=who_subj,
+        who_obj=who_obj,
+        when_tense=when_tense,
+        where_loc=where_loc,
+        how_ext=how_ext,
+        is_negative=is_negative
     )
 
 def audit(sentence: str) -> dict:
-    """Audits a sentence against the 17 Master Blueprint linguistic rules and invariants."""
+    """Audits a sentence against the linguistic rules and invariants."""
     return get_auditor().audit_sentence(sentence)
+
+def audit_125_rules(sentence: str) -> dict:
+    """Audits a sentence against the official 125 Rules of Loosely Swahili."""
+    return get_125_rules_registry().audit_sentence_125(sentence)
+
+def get_125_rule(rule_id: int) -> RuleDefinition:
+    """Retrieves definition and valid/invalid examples for any of the 125 rules."""
+    return get_125_rules_registry().get_rule(rule_id)
+
+def translate_to_codeswitch(english_text: str) -> EnglishCodeSwitchResult:
+    """Translates English text into authentic living Kenyan Code-Switching and formal Swahili."""
+    return get_code_switcher().code_switch_sentence(english_text)
 
 def recreate(concept_text: str) -> dict:
     """Reconstructs a technical or philosophical concept into parallel Tri-Set (English, Pure Swahili, Kenyan Code-Switch)."""
@@ -108,11 +157,18 @@ __all__ = [
     "deconstruct",
     "fuse",
     "audit",
+    "audit_125_rules",
+    "get_125_rule",
+    "translate_to_codeswitch",
     "recreate",
     "get_normalizer",
     "get_fusion_engine",
     "get_auditor",
     "get_recreator",
+    "get_code_switcher",
+    "get_agent",
+    "get_orchestrator",
+    "get_125_rules_registry",
     "KenyanMorphologyEngine",
     "MorphemeBreakdown",
     "ShengLexiconManager",
@@ -135,5 +191,17 @@ __all__ = [
     "PrepositionEngine",
     "TimeCertaintyEngine",
     "FinancialElectronicsEngine",
-    "ConversationalDistressEngine"
+    "ConversationalDistressEngine",
+    "LooselySwahili125RulesRegistry",
+    "RuleDefinition",
+    "EnglishToKenyanCodeSwitcher",
+    "EnglishCodeSwitchResult",
+    "KamusiEngine",
+    "AnjiruSafetyFilter",
+    "AnjiruAgent",
+    "CodebaseOrchestrator",
+    "sanitize_user_prompt",
+    "classify_intent",
+    "AnjiruExecutionEngine",
+    "AnjiruMemoryManager"
 ]

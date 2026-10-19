@@ -1,0 +1,1513 @@
+{
+  "version": "1.0.0",
+  "name": "Sheng-to-Sanifu Code-Switching Semantic Lexicon",
+  "description": "An open-source linguistic mapping dataset bridging Sheng (Kenyan Urban Youth Vernacular & Code-Switching) to Standard Kiswahili (Sanifu) and English, with morphological breakdowns for NLP tokenization.",
+  "metadata": {
+    "language_pair": "sw-KE-sheng -> sw-TZ-KE / en",
+    "maintainers": [
+      "ShengNLP Community Initiative"
+    ],
+    "license": "CC-BY-4.0",
+    "total_entries": 59
+  },
+  "entries": [
+    {
+      "id": "SHG_001",
+      "sheng_term": "mayouth",
+      "canonical_form": "mayouth",
+      "pos": "Noun",
+      "noun_class": "Class 6 (Ma-)",
+      "morphology": {
+        "type": "intra_word_code_switch",
+        "prefix": "ma-",
+        "stem": "youth",
+        "stem_language": "English",
+        "prefix_function": "Swahili Bantu plural marker for Class 5/6"
+      },
+      "standard_swahili": "vijana",
+      "english": "youths / young people",
+      "category": "demographics",
+      "sentiment": "neutral",
+      "formality": "slang",
+      "usage_examples": [
+        {
+          "sheng": "Niko mtaani na mayouth.",
+          "swahili": "Niko mtaani pamoja na vijana.",
+          "english": "I am in the hood with the youths."
+        },
+        {
+          "sheng": "Mayouth wa mtaa wanatafuta hustle.",
+          "swahili": "Vijana wa mtaani wanatafuta kazi au biashara.",
+          "english": "The neighborhood youths are looking for hustles."
+        }
+      ]
+    },
+    {
+      "id": "SHG_002",
+      "sheng_term": "mtaani",
+      "canonical_form": "mtaa",
+      "pos": "Noun (Locative)",
+      "noun_class": "Class 3/4 + Locative suffix",
+      "morphology": {
+        "type": "swahili_locative",
+        "stem": "mtaa",
+        "suffix": "-ni",
+        "stem_language": "Swahili",
+        "function": "locative marker (at/in the neighborhood/hood)"
+      },
+      "standard_swahili": "katika mtaa / kitongojini",
+      "english": "in the hood / in the neighborhood / at home",
+      "category": "locations",
+      "sentiment": "neutral",
+      "formality": "colloquial",
+      "usage_examples": [
+        {
+          "sheng": "Rada ya mtaani ikoje leo?",
+          "swahili": "Hali ya mtaani ikoje leo?",
+          "english": "How is the situation in the hood today?"
+        }
+      ]
+    },
+    {
+      "id": "SHG_003",
+      "sheng_term": "luku",
+      "canonical_form": "luku",
+      "pos": "Noun",
+      "noun_class": "Class 9/10 (N-)",
+      "morphology": {
+        "type": "phonological_loan_adaptation",
+        "origin": "English 'look'",
+        "stem": "luku",
+        "stem_language": "English_adapted",
+        "function": "fashionable attire / sharp visual style / drip"
+      },
+      "standard_swahili": "mavazi nadhifu / mtindo maridadi wa mavazi",
+      "english": "fashionable outfit / drip / stylish look",
+      "category": "lifestyle",
+      "sentiment": "positive",
+      "formality": "slang",
+      "usage_examples": [
+        {
+          "sheng": "Huyo msee amepiga luku fiti sana leo.",
+          "swahili": "Mtu huyo amevalia mavazi maridadi sana leo.",
+          "english": "That guy is wearing very stylish drip today."
+        }
+      ]
+    },
+    {
+      "id": "SHG_004",
+      "sheng_term": "rada",
+      "canonical_form": "rada",
+      "pos": "Noun",
+      "noun_class": "Class 9/10",
+      "morphology": {
+        "type": "metaphoric_loanword",
+        "origin": "English 'radar'",
+        "stem": "rada",
+        "stem_language": "English_adapted",
+        "function": "awareness / current status / state of affairs"
+      },
+      "standard_swahili": "hali / taarifa / tahadhari",
+      "english": "status / update / situation / alertness",
+      "category": "social",
+      "sentiment": "neutral",
+      "formality": "slang",
+      "usage_examples": [
+        {
+          "sheng": "Niambie rada ya leo.",
+          "swahili": "Nieleze hali ya leo ilivyo.",
+          "english": "Give me the update on what's going on today."
+        },
+        {
+          "sheng": "Kaa rada, ma-cops wako hapo mbele.",
+          "swahili": "Kuwa makini na mwenye tahadhari, polisi wako hapo mbele.",
+          "english": "Stay alert, police are up ahead."
+        }
+      ]
+    },
+    {
+      "id": "SHG_005",
+      "sheng_term": "mbogi",
+      "canonical_form": "mbogi",
+      "pos": "Noun",
+      "noun_class": "Class 9/10",
+      "morphology": {
+        "type": "sheng_neologism",
+        "stem": "mbogi",
+        "stem_language": "Sheng",
+        "function": "friend group / peer clique / squad"
+      },
+      "standard_swahili": "kikundi cha marafiki / kundi",
+      "english": "crew / squad / clique / group of friends",
+      "category": "social",
+      "sentiment": "positive",
+      "formality": "slang",
+      "usage_examples": [
+        {
+          "sheng": "Mbogi yetu iko rada kila siku.",
+          "swahili": "Kundi letu la marafiki liko makini kila siku.",
+          "english": "Our squad is always alert every day."
+        }
+      ]
+    },
+    {
+      "id": "SHG_006",
+      "sheng_term": "chapaa",
+      "canonical_form": "chapaa",
+      "pos": "Noun",
+      "noun_class": "Class 9/10",
+      "morphology": {
+        "type": "onomatopoeic_slang",
+        "stem": "chapaa",
+        "stem_language": "Swahili_slang",
+        "function": "money / currency"
+      },
+      "standard_swahili": "pesa / fedha",
+      "english": "money / cash",
+      "category": "finance",
+      "sentiment": "neutral",
+      "formality": "slang",
+      "usage_examples": [
+        {
+          "sheng": "Sina chapaa kwa simu, nitakutumia baadaye.",
+          "swahili": "Sina pesa kwenye simu, nitakutumia baadaye.",
+          "english": "I have no cash on my phone, I will send you later."
+        }
+      ]
+    },
+    {
+      "id": "SHG_007",
+      "sheng_term": "ganji",
+      "canonical_form": "ganji",
+      "pos": "Noun",
+      "noun_class": "Class 9/10",
+      "morphology": {
+        "type": "sheng_neologism",
+        "stem": "ganji",
+        "stem_language": "Sheng",
+        "function": "money / wealth"
+      },
+      "standard_swahili": "pesa / utajiri",
+      "english": "money / dough / cash",
+      "category": "finance",
+      "sentiment": "positive",
+      "formality": "slang",
+      "usage_examples": [
+        {
+          "sheng": "Hiyo hustle iko na ganji mob.",
+          "swahili": "Kazi hiyo ina pesa nyingi.",
+          "english": "That hustle brings in lots of cash."
+        }
+      ]
+    },
+    {
+      "id": "SHG_008",
+      "sheng_term": "omoka",
+      "canonical_form": "omoka",
+      "pos": "Verb",
+      "morphology": {
+        "type": "bantu_slang_verb",
+        "stem": "omok-",
+        "infinitive_prefix": "ku-",
+        "stem_language": "Sheng",
+        "function": "to achieve upward financial mobility / to become wealthy"
+      },
+      "standard_swahili": "kufanikiwa kimaisha / kupata utajiri / kuinuka kiuchumi",
+      "english": "to become rich / to make it financially / to blow up",
+      "category": "finance",
+      "sentiment": "positive",
+      "formality": "slang",
+      "usage_examples": [
+        {
+          "sheng": "Kevo ameomoka baada ya kuanzisha tech startup.",
+          "swahili": "Kevo amefanikiwa kimaisha baada ya kuanzisha kampuni ya teknolojia.",
+          "english": "Kevo made it big after founding a tech startup."
+        }
+      ]
+    },
+    {
+      "id": "SHG_009",
+      "sheng_term": "choma",
+      "canonical_form": "choma",
+      "pos": "Verb (Idiomatic)",
+      "morphology": {
+        "type": "metaphoric_semantic_shift",
+        "origin": "Standard Swahili 'choma' (to burn/roast)",
+        "shift": "from burning meat to burning social trust / exposing / spoiling",
+        "stem_language": "Swahili"
+      },
+      "standard_swahili": "kuharibu siri / kuumbua / kuharibu jambo",
+      "english": "to expose / to ruin the vibe / to blow someone's cover / to mess up",
+      "category": "social",
+      "sentiment": "negative",
+      "formality": "slang",
+      "usage_examples": [
+        {
+          "sheng": "Bro ulichoma picha mbele ya wazazi.",
+          "swahili": "Ndugu yangu uliharibu heshima mbele ya wazazi.",
+          "english": "Bro you ruined the reputation in front of the parents."
+        }
+      ]
+    },
+    {
+      "id": "SHG_010",
+      "sheng_term": "form",
+      "canonical_form": "form",
+      "pos": "Noun",
+      "noun_class": "Class 9/10",
+      "morphology": {
+        "type": "metaphoric_loanword",
+        "origin": "English 'plan / form'",
+        "stem": "form",
+        "stem_language": "English_adapted",
+        "function": "social plan / event / itinerary / purpose"
+      },
+      "standard_swahili": "mpango wa shughuli / tafrija",
+      "english": "plan / agenda / event / what's up",
+      "category": "lifestyle",
+      "sentiment": "neutral",
+      "formality": "slang",
+      "usage_examples": [
+        {
+          "sheng": "Form ni gani leo jioni?",
+          "swahili": "Kuna mpango gani leo jioni?",
+          "english": "What is the plan for this evening?"
+        }
+      ]
+    },
+    {
+      "id": "SHG_011",
+      "sheng_term": "nduthi",
+      "canonical_form": "nduthi",
+      "pos": "Noun",
+      "noun_class": "Class 9/10",
+      "morphology": {
+        "type": "onomatopoeic_slang",
+        "stem": "nduthi",
+        "stem_language": "Sheng",
+        "function": "boda-boda motorcycle (mimicking engine sound 'dhu-dhu-dhu')"
+      },
+      "standard_swahili": "pikipiki ya usafiri / bodaboda",
+      "english": "motorcycle taxi / boda boda",
+      "category": "transport",
+      "sentiment": "neutral",
+      "formality": "slang",
+      "usage_examples": [
+        {
+          "sheng": "Nilikodi nduthi nifike job mapema.",
+          "swahili": "Nilikodi pikipiki ili nifike kazini mapema.",
+          "english": "I hired a motorcycle taxi so I could get to work early."
+        }
+      ]
+    },
+    {
+      "id": "SHG_012",
+      "sheng_term": "nganya",
+      "canonical_form": "nganya",
+      "pos": "Noun",
+      "noun_class": "Class 9/10",
+      "morphology": {
+        "type": "sheng_neologism",
+        "stem": "nganya",
+        "stem_language": "Sheng",
+        "function": "customized, flashy Nairobi matatu minibus with graffiti and sound system"
+      },
+      "standard_swahili": "matatu maridadi ya abiria / gari la usafiri wa umma",
+      "english": "souped-up Nairobi minibus / flashy matatu",
+      "category": "transport",
+      "sentiment": "positive",
+      "formality": "slang",
+      "usage_examples": [
+        {
+          "sheng": "Panda nganya ya Rongai iko na mziki poa.",
+          "swahili": "Panda gari maridadi la abiria la Rongai lenye muziki mzuri.",
+          "english": "Board the flashy Rongai minibus; it has great music."
+        }
+      ]
+    },
+    {
+      "id": "SHG_013",
+      "sheng_term": "kucome",
+      "canonical_form": "kucome",
+      "pos": "Verb (Infinitive)",
+      "morphology": {
+        "type": "intra_word_code_switch",
+        "prefix": "ku-",
+        "stem": "come",
+        "stem_language": "English",
+        "prefix_function": "Swahili infinitive prefix ku-"
+      },
+      "standard_swahili": "kuja",
+      "english": "to come",
+      "category": "verbs",
+      "sentiment": "neutral",
+      "formality": "colloquial_code_switch",
+      "usage_examples": [
+        {
+          "sheng": "Niko njiani kucome.",
+          "swahili": "Niko njiani kuja.",
+          "english": "I am on the way coming."
+        }
+      ]
+    },
+    {
+      "id": "SHG_014",
+      "sheng_term": "unaniconfuse",
+      "canonical_form": "confuse",
+      "pos": "Verb (Conjugated)",
+      "morphology": {
+        "type": "intra_word_code_switch",
+        "prefix": "u-na-ni-",
+        "prefix_breakdown": {
+          "subject": "u- (2nd person singular 'you')",
+          "tense": "-na- (present continuous)",
+          "object": "-ni- (1st person singular 'me')"
+        },
+        "stem": "confuse",
+        "stem_language": "English"
+      },
+      "standard_swahili": "unanichanganya",
+      "english": "you are confusing me",
+      "category": "verbs",
+      "sentiment": "neutral",
+      "formality": "colloquial_code_switch",
+      "usage_examples": [
+        {
+          "sheng": "Bro acha stori mob, unaniconfuse.",
+          "swahili": "Ndugu yangu punguza maneno mengi, unanichanganya.",
+          "english": "Bro cut down the talking, you are confusing me."
+        }
+      ]
+    },
+    {
+      "id": "SHG_015",
+      "sheng_term": "alitughost",
+      "canonical_form": "ghost",
+      "pos": "Verb (Conjugated)",
+      "morphology": {
+        "type": "intra_word_code_switch",
+        "prefix": "a-li-tu-",
+        "prefix_breakdown": {
+          "subject": "a- (3rd person singular 'he/she')",
+          "tense": "-li- (past tense)",
+          "object": "-tu- (1st person plural 'us')"
+        },
+        "stem": "ghost",
+        "stem_language": "English_slang"
+      },
+      "standard_swahili": "alikatisha mawasiliano nasi ghafla",
+      "english": "he/she cut off communication with us / ghosted us",
+      "category": "verbs",
+      "sentiment": "negative",
+      "formality": "colloquial_code_switch",
+      "usage_examples": [
+        {
+          "sheng": "Tulipanga meeting lakini alitughost last minute.",
+          "swahili": "Tulipanga mkutano lakini alikatisha mawasiliano ghafla dakika za mwisho.",
+          "english": "We scheduled a meeting but he ghosted us at the last minute."
+        }
+      ]
+    },
+    {
+      "id": "SHG_016",
+      "sheng_term": "tutaparty",
+      "canonical_form": "party",
+      "pos": "Verb (Conjugated)",
+      "morphology": {
+        "type": "intra_word_code_switch",
+        "prefix": "tu-ta-",
+        "prefix_breakdown": {
+          "subject": "tu- (1st person plural 'we')",
+          "tense": "-ta- (future tense)"
+        },
+        "stem": "party",
+        "stem_language": "English"
+      },
+      "standard_swahili": "tutasherehekea / tutafanya tafrija",
+      "english": "we will party / we will celebrate",
+      "category": "verbs",
+      "sentiment": "positive",
+      "formality": "colloquial_code_switch",
+      "usage_examples": [
+        {
+          "sheng": "Hii weekend tutaparty hadi asubuhi.",
+          "swahili": "Wikendi hii tutasherehekea hadi asubuhi.",
+          "english": "This weekend we will party till morning."
+        }
+      ]
+    },
+    {
+      "id": "SHG_017",
+      "sheng_term": "msee",
+      "canonical_form": "msee",
+      "pos": "Noun",
+      "noun_class": "Class 1/2 (M-Wa-)",
+      "morphology": {
+        "type": "phonological_contraction",
+        "origin": "Swahili 'mzee' (elder / old man)",
+        "shift": "semantic generalization to any person/peer regardless of age",
+        "stem_language": "Swahili"
+      },
+      "standard_swahili": "mtu / jamaa",
+      "english": "guy / person / friend / buddy",
+      "category": "social",
+      "sentiment": "neutral",
+      "formality": "slang",
+      "usage_examples": [
+        {
+          "sheng": "Huyo msee ni mwerevu sana kwa hesabu.",
+          "swahili": "Mtu huyo ana akili nyingi sana kwenye hisabati.",
+          "english": "That guy is very smart at math."
+        }
+      ]
+    },
+    {
+      "id": "SHG_018",
+      "sheng_term": "keja",
+      "canonical_form": "keja",
+      "pos": "Noun",
+      "noun_class": "Class 9/10",
+      "morphology": {
+        "type": "phonological_loan_adaptation",
+        "origin": "English 'cage'",
+        "shift": "ironic metaphor for one's apartment or house",
+        "stem_language": "English_adapted"
+      },
+      "standard_swahili": "nyumba / chumba cha makazi",
+      "english": "house / apartment / crib / home",
+      "category": "lifestyle",
+      "sentiment": "neutral",
+      "formality": "slang",
+      "usage_examples": [
+        {
+          "sheng": "Twendeni tukachill keja kwangu.",
+          "swahili": "Twende tukapumzike nyumbani kwangu.",
+          "english": "Let's go chill at my place."
+        }
+      ]
+    },
+    {
+      "id": "SHG_019",
+      "sheng_term": "buda",
+      "canonical_form": "buda",
+      "pos": "Noun",
+      "noun_class": "Class 1/2",
+      "morphology": {
+        "type": "sheng_vernacular_adaptation",
+        "origin": "Bantu / Asian loan adaptation",
+        "stem_language": "Sheng"
+      },
+      "standard_swahili": "baba / mzee / rafiki",
+      "english": "dad / father / buddy / old man",
+      "category": "social",
+      "sentiment": "neutral",
+      "formality": "slang",
+      "usage_examples": [
+        {
+          "sheng": "Buda amesema nirudi mapema.",
+          "swahili": "Baba amesema nirejee nyumbani mapema.",
+          "english": "Dad said I must return early."
+        }
+      ]
+    },
+    {
+      "id": "SHG_020",
+      "sheng_term": "sonko",
+      "canonical_form": "sonko",
+      "pos": "Noun",
+      "noun_class": "Class 1/2",
+      "morphology": {
+        "type": "sheng_neologism",
+        "stem": "sonko",
+        "stem_language": "Sheng"
+      },
+      "standard_swahili": "tajiri / mtu mwenye ukwasi",
+      "english": "wealthy tycoon / rich person",
+      "category": "finance",
+      "sentiment": "positive",
+      "formality": "slang",
+      "usage_examples": [
+        {
+          "sheng": "Anaendesha Range Rover, yeye ni sonko wa mtaa.",
+          "swahili": "Anaendesha Range Rover, yeye ni tajiri wa eneo hili.",
+          "english": "He drives a Range Rover, he is the rich tycoon around here."
+        }
+      ]
+    },
+    {
+      "id": "SHG_021",
+      "sheng_term": "shikisha",
+      "canonical_form": "shika",
+      "pos": "Verb (Mnyambuliko wa Kutendesha)",
+      "morphology": {
+        "type": "swahili_verbal_extension",
+        "root": "shika (hold / touch / take)",
+        "kutenda": "shika -> kick in / take hold (e.g. jaba imeanza kushika fiti)",
+        "kutendea": "shikia -> buy/cover drinks for someone (e.g. utanishikia pombe?)",
+        "kutendesha": "shikisha -> pass fire / light up (e.g. nishikishe kiberiti niwashe fegi)"
+      },
+      "standard_swahili": "washa sigara / patia moto / nunulia kinywaji",
+      "english": "light up / pass fire / (applicative) buy a drink for someone",
+      "category": "lifestyle",
+      "sentiment": "neutral",
+      "formality": "deep_slang",
+      "usage_examples": [
+        {
+          "sheng": "Hiyo jaba imeanza kushika fiti.",
+          "swahili": "Hiyo mirungi imeanza kulevya vizuri sana.",
+          "english": "That khat has started kicking in well / taking effect strongly."
+        },
+        {
+          "sheng": "Utanishikia pombe leo tukiwa kwa club?",
+          "swahili": "Utaninunulia pombe leo tukiwa klabuni?",
+          "english": "Will you buy alcohol for me / cover my drinks at the club today?"
+        },
+        {
+          "sheng": "Buda, nishikishe hiyo kiberiti niwashe fegi.",
+          "swahili": "Mzee, nipatie hicho kiberiti niwashe sigara.",
+          "english": "Bro, pass me that matchbox/lighter so I can light this cigarette."
+        }
+      ]
+    },
+    {
+      "id": "SHG_022",
+      "sheng_term": "bonga",
+      "canonical_form": "bonga",
+      "pos": "Verb",
+      "morphology": {
+        "type": "sheng_verb",
+        "stem": "bonga",
+        "stem_language": "Sheng"
+      },
+      "standard_swahili": "zungumza / ongea",
+      "english": "talk / speak / converse",
+      "category": "communication",
+      "sentiment": "neutral",
+      "formality": "slang",
+      "usage_examples": [
+        {
+          "sheng": "Bonga nami kwa simu baada ya job.",
+          "swahili": "Zungumza nami kwenye simu baada ya kazi.",
+          "english": "Talk to me on the phone after work."
+        }
+      ]
+    },
+    {
+      "id": "SHG_023",
+      "sheng_term": "hepa",
+      "canonical_form": "hepa",
+      "pos": "Verb",
+      "morphology": {
+        "type": "bantu_colloquial",
+        "stem": "hepa",
+        "stem_language": "Swahili_colloquial"
+      },
+      "standard_swahili": "toroka / epuka / kimbia",
+      "english": "escape / run away / dodge / sneak out",
+      "category": "verbs",
+      "sentiment": "neutral",
+      "formality": "slang",
+      "usage_examples": [
+        {
+          "sheng": "Alihepa bila kulipa bill.",
+          "swahili": "Alitoroka bila kulipa bili ya chakula.",
+          "english": "He sneaked out without paying the bill."
+        }
+      ]
+    },
+    {
+      "id": "SHG_024",
+      "sheng_term": "kula fare",
+      "canonical_form": "kula fare",
+      "pos": "Idiom / Verb Phrase",
+      "morphology": {
+        "type": "code_switched_idiom",
+        "verb": "kula (to eat / spend)",
+        "noun": "fare (transportation money)",
+        "meaning": "accepting bus fare for a rendezvous and then deliberately failing to show up"
+      },
+      "standard_swahili": "kupokea nauli ya safari na kutohudhuria miadi kwa makusudi",
+      "english": "taking someone's bus fare and ghosting the date",
+      "category": "lifestyle",
+      "sentiment": "negative",
+      "formality": "slang",
+      "usage_examples": [
+        {
+          "sheng": "Alimtumia punch ya fare lakini akala fare.",
+          "swahili": "Alimtumia shilingi mia tano za nauli lakini akazitumia na hakufika kwenye miadi.",
+          "english": "He sent her 500 shillings for bus fare, but she took the cash and skipped the date."
+        }
+      ]
+    },
+    {
+      "id": "SHG_025",
+      "sheng_term": "ngiri",
+      "canonical_form": "ngiri",
+      "pos": "Noun",
+      "noun_class": "Class 9/10",
+      "morphology": {
+        "type": "sheng_currency_slang",
+        "stem": "ngiri",
+        "meaning": "one thousand Kenyan shillings (KES 1,000)"
+      },
+      "standard_swahili": "shilingi elfu moja",
+      "english": "one thousand shillings (1K)",
+      "category": "finance",
+      "sentiment": "neutral",
+      "formality": "slang",
+      "usage_examples": [
+        {
+          "sheng": "Viatu hizi zilinigharimu ngiri mbili.",
+          "swahili": "Viatu hivi vilinigharimu shilingi elfu mbili.",
+          "english": "These shoes cost me two thousand shillings."
+        }
+      ]
+    },
+    {
+      "id": "SHG_026",
+      "sheng_term": "soo",
+      "canonical_form": "soo",
+      "pos": "Noun",
+      "noun_class": "Class 9/10",
+      "morphology": {
+        "type": "sheng_currency_slang",
+        "stem": "soo",
+        "meaning": "one hundred Kenyan shillings (KES 100)"
+      },
+      "standard_swahili": "shilingi mia moja",
+      "english": "one hundred shillings",
+      "category": "finance",
+      "sentiment": "neutral",
+      "formality": "slang",
+      "usage_examples": [
+        {
+          "sheng": "Nipe soo tatu za lunch.",
+          "swahili": "Nipatie shilingi mia tatu kwa ajili ya chakula cha mchana.",
+          "english": "Give me three hundred shillings for lunch."
+        }
+      ]
+    },
+    {
+      "id": "SHG_027",
+      "sheng_term": "punch",
+      "canonical_form": "punch",
+      "pos": "Noun",
+      "noun_class": "Class 9/10",
+      "morphology": {
+        "type": "sheng_currency_slang",
+        "stem": "punch",
+        "origin": "Hindi 'paanch' (five) or five fingers",
+        "meaning": "five hundred Kenyan shillings (KES 500)"
+      },
+      "standard_swahili": "shilingi mia tano",
+      "english": "five hundred shillings",
+      "category": "finance",
+      "sentiment": "neutral",
+      "formality": "slang",
+      "usage_examples": [
+        {
+          "sheng": "Niko na punch pekee kwa mfuko.",
+          "swahili": "Nina shilingi mia tano pekee mfukoni.",
+          "english": "I only have five hundred bob in my pocket."
+        }
+      ]
+    },
+    {
+      "id": "SHG_028",
+      "sheng_term": "manzi",
+      "canonical_form": "manzi",
+      "pos": "Noun",
+      "noun_class": "Class 1/2",
+      "morphology": {
+        "type": "sheng_gender_slang",
+        "stem": "manzi"
+      },
+      "standard_swahili": "msichana / mpenzi wa kike",
+      "english": "girl / lady / girlfriend",
+      "category": "social",
+      "sentiment": "neutral",
+      "formality": "slang",
+      "usage_examples": [
+        {
+          "sheng": "Manzi yake ni daktari.",
+          "swahili": "Mpenzi wake wa kike ni daktari.",
+          "english": "His girlfriend is a doctor."
+        }
+      ]
+    },
+    {
+      "id": "SHG_029",
+      "sheng_term": "chali",
+      "canonical_form": "chali",
+      "pos": "Noun",
+      "noun_class": "Class 1/2",
+      "morphology": {
+        "type": "sheng_gender_slang",
+        "origin": "English 'Charlie / guy'",
+        "stem": "chali"
+      },
+      "standard_swahili": "mvulana / mpenzi wa kiume",
+      "english": "guy / boy / boyfriend",
+      "category": "social",
+      "sentiment": "neutral",
+      "formality": "slang",
+      "usage_examples": [
+        {
+          "sheng": "Chali wa Jane anajua kupika sana.",
+          "swahili": "Mpenzi wa kiume wa Jane anajua kupika sana.",
+          "english": "Jane's boyfriend knows how to cook really well."
+        }
+      ]
+    },
+    {
+      "id": "SHG_030",
+      "sheng_term": "bazu",
+      "canonical_form": "bazu",
+      "pos": "Noun",
+      "noun_class": "Class 1/2",
+      "morphology": {
+        "type": "sheng_status_slang",
+        "stem": "bazu"
+      },
+      "standard_swahili": "kiongozi mashuhuri / mtu anayeheshimika sana",
+      "english": "big boss / influential person / VIP",
+      "category": "status",
+      "sentiment": "positive",
+      "formality": "slang",
+      "usage_examples": [
+        {
+          "sheng": "Huyo CEO ni bazu mkubwa sana.",
+          "swahili": "Afisa mkuu mtendaji huyo ni kiongozi anayeheshimika sana.",
+          "english": "That CEO is a big boss."
+        }
+      ]
+    },
+    {
+      "id": "SHG_031",
+      "sheng_term": "teke",
+      "canonical_form": "teke",
+      "pos": "Adverb",
+      "morphology": {
+        "type": "sheng_tempo_slang",
+        "stem": "teke"
+      },
+      "standard_swahili": "haraka / kwa kasi",
+      "english": "quickly / fast / in a hurry",
+      "category": "time",
+      "sentiment": "neutral",
+      "formality": "slang",
+      "usage_examples": [
+        {
+          "sheng": "Kuja hapa teke tusiondoke bila wewe.",
+          "swahili": "Njoo hapa haraka tusije tukaondoka bila wewe.",
+          "english": "Come here quickly so we don't leave without you."
+        }
+      ]
+    },
+    {
+      "id": "SHG_032",
+      "sheng_term": "sare",
+      "canonical_form": "sare",
+      "pos": "Verb / Adjective",
+      "morphology": {
+        "type": "sheng_slang",
+        "stem": "sare"
+      },
+      "standard_swahili": "kusamehe / kuacha / bila malipo",
+      "english": "let go / drop it / free of charge / leave it alone",
+      "category": "social",
+      "sentiment": "neutral",
+      "formality": "slang",
+      "usage_examples": [
+        {
+          "sheng": "Hiyo kesi sare, tuendelee na mambo mengine.",
+          "swahili": "Jambo hilo lisamehe au liache, tuendelee na masuala mengine.",
+          "english": "Let that issue go; let's move on to other things."
+        }
+      ]
+    },
+    {
+      "id": "SHG_033",
+      "sheng_term": "cheki",
+      "canonical_form": "cheki",
+      "pos": "Verb",
+      "morphology": {
+        "type": "phonological_loan_adaptation",
+        "origin": "English 'check'",
+        "stem": "cheki",
+        "stem_language": "English_adapted"
+      },
+      "standard_swahili": "tazama / angalia / chunguza",
+      "english": "look / check / see / verify",
+      "category": "verbs",
+      "sentiment": "neutral",
+      "formality": "slang",
+      "usage_examples": [
+        {
+          "sheng": "Cheki ile gari inavyoendeshwa mbio.",
+          "swahili": "Tazama gari lile jinsi linavyoendeshwa kwa kasi.",
+          "english": "Check out how fast that car is being driven."
+        }
+      ]
+    },
+    {
+      "id": "SHG_034",
+      "sheng_term": "doba",
+      "canonical_form": "doba",
+      "pos": "Noun",
+      "noun_class": "Class 9/10",
+      "morphology": {
+        "type": "sheng_music_slang",
+        "stem": "doba",
+        "etymology": "Derived from reggae dub / sound system culture, strictly meaning music, beat, or song track"
+      },
+      "standard_swahili": "muziki / wimbo",
+      "english": "music / beat / track",
+      "category": "music_entertainment",
+      "sentiment": "positive",
+      "formality": "slang",
+      "usage_examples": [
+        {
+          "sheng": "Weka hiyo doba kali tucheze.",
+          "swahili": "Weka huo muziki mzuri tucheze.",
+          "english": "Put on that fire music beat so we can dance."
+        }
+      ]
+    },
+    {
+      "id": "SHG_035",
+      "sheng_term": "chill",
+      "canonical_form": "chill",
+      "pos": "Verb",
+      "morphology": {
+        "type": "loanword_verb",
+        "origin": "English 'chill'",
+        "stem": "chill"
+      },
+      "standard_swahili": "pumzika / tulia / subiri",
+      "english": "relax / wait / take it easy",
+      "category": "lifestyle",
+      "sentiment": "positive",
+      "formality": "colloquial_code_switch",
+      "usage_examples": [
+        {
+          "sheng": "Hebu chill kwanza nimalize hii email.",
+          "swahili": "Subiri kwanza nimalize barua pepe hii.",
+          "english": "Just chill first while I finish this email."
+        }
+      ]
+    },
+    {
+      "id": "SHG_036",
+      "sheng_term": "riba",
+      "canonical_form": "riba",
+      "pos": "Noun",
+      "noun_class": "Class 9/10",
+      "morphology": {
+        "type": "sheng_semantic_shift",
+        "origin": "Swahili 'riba' (interest/usury) -> shifted to mean interesting conversation/stories/gist",
+        "stem": "riba"
+      },
+      "standard_swahili": "habari / hadithi / maongezi",
+      "english": "story / gist / conversation / rumor",
+      "category": "communication",
+      "sentiment": "neutral",
+      "formality": "slang",
+      "usage_examples": [
+        {
+          "sheng": "Wacha kusikiliza riba za uongo.",
+          "swahili": "Acha kusikiliza hadithi na uzushi wa uongo.",
+          "english": "Stop listening to false rumors."
+        }
+      ]
+    },
+    {
+      "id": "SHG_037",
+      "sheng_term": "karao",
+      "canonical_form": "karao",
+      "pos": "Noun",
+      "noun_class": "Class 1/2 or 9/10",
+      "morphology": {
+        "type": "sheng_security_slang",
+        "stem": "karao"
+      },
+      "standard_swahili": "askari polisi",
+      "english": "police officer / cop",
+      "category": "security",
+      "sentiment": "negative",
+      "formality": "slang",
+      "usage_examples": [
+        {
+          "sheng": "Makarao wameweka roadblock kwa rounda.",
+          "swahili": "Polisi wameweka kizuizi cha barabarani kwenye mzunguko wa barabara.",
+          "english": "Cops have set up a roadblock at the roundabout."
+        }
+      ]
+    },
+    {
+      "id": "SHG_038",
+      "sheng_term": "kanairo",
+      "canonical_form": "kanairo",
+      "pos": "Proper Noun",
+      "morphology": {
+        "type": "toponym_slang",
+        "origin": "Nairobi with Sheng prefixing and phonological play"
+      },
+      "standard_swahili": "Jiji la Nairobi",
+      "english": "Nairobi city",
+      "category": "locations",
+      "sentiment": "neutral",
+      "formality": "slang",
+      "usage_examples": [
+        {
+          "sheng": "Maisha ya Kanairo yanataka uwe mwerevu.",
+          "swahili": "Maisha ya jiji la Nairobi yanahitaji uwe na werevu na werevu wa kimaisha.",
+          "english": "Life in Nairobi requires street smarts."
+        }
+      ]
+    },
+    {
+      "id": "SHG_039",
+      "sheng_term": "mresh",
+      "canonical_form": "mresh",
+      "pos": "Noun",
+      "noun_class": "Class 1/2",
+      "morphology": {
+        "type": "sheng_gender_slang",
+        "stem": "mresh"
+      },
+      "standard_swahili": "msichana mrembo",
+      "english": "beautiful girl / lady / shawty",
+      "category": "social",
+      "sentiment": "positive",
+      "formality": "slang",
+      "usage_examples": [
+        {
+          "sheng": "Yule mresh amevalia koti jeusi anaitwa nani?",
+          "swahili": "Yule msichana mrembo aliyevaa koti jeusi anaitwa nani?",
+          "english": "What is the name of that pretty girl in the black coat?"
+        }
+      ]
+    },
+    {
+      "id": "SHG_040",
+      "sheng_term": "ponya",
+      "canonical_form": "ponya",
+      "pos": "Verb (Idiomatic)",
+      "morphology": {
+        "type": "semantic_shift",
+        "origin": "Swahili 'ponya' (to heal/cure) -> shifted to 'save someone financially / hook someone up'",
+        "stem": "ponya"
+      },
+      "standard_swahili": "saidia / okoa kifedha / patia msaada",
+      "english": "hook someone up / rescue financially / save",
+      "category": "finance",
+      "sentiment": "positive",
+      "formality": "slang",
+      "usage_examples": [
+        {
+          "sheng": "Buda niponye na soo mbili nilipe fare.",
+          "swahili": "Rafiki yangu nisaidie na shilingi mia mbili nilipe nauli.",
+          "english": "Buddy hook me up with two hundred bob so I can pay fare."
+        }
+      ]
+    },
+    {
+      "id": "SHG_041",
+      "sheng_term": "janjez",
+      "canonical_form": "janja",
+      "pos": "Adjective / Noun",
+      "morphology": {
+        "type": "swahili_root_english_plural_hybrid",
+        "stem": "janja (clever)",
+        "suffix": "-ez (English plural/slang suffix)",
+        "stem_language": "Swahili_hybrid"
+      },
+      "standard_swahili": "werevu / wajanja",
+      "english": "street-smart / clever people",
+      "category": "social",
+      "sentiment": "positive",
+      "formality": "slang",
+      "usage_examples": [
+        {
+          "sheng": "Hawa mayouth ni majanjez sana.",
+          "swahili": "Vijana hawa wana werevu mkubwa sana.",
+          "english": "These youths are very street smart."
+        }
+      ]
+    },
+    {
+      "id": "SHG_042",
+      "sheng_term": "arbantone",
+      "canonical_form": "arbantone",
+      "pos": "Noun",
+      "morphology": {
+        "type": "cultural_neologism",
+        "origin": "Urban Nairobi music movement blending Gengetone with modern afrobeats / sample drill"
+      },
+      "standard_swahili": "mtindo mpya wa muziki wa vijana wa mijini nchini Kenya",
+      "english": "contemporary Kenyan urban youth music sub-genre",
+      "category": "music",
+      "sentiment": "positive",
+      "formality": "cultural_term",
+      "usage_examples": [
+        {
+          "sheng": "Ngoma za Arbantone zinabamba sana clubs.",
+          "swahili": "Nyimbo za mtindo wa Arbantone zinavutia sana vilabuni.",
+          "english": "Arbantone songs are rocking the clubs."
+        }
+      ]
+    },
+    {
+      "id": "SHG_043",
+      "sheng_term": "dandia",
+      "canonical_form": "dandia",
+      "pos": "Verb",
+      "morphology": {
+        "type": "swahili_colloquial_verb",
+        "stem": "dandia"
+      },
+      "standard_swahili": "panda gari likiwa kwenye mwendo / kuingilia jambo ghafla",
+      "english": "hop onto a moving bus / piggyback on an idea or trend",
+      "category": "transport",
+      "sentiment": "neutral",
+      "formality": "slang",
+      "usage_examples": [
+        {
+          "sheng": "Usiwahi dandia matatu ikiwa kwa mwendo.",
+          "swahili": "Usijaribu kamwe kupanda gari la abiria likiwa kwenye mwendo.",
+          "english": "Never try to board a matatu while it's in motion."
+        }
+      ]
+    },
+    {
+      "id": "SHG_044",
+      "sheng_term": "kugwaya",
+      "canonical_form": "gwaya",
+      "pos": "Verb",
+      "morphology": {
+        "type": "bantu_slang_verb",
+        "stem": "gwaya",
+        "prefix": "ku-"
+      },
+      "standard_swahili": "kuogopa / kutetemeka kwa woga",
+      "english": "to fear / to chicken out / to hesitate",
+      "category": "emotion",
+      "sentiment": "negative",
+      "formality": "slang",
+      "usage_examples": [
+        {
+          "sheng": "Hatugwayi challenges zozote za coding.",
+          "swahili": "Hatuogopi changamoto zozote za uandishi wa programu za kompyuta.",
+          "english": "We don't fear any coding challenges."
+        }
+      ]
+    },
+    {
+      "id": "SHG_045",
+      "sheng_term": "shona",
+      "canonical_form": "shona",
+      "pos": "Verb (Idiomatic)",
+      "morphology": {
+        "type": "semantic_shift",
+        "origin": "Swahili 'shona' (to sew/stitch) -> shifted to dressing sharply",
+        "stem": "shona"
+      },
+      "standard_swahili": "kupendeza sana kwa mavazi / kuvaa nguo nadhifu",
+      "english": "to dress very sharply / look impeccably styled",
+      "category": "fashion",
+      "sentiment": "positive",
+      "formality": "slang",
+      "usage_examples": [
+        {
+          "sheng": "Msee ameshona ile mbaya kwa harusi.",
+          "swahili": "Bwana huyo amependeza kupindukia kwenye sherehe ya harusi.",
+          "english": "The guy is dressed exceptionally well for the wedding."
+        }
+      ]
+    },
+    {
+      "id": "SHG_046",
+      "sheng_term": "ngeta",
+      "canonical_form": "ngeta",
+      "pos": "Noun",
+      "noun_class": "Class 9/10",
+      "morphology": {
+        "type": "sheng_crime_slang",
+        "phrase": "piga ngeta (mugging / strangling from behind)"
+      },
+      "standard_swahili": "unyakuaji / kunyonga shingo ili kuiba",
+      "english": "mugging / chokehold robbery",
+      "category": "security",
+      "sentiment": "negative",
+      "formality": "slang",
+      "usage_examples": [
+        {
+          "sheng": "Jichunge hiyo barabara usiku usije ukapigwa ngeta.",
+          "swahili": "Jihadhari na barabara hiyo usiku usije ukavamiwa na kunyongwa na wezi.",
+          "english": "Be careful on that road at night so you don't get mugged."
+        }
+      ]
+    },
+    {
+      "id": "SHG_047",
+      "sheng_term": "kusukuma",
+      "canonical_form": "sukuma",
+      "pos": "Verb (Slang)",
+      "morphology": {
+        "type": "swahili_slang_extension",
+        "prefix": "ku-",
+        "stem": "sukum-",
+        "suffix": "-a"
+      },
+      "standard_swahili": "kusaidia kupata nafasi / kuunganisha na kazi",
+      "english": "to hook someone up with a job / to push/place someone into a gig",
+      "category": "social",
+      "sentiment": "positive",
+      "formality": "slang",
+      "usage_examples": [
+        {
+          "sheng": "Ananitafutia connection ya kunisukuma kwa hiyo job.",
+          "swahili": "Ananitafutia mtu wa kuniunganisha ili nipate hiyo kazi.",
+          "english": "He is looking for a connection to hook me up / push me into that job."
+        }
+      ]
+    },
+    {
+      "id": "SHG_048",
+      "sheng_term": "kunoki",
+      "canonical_form": "noki",
+      "pos": "Verb",
+      "morphology": {
+        "type": "phonological_loan_adaptation",
+        "origin": "English 'knock / knocked out'",
+        "shift": "be completely infatuated / head-over-heels in love",
+        "prefix": "ku-"
+      },
+      "standard_swahili": "kupendwa na kuzama kwenye mapenzi kupindukia",
+      "english": "to fall deeply in love / to be infatuated",
+      "category": "romance",
+      "sentiment": "positive",
+      "formality": "slang",
+      "usage_examples": [
+        {
+          "sheng": "Msee amenoki kwa huyo msichana kabisa.",
+          "swahili": "Bwana huyo amezama kabisa katika mapenzi na msichana huyo.",
+          "english": "The guy has completely fallen head over heels for that girl."
+        }
+      ]
+    },
+    {
+      "id": "SHG_049",
+      "sheng_term": "bambika",
+      "canonical_form": "bamba",
+      "pos": "Verb (Stative)",
+      "morphology": {
+        "type": "swahili_stative_slang",
+        "stem": "bamb-",
+        "suffix": "-ika"
+      },
+      "standard_swahili": "kufurahia / kuchangamka sana",
+      "english": "to enjoy oneself immensely / have great fun",
+      "category": "lifestyle",
+      "sentiment": "positive",
+      "formality": "slang",
+      "usage_examples": [
+        {
+          "sheng": "Tulibambika sana kwenye tamasha ya muziki.",
+          "swahili": "Tulifurahia sana kwenye tamasha ya muziki.",
+          "english": "We had an amazing time at the music festival."
+        }
+      ]
+    },
+    {
+      "id": "SHG_050",
+      "sheng_term": "rounda",
+      "canonical_form": "rounda",
+      "pos": "Noun",
+      "noun_class": "Class 9/10",
+      "morphology": {
+        "type": "phonological_loan_adaptation",
+        "origin": "English 'roundabout'",
+        "stem": "rounda"
+      },
+      "standard_swahili": "mzunguko wa barabara",
+      "english": "roundabout / traffic circle",
+      "category": "transport",
+      "sentiment": "neutral",
+      "formality": "slang",
+      "usage_examples": [
+        {
+          "sheng": "Tukutane hapo kwa rounda ya Globe Cinema.",
+          "swahili": "Tukutane kwenye mzunguko wa barabara wa Globe Cinema.",
+          "english": "Let's meet at the Globe Cinema roundabout."
+        }
+      ]
+    },
+    {
+      "id": "SHG_051",
+      "sheng_term": "kudunda",
+      "canonical_form": "dunda",
+      "pos": "Verb",
+      "morphology": {
+        "type": "bantu_slang_verb",
+        "stem": "dunda",
+        "prefix": "ku-"
+      },
+      "standard_swahili": "kushiriki katika tafrija au klabu usiku / kucheza muziki",
+      "english": "to go clubbing / party through the night",
+      "category": "lifestyle",
+      "sentiment": "positive",
+      "formality": "slang",
+      "usage_examples": [
+        {
+          "sheng": "Mayouth wanaenda kudunda Sato usiku.",
+          "swahili": "Vijana wanaenda kushiriki tafrija klabuni Jumamosi usiku.",
+          "english": "The youths are going clubbing on Saturday night."
+        }
+      ]
+    },
+    {
+      "id": "SHG_052",
+      "sheng_term": "wamlambez",
+      "canonical_form": "wamlambez",
+      "pos": "Exclamation / Call-and-Response",
+      "morphology": {
+        "type": "cultural_catchphrase",
+        "origin": "Sailors 254 Gengetone movement",
+        "countersign": "Wamnyonyez"
+      },
+      "standard_swahili": "salamu au wito wa mitaani wa vijana",
+      "english": "Kenyan viral street greeting / youth call-out",
+      "category": "social",
+      "sentiment": "positive",
+      "formality": "street_slang",
+      "usage_examples": [
+        {
+          "sheng": "Msee akiingia tu aliita 'Wamlambez!' watu wakaitikia.",
+          "swahili": "Mtu huyo alipoingia alitoa wito wa 'Wamlambez!' na watu wakaitikia.",
+          "english": "As soon as the guy entered he shouted 'Wamlambez!' and the crowd responded."
+        }
+      ]
+    },
+    {
+      "id": "SHG_053",
+      "sheng_term": "sinahali",
+      "canonical_form": "sina hali",
+      "pos": "Phrase / Idiomatic Contraction",
+      "morphology": {
+        "type": "negative_compound_contraction",
+        "prefix": "sina-",
+        "stem": "hali",
+        "literal": "I have no condition / I lack means",
+        "function": "express extreme broke-ness / financial destitution"
+      },
+      "standard_swahili": "sina uwezo / nimeishiwa na pesa",
+      "english": "I am broke / I have no money right now",
+      "category": "finance",
+      "sentiment": "negative",
+      "formality": "street_slang",
+      "usage_examples": [
+        {
+          "sheng": "Niponye na kakitu, sinahali sahii!",
+          "swahili": "Nisaidie na pesa kidogo, sina uwezo kwa sasa hivi!",
+          "english": "Help me out with a little cash, I am broke right now!"
+        }
+      ]
+    },
+    {
+      "id": "SHG_054",
+      "sheng_term": "sahii",
+      "canonical_form": "saa hii",
+      "pos": "Adverb",
+      "morphology": {
+        "type": "phonetic_contraction",
+        "origin": "Swahili 'saa hii' (this hour / now)",
+        "shift": "phonetic merger and lengthening of final vowel for urgency",
+        "function": "immediate present moment"
+      },
+      "standard_swahili": "sasa hivi / kwa sasa",
+      "english": "right now / at this exact moment",
+      "category": "time",
+      "sentiment": "neutral",
+      "formality": "colloquial",
+      "usage_examples": [
+        {
+          "sheng": "Kuja hapa sahii.",
+          "swahili": "Njoo hapa sasa hivi.",
+          "english": "Come here right now."
+        }
+      ]
+    },
+    {
+      "id": "SHG_055",
+      "sheng_term": "rada bro",
+      "canonical_form": "rada bro",
+      "pos": "Greeting / Phatic Phrase",
+      "morphology": {
+        "type": "colloquial_street_greeting",
+        "origin": "rada (radar) + bro (brother)",
+        "pragmatic_function": "informal street greeting equivalent to 'what's up brother / how are things'"
+      },
+      "standard_swahili": "mambo vipi ndugu yangu / vipi kaka",
+      "english": "what's up brother / how's it going bro",
+      "category": "social",
+      "sentiment": "positive",
+      "formality": "street_slang",
+      "usage_examples": [
+        {
+          "sheng": "Rada bro? Uko poa leo?",
+          "swahili": "Mambo vipi ndugu yangu? Uko mzima leo?",
+          "english": "What's up bro? Are you good today?"
+        }
+      ]
+    },
+    {
+      "id": "SHG_056",
+      "sheng_term": "kaa rada",
+      "canonical_form": "kaa rada",
+      "pos": "Verb Phrase / Idiom",
+      "morphology": {
+        "type": "precautionary_idiom",
+        "verb": "kaa (stay)",
+        "noun": "rada (alertness)"
+      },
+      "standard_swahili": "kuwa makini na mwenye tahadhari",
+      "english": "stay alert / be on the lookout",
+      "category": "social",
+      "sentiment": "neutral",
+      "formality": "slang",
+      "usage_examples": [
+        {
+          "sheng": "Kaa rada usiku hapo stage.",
+          "swahili": "Kuwa makini na mwenye tahadhari usiku hapo kituoni.",
+          "english": "Stay alert at night there at the bus stage."
+        }
+      ]
+    },
+    {
+      "id": "SHG_057",
+      "sheng_term": "niko rada",
+      "canonical_form": "niko rada",
+      "pos": "Phrase",
+      "morphology": {
+        "type": "status_confirmation",
+        "meaning": "I am aware / I'm good / I'm alert"
+      },
+      "standard_swahili": "nipo makini na tayari / niko sawa",
+      "english": "I'm good / I'm on it / I'm alert",
+      "category": "social",
+      "sentiment": "positive",
+      "formality": "slang",
+      "usage_examples": [
+        {
+          "sheng": "Usijali buda, niko rada kabisa.",
+          "swahili": "Usijali rafiki yangu, niko makini kabisa.",
+          "english": "Don't worry buddy, I'm fully on it."
+        }
+      ]
+    },
+    {
+      "id": "SHG_058",
+      "sheng_term": "do",
+      "canonical_form": "do",
+      "pos": "Noun",
+      "phonetic_variants": [
+        "dough"
+      ],
+      "morphology": {
+        "type": "english_slang_loan",
+        "etymology": "Derived from English 'dough' (money), adapted to Sheng open-syllable phonology"
+      },
+      "standard_swahili": "pesa / fedha",
+      "english": "money / cash",
+      "category": "finance",
+      "sentiment": "neutral",
+      "formality": "slang",
+      "usage_examples": [
+        {
+          "sheng": "Jana ndio alifiriwa, sahii hana do.",
+          "swahili": "Jana ndipo alipofutwa kazi, sasa hivi hana pesa.",
+          "english": "Yesterday was when he was fired, right now he has no money."
+        }
+      ]
+    },
+    {
+      "id": "SHG_059",
+      "sheng_term": "alifiriwa",
+      "canonical_form": "firiwa",
+      "pos": "Verb (Passive Voice)",
+      "phonetic_variants": [
+        "alifireiwa",
+        "alifirewa"
+      ],
+      "morphology": {
+        "type": "intra_word_code_switch",
+        "subject_prefix": "a- (Class 1, 3rd person singular)",
+        "tense_marker": "-li- (Past tense)",
+        "root": "fire (English verb)",
+        "verbal_extension": "-iwa (Bantu passive extension / Kauli ya Kutendwa)",
+        "phonological_process": "Vowel elision: English silent 'e' dropped before Bantu passive suffix '-iwa'"
+      },
+      "standard_swahili": "alifutwa kazi",
+      "english": "he/she was fired from work",
+      "category": "employment",
+      "sentiment": "negative",
+      "formality": "colloquial_code_switch",
+      "usage_examples": [
+        {
+          "sheng": "Alifiriwa jana na boss kwa ofisi bila notice.",
+          "swahili": "Alifutwa kazi jana na mkuu katika ofisi bila taarifa.",
+          "english": "He was fired yesterday by the boss at the office without notice."
+        }
+      ]
+    },
+    {
+      "id": "SHG_060",
+      "sheng_term": "rushia",
+      "canonical_form": "rusha",
+      "pos": "Verb (Applicative)",
+      "morphology": {
+        "type": "swahili_applicative_slang",
+        "stem": "rush-",
+        "suffix": "-ia",
+        "stem_language": "Swahili"
+      },
+      "standard_swahili": "tumia / patia kwa haraka",
+      "english": "send to me / forward / throw to me (link or money)",
+      "category": "communication",
+      "sentiment": "neutral",
+      "formality": "slang",
+      "usage_examples": [
+        {
+          "sheng": "Nirushie hiyo link ya application kwa WhatsApp.",
+          "swahili": "Nitumie kiungo hicho cha maombi ya kazi kwenye WhatsApp.",
+          "english": "Send/forward me that application link on WhatsApp."
+        }
+      ]
+    },
+    {
+      "id": "SHG_061",
+      "sheng_term": "kasonga",
+      "canonical_form": "kasonga",
+      "pos": "Verb",
+      "morphology": {
+        "type": "urban_dance_slang",
+        "stem": "kasonga",
+        "etymology": "Derived from popular street dance culture and Congolese rhumba influence (Kasongo / kusonga), meaning to dance or groove rhythmically on stage or in club settings"
+      },
+      "standard_swahili": "cheza muziki / cheza ngoma",
+      "english": "dance / groove / dance on stage",
+      "category": "music_entertainment",
+      "sentiment": "positive",
+      "formality": "slang",
+      "usage_examples": [
+        {
+          "sheng": "Huyo msee alikasonga na askari stage.",
+          "swahili": "Huyo mtu alicheza muziki na askari jukwaani.",
+          "english": "That guy danced with the police officer on stage."
+        }
+      ]
+    }
+  ]
+}

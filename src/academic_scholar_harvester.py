@@ -19,7 +19,7 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
-from src.gemini_concept_client import query_gemini_tri_set
+from src.concept_recreation_engine import ConceptRecreationEngine
 from src.mass_100m_auditor import Mass100MAuditor
 from src.self_teaching_engine import AutonomousSelfTeachingEngine
 
@@ -46,6 +46,7 @@ class AcademicScholarHarvester:
     def __init__(self):
         self.auditor = Mass100MAuditor()
         self.self_teacher = AutonomousSelfTeachingEngine()
+        self.concept_engine = ConceptRecreationEngine()
         self.log = self._load_log()
         CURRICULUM_FILE.parent.mkdir(parents=True, exist_ok=True)
 
@@ -128,8 +129,8 @@ class AcademicScholarHarvester:
         print(f"  • Paper Title: \"{paper['title'][:80]}...\"")
         print(f"  • Core Academic Concept: \"{concept_sentence}\"")
         
-        # Transform via Neural Teacher into calibrated Tri-Set (55-65% balance)
-        tri_set = query_gemini_tri_set(concept_sentence)
+        # Transform via local Concept Recreation Engine into calibrated Tri-Set (55-65% balance)
+        tri_set = self.concept_engine.reconstruct_concept(concept_sentence)
         if not tri_set or "reconstructed_codeswitch" not in tri_set:
             print("  ❌ Could not generate Tri-Set.")
             return None

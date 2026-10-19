@@ -1,0 +1,25 @@
+{
+  "repo": "makalin/protext",
+  "readme_summary": "# Protext\n\n**Protext** is a Rust + WebAssembly text measurement and line-wrapping engine that uses the browser's Canvas 2D API as the measurement source of truth.\n\nThe current project provides:\n\n- A browser-backed `ProtextEngine` exported through `wasm-bindgen`\n- Font-aware width measurement through `measureText`\n- Greedy line wrapping with explicit paragraph-break preservation\n- Structured layout output for JavaScript consumers\n- Layout summary helpers for line count, max width, and estimated height\n- Structured measurement helpers for text, words, and paragraph counts\n- Unit tests for the pure layout core and browser tests for the Wasm API\n- A multi-demo browser showcase\n\n## Status\n\nThis repository is a working foundation, not a full typography engine yet.\n\nImplemented today:\n\n- Canvas-backed measurement\n- Rust layout core\n- Long-token splitting when a word exceeds the line width\n- JavaScript measurement, layout, and summary APIs\n- Buildable `wasm-pack` package\n\nNot implemented yet:\n\n- Unicode line breaking per UAX #14\n- Bidi support\n- Hyphenation\n- Node.js or Deno-specific adapters\n\n## Installation\n\n```bash\ncargo install wasm-pack\nwasm-pack build --target web\n```\n\nThe generated package is written to `pkg/`.\n\n## JavaScript Usage\n\n```js\nimport init, { ProtextEngine } from \"./pkg/protext.js\";\n\nasync function start() {\n  await init();\n\n  const engine = new ProtextEngine();\n  engine.set_font(\"600 16px Inter, sans-serif\");\n\n  const text = \"Protext brings high-performance typography to the web.\";\n  const width = engine.measure_width(text);\n  const lines = Array.from(engine.layout_lines(text, 220));\n  const detailed = Array.from(engine.layout_text(text, 220));\n\n  console.log(\"width:\", width);\n  console.log(\"lines:\", lines);\n  console.log(\"layout:\", detailed);\n}\n\nstart();\n```\n\n## Public API\n\n`ProtextEngine` exposes:\n\n- `new()`\n- `set_font(font: string)`\n- `font(): string`\n- `measure_width(text: string): number`\n- `measure_text(text: string): { text, width, characterCount,",
+  "dependencies": [
+    "[package]",
+    "name = \"protext\"",
+    "version = \"0.1.0\"",
+    "edition = \"2021\"",
+    "authors = [\"Mehmet T. AKALIN\"]",
+    "license = \"MIT\"",
+    "description = \"A Rust + WebAssembly text measurement and line-breaking engine backed by the browser Canvas API.\"",
+    "repository = \"https://github.com/makalin/protext\"",
+    "[lib]",
+    "crate-type = [\"cdylib\", \"rlib\"]",
+    "[dependencies]",
+    "js-sys = \"0.3\"",
+    "wasm-bindgen = \"0.2\"",
+    "web-sys = { version = \"0.3\", features = [",
+    "\"CanvasRenderingContext2d\","
+  ],
+  "architecture_patterns": [
+    "RESTful API Gateway",
+    "Asynchronous Concurrent Processing"
+  ]
+}

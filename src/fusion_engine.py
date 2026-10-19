@@ -46,6 +46,22 @@ class FusedDeconstructionResult:
     morpheme_gloss: str
     confidence: float
 
+    @property
+    def root_english(self) -> str:
+        return self.english_verb_root
+
+    @property
+    def who_subject(self) -> str:
+        return self.who
+
+    @property
+    def tense(self) -> str:
+        return self.when
+
+    @property
+    def how_extension(self) -> str:
+        return self.how
+
 class BantuEnglishFusionEngine:
     """Algebraic Matrix for Swahili Morphological Fusion on Foreign Verb Stems."""
 

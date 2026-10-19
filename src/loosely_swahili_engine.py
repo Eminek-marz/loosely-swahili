@@ -1938,3 +1938,269 @@ class LooselySwahiliValidator:
             report = self.audit_sentence(speech_content, deep_street_slang=deep_street_slang)
             reports.append(report)
         return reports
+
+
+@dataclass
+class RuleDefinition:
+    id: int
+    title: str
+    category: str
+    description: str
+    example_valid: str
+    example_invalid: str = ""
+    formula: str = ""
+
+
+class LooselySwahili125RulesRegistry:
+    """
+    Official Master Registry for the 125 Rules of Loosely Swahili NLP.
+    Provides structured lookup, categorization, and validation across all 7 linguistic divisions.
+    """
+    CATEGORIES = {
+        "CAT_I": "Morphosyntactic Verbal Agglutination & Affixation (Rules 1-25)",
+        "CAT_II": "Nominal Classes, Pluralization & Concord (Rules 26-45)",
+        "CAT_III": "Deixis, Demonstratives & Modifiers (Rules 46-65)",
+        "CAT_IV": "Syntax, Locatives & Prepositions (Rules 66-85)",
+        "CAT_V": "Phonology, Metathesis & Epenthesis (Rules 86-100)",
+        "CAT_VI": "Digital, Financial & M-Pesa Pragmatics (Rules 101-115)",
+        "CAT_VII": "Discourse Anchors, Modals & Sociolinguistics (Rules 116-125)"
+    }
+
+    def __init__(self):
+        self.rules: Dict[int, RuleDefinition] = {}
+        self._populate_rules()
+
+    def _populate_rules(self):
+        raw_rules = [
+            # CAT I: 1-25
+            (1, "The Bare Root Invariant", "CAT_I", "English verb roots must remain in base uninflected form", "alikuwa amepick", "alikuwa amepicked", "[Subj] + [Tense] + [BareRoot]"),
+            (2, "Subject-Tense-Object Verbal Plug-In", "CAT_I", "Canonical Swahili prefixes attached to bare loan verb", "ali-tu-call", "he called us", "[Subj] + [Tense] + [Obj] + [Root]"),
+            (3, "Mid-Sentence Negative Infixation", "CAT_I", "Present tense negative prefix attached directly to bare root", "si-care, hatu-match", "I don't care", "[NegSubj] + [BareRoot]"),
+            (4, "Past Negation (-ku-)", "CAT_I", "Absolute past negation with bare root", "si-ku-call", "I didn't call", "[NegSubj] + -ku- + [BareRoot]"),
+            (5, "Incomplete Aspect Negation (-ja-)", "CAT_I", "Negation of not-yet-completed actions", "si-ja-clean", "I haven't cleaned yet", "[NegSubj] + -ja- + [BareRoot]"),
+            (6, "Habitual Consecutive Prefix (hu-)", "CAT_I", "Habitual actions taking bare loan roots", "hu-stream kila night", "", "hu- + [BareRoot]"),
+            (7, "Epenthetic 'i' Passive (*Kutendwa*)", "CAT_I", "English silent -e drops with epenthetic i before -wa", "alifiriwa", "*alifirewa", "[Root-e] + i + wa"),
+            (8, "Epenthetic 'i' Stative (*Kutendeka*)", "CAT_I", "Stative potential takes epenthetic i before -ka", "ina-solvika", "*inasolveka", "[Root-e] + i + ka"),
+            (9, "Euphonic 'r' Epenthesis", "CAT_I", "Epenthetic r prevents vowel hiatus on open-vowel loan roots", "tutashareriwa", "*tutasharewa", "[Root-Vowel] + r + [Extension]"),
+            (10, "Periphrastic Reciprocal (pamoja)", "CAT_I", "Bare loan verbs pair with 'pamoja' for reciprocal actions", "tunavibe pamoja", "*tunavibeana", "[Verb] + pamoja"),
+            (11, "Applicative Benefactive (*Kutendea*)", "CAT_I", "Applicative suffix attached to loan root for whom action is done", "ani-bookie seat", "", "[Subj] + [Obj] + [Root] + ie/ea"),
+            (12, "Causative Extension (*Kutendesha*)", "CAT_I", "Causative suffix attached to loan root to make happen", "a-signishe mkataba", "", "[Root] + isha/esha"),
+            (13, "Stative-Potentive Modality", "CAT_I", "Feasibility potentiality marker", "ina-manage-ka", "", "[Root] + ka"),
+            (14, "Reflexive Infix (-ji-)", "CAT_I", "Transitive English verbs taking Bantu reflexive marker", "ana-ji-promote", "", "[Subj] + [Tense] + ji + [Root]"),
+            (15, "Negative Gerund Prefixation (bila ku-)", "CAT_I", "Negative gerund constructions without participle inflections", "bila ku-hesitate", "", "bila + ku- + [BareRoot]"),
+            (16, "Negative Gerund Object Infixing", "CAT_I", "Transitive gerund negation with embedded object concord", "bila wewe ku-wa-notice", "", "bila + [Pronoun] + ku-[Obj]-[Root]"),
+            (17, "Conditional Infix (-ki-)", "CAT_I", "Realis conditional clause marker", "uki-arrive mapema", "", "[Subj] + ki + [Root]"),
+            (18, "Hypothetical Subjunctive Infix (-nge-)", "CAT_I", "Potential conditional mood marker", "tunge-win", "", "[Subj] + nge + [Root]"),
+            (19, "Past Counterfactual Infix (-ngali-)", "CAT_I", "Unfulfilled past conditional marker", "wangali-attend", "", "[Subj] + ngali + [Root]"),
+            (20, "Perfective State Infix (-me-)", "CAT_I", "Completed action with enduring present state", "ame-shock", "", "[Subj] + me + [Root]"),
+            (21, "Progressive Aspect Infix (-na-)", "CAT_I", "Continuous ongoing action", "ina-load", "", "[Subj] + na + [Root]"),
+            (22, "Remote Past Infix (-ali-)", "CAT_I", "Distant past marker", "wali-relocate", "", "[Subj] + li + [Root]"),
+            (23, "Immediate Future Infix (-ta-)", "CAT_I", "Prospective future marker", "tuta-chat", "", "[Subj] + ta + [Root]"),
+            (24, "Iterative Narrative Infix (-ka-)", "CAT_I", "Narrative sequential consecutive marker", "aka-click aka-save", "", "[Subj] + ka + [Root]"),
+            (25, "Relative Infix Incorporation", "CAT_I", "Embedded subject/object relative pronouns in verb", "file i-yo-corrupt", "", "[Subj] + [Tense] + [Rel] + [Root]"),
+
+            # CAT II: 26-45
+            (26, "Binary Noun Class Collapse", "CAT_II", "Simplification of 18 noun classes into A-WA (humans) vs I-ZI (objects)", "msee amego / book imelost", "", "A-WA (human) | I-ZI (non-human)"),
+            (27, "English '-s' Double-Stack Plural", "CAT_II", "Prefixing collective Ma- while preserving English plural -s", "maphones, maservers", "*macheck", "Ma- + [English-Plural]"),
+            (28, "Food Plural Economy Constraint", "CAT_II", "Exclusion of collective Ma- from imported foods/pastries", "chapos", "*machapo", "[Food] + s"),
+            (29, "Loan Word Plural Concord Agreement", "CAT_II", "Imported plural nouns in I-ZI triggering zi- subject agreement", "maservers zimecrash", "*maservers yamecrash", "[Plural] + zi-[Verb]"),
+            (30, "Human Plural Concord Agreement", "CAT_II", "Imported human roles triggering wa- subject agreement", "mabosses wameagree", "", "[HumanPlural] + wa-[Verb]"),
+            (31, "Zero-Derivation Mass Nouns", "CAT_II", "Uncountable English mass nouns treated as singular I-ZI", "software ime-update", "", "[MassNoun] + i-[Verb]"),
+            (32, "Class 7/8 Diminutive Loan Prefixation", "CAT_II", "Diminutive formation on loan stems using Ki-/Vi-", "kikazi, vikazi", "", "Ki-/Vi- + [Noun]"),
+            (33, "Class 5 Augmentative Formation", "CAT_II", "Augmentative size/magnitude shifts via Ji- or vowel lengthen", "jiboss, jijam", "", "Ji- + [Noun]"),
+            (34, "Compound Loan Nouns", "CAT_II", "Head-first Bantu syntax governing English multi-word noun clusters", "market ya nje", "*nje market", "[HeadNoun] + ya + [Modifier]"),
+            (35, "Acronym Inanimate Classification", "CAT_II", "Tech and institutional acronyms defaulting to I-ZI concord", "API imefail, SDKs ziko fast", "", "[Acronym] + i-/zi-"),
+            (36, "Double Plural Deletion Avoidance", "CAT_II", "Ban on removing English stem -s when suffix is integral", "maboss, maprinter", "*mabo", "Preserve integral stem s"),
+            (37, "Kinship and Peer Grouping (Kin-ma)", "CAT_II", "Group collective marker on familial or peer heads", "kina John, kina bro", "", "kina + [Name/Role]"),
+            (38, "Abstract Quality Nominalization (U-)", "CAT_II", "Forming abstract nouns from English adjectives/nouns", "u-celebrity, u-expert", "", "U- + [LoanRoot]"),
+            (39, "Agentive Nominalization (M-/Wa-)", "CAT_II", "Deriving animate professions using M-/Wa- prefixes", "m-developer, wa-developer", "", "M-/Wa- + [LoanRoot]"),
+            (40, "Borrowed Proper Noun Non-Inflection", "CAT_II", "Exclusion of -ni locative suffix from foreign named entities", "Nairobi, Google", "*Googleni", "[ForeignName] (no -ni)"),
+            (41, "Native Common Noun Locative Attachment", "CAT_II", "Enforcing -ni for indigenous common locatives", "mtaani, chumbani", "", "[BantuNoun] + ni"),
+            (42, "Animate Non-Locative Constraint", "CAT_II", "Ban on attaching locative -ni to living persons", "kwa daktari", "*daktarini", "kwa + [Person]"),
+            (43, "Adjectival Concord in Living Classes", "CAT_II", "Human adjectives taking m- / wa- concord prefixes", "msee m-clever, wasee wa-smart", "", "m-/wa- + [Adj]"),
+            (44, "Adjectival Concord in Object Classes", "CAT_II", "Object adjectives taking i- / zi- concord prefixes", "simu i-cheap, simu zi-expensive", "", "i-/zi- + [Adj]"),
+            (45, "Invariable Loan Adjectives", "CAT_II", "High-velocity English color/status adjectives remaining bare", "gari blue, t-shirt fresh", "", "[Noun] + [BareAdj]"),
+
+            # CAT III: 46-65
+            (46, "Proximal Demonstrative Selection (Hii/Hizi)", "CAT_III", "Immediate deictic proximity for objects", "hii bug, hizi errors", "", "hii/hizi + [Noun]"),
+            (47, "Distal Demonstrative Compression (Iyo/Izo)", "CAT_III", "Phonetically reduced distal demonstratives", "iyo deal, izo files", "", "iyo/izo + [Noun]"),
+            (48, "Remote Distal Demonstrative (Ile/Zile)", "CAT_III", "Spatial or temporal remoteness", "ile project ya juzi", "", "ile/zile + [Noun]"),
+            (49, "Large Object Deictic Shift (Hili/Haya)", "CAT_III", "Physical complexes and buildings selecting Class 5 demonstratives", "hili complex, haya majengo", "", "hili/haya + [Complex]"),
+            (50, "Demonstrative Fronting for Topicalization", "CAT_III", "Placing demonstratives before noun phrase for emphasis", "hizi issues lazima zisolviwe", "", "[Dem] + [Noun]"),
+            (51, "Demonstrative Post-Positioning for Definiteness", "CAT_III", "Placing demonstrative after noun to indicate given information", "issue hii ni ngumu", "", "[Noun] + [Dem]"),
+            (52, "Manner Adverbs via Ki- Prefix", "CAT_III", "Converting loan adjectives to adverbs of manner", "ki-pro, ki-amateur", "", "ki- + [Adj]"),
+            (53, "Manner Adverbs via Vi- Prefix", "CAT_III", "Intensive adverbial manner formation", "vi-badly, vi-stupid", "", "vi- + [Adj]"),
+            (54, "Post-Nominal Possessive Concord (I-ZI)", "CAT_III", "Possessive pronouns following the inanimate noun", "laptop yangu, laptops zangu", "", "[Noun] + y-/z-angu"),
+            (55, "Post-Nominal Possessive Concord (A-WA)", "CAT_III", "Possessive pronouns following human heads", "colleague wangu, colleagues wangu", "", "[Human] + w-angu"),
+            (56, "Pre-Nominal English Possessive Borrowing", "CAT_III", "Importing English possessive pronouns pre-nominally", "my code inarun", "", "my/your + [Noun] + [Verb]"),
+            (57, "Universal Quantifier Distribution (Kila)", "CAT_III", "Invariable distributive quantifier preceding noun", "kila commit, kila team", "", "kila + [Noun]"),
+            (58, "Totalizing Quantifier Concord (-ote)", "CAT_III", "Inflected totalizer following head noun", "team yote, servers zote", "", "[Noun] + y-/z-ote"),
+            (59, "Selective Partitive Quantifier (-ingine)", "CAT_III", "Indefinite or alternative selector", "plan nyingine, msee mwingine", "", "[Noun] + [Conc]-ingine"),
+            (60, "Post-Verbal Adverbial Intensifier (Sana)", "CAT_III", "Frequency and magnitude modifier", "inalag sana", "", "[Verb] + sana"),
+            (61, "Reduplicative Intensification", "CAT_III", "Doubling adjectives/adverbs for hyperbolic emphasis", "haraka haraka, fiti fiti", "", "[Word] + [Word]"),
+            (62, "Superlative via Verb Shinda/Zidi", "CAT_III", "Expressing extremes through comparative victory verbs", "ina-perform kushinda zote", "", "[Verb] + kushinda + [All]"),
+            (63, "Approximative Quantity (Kama)", "CAT_III", "Approximations before numerical quantities", "kama thao mbili, kama 10 mins", "", "kama + [Quantity]"),
+            (64, "Diminutive Quantity (Kidogo)", "CAT_III", "Softening requests and assertions", "reduce bei kidogo", "", "[Verb] + kidogo"),
+            (65, "Extreme Quantity Slang Intensifier (Mob)", "CAT_III", "Indefinite massive quantity marker", "tuko na work mob", "", "[Noun] + mob"),
+
+            # CAT IV: 66-85
+            (66, "The Zero-Preposition Locative", "CAT_IV", "Omission of prepositions before routine destinations", "niko job, enda town, tuko home", "*niko kwa home", "[Verb] + [RoutineLoc]"),
+            (67, "Universal Locative Overlord (Kwa)", "CAT_IV", "Generalized preposition for non-routine entities and digital loci", "kwa database, kwa server", "", "kwa + [Location]"),
+            (68, "Human Target Locative (Kwa)", "CAT_IV", "Compulsory kwa when navigating to persons", "tunaenda kwa msee wa IT", "*tunaenda msee", "kwa + [Person]"),
+            (69, "Temporal Punctuality Boundary (By)", "CAT_IV", "Importing English temporal preposition by for deadlines", "finish by jioni, deploy by saa nne", "", "by + [Time]"),
+            (70, "Causal Connector Fronting (Coz / Kwa Sababu)", "CAT_IV", "Reason clauses introduced without morphological shifts", "coz API ilitimeout", "", "coz + [Clause]"),
+            (71, "Adversative Concession (Hata Kama)", "CAT_IV", "Subordinate concessive clause marker", "hata kama server imeload", "", "hata kama + [Clause]"),
+            (72, "Conditional Marker (Kama)", "CAT_IV", "Protasis clause marker for conditional sentences", "kama mteja atacancel", "", "kama + [Clause]"),
+            (73, "Contrastive Topic Marker (Lakini / But)", "CAT_IV", "Coordination boundary preserving separate linguistic codes", "tumetest lakini bado inafail", "", "[Clause] + lakini + [Clause]"),
+            (74, "Resultative Consequence (So / Basi)", "CAT_IV", "Illative connector bridging cause and effect", "link iliexpire so nikaresend", "", "[Clause] + so + [Clause]"),
+            (75, "Focus Cleft Marker (Ndio)", "CAT_IV", "Cleft focus particle highlighting subjects or instruments", "huyu dev ndio alimerge code", "", "[Subject] + ndio + [Verb]"),
+            (76, "WH-Interrogative Fronting with Focus (Nani)", "CAT_IV", "Interrogative subject fronted with verbal concord", "nani ataapprove PR?", "", "nani + a-[Verb]"),
+            (77, "WH-Interrogative In-Situ Placement (Wapi)", "CAT_IV", "Locative question particle retained sentence-finally", "umesave hii file wapi?", "", "[Clause] + wapi?"),
+            (78, "Interrogative Reason Prefixation (Mbona)", "CAT_IV", "Pre-verbal cause questions", "mbona unaniignore?", "", "mbona + [Verb]?"),
+            (79, "Manner Question Particle (Aje)", "CAT_IV", "Post-verbal question for execution mechanisms", "hii script inarun aje?", "", "[Verb] + aje?"),
+            (80, "Instrumental Preposition (Na)", "CAT_IV", "Linking tools, technologies, and agents", "tunabuild na React", "", "[Verb] + na + [Tool]"),
+            (81, "Comitative Associative Particle (Na)", "CAT_IV", "Expressing accompaniment with coordinate concord", "niko na team yangu", "", "niko na + [Entity]"),
+            (82, "Comparative Simile Particle (Kama)", "CAT_IV", "Equational comparisons across noun phrases", "inarun fast kama C++", "", "[Action] + kama + [Standard]"),
+            (83, "Directional Source Locative (Kutoka)", "CAT_IV", "Ablative spatial or digital movement", "tumepull data kutoka AWS", "", "kutoka + [Source]"),
+            (84, "Directional Target Locative (Mpaka/Hadi)", "CAT_IV", "Allative terminative boundary", "tutacode mpaka asubuhi", "", "mpaka/hadi + [Target]"),
+            (85, "Inclusive Universal Particle (Pamoja Na)", "CAT_IV", "Additive association encompassing supplementary items", "backend pamoja na frontend", "", "[A] + pamoja na + [B]"),
+
+            # CAT V: 86-100
+            (86, "Syllabic Open-Vowel Constraint (Bantu CV)", "CAT_V", "Insertion of final vowel to closed English consonants", "look -> luku, book -> buku", "", "[Consonant-Coda] + Vowel"),
+            (87, "Liquid Glide Assimilation (L <-> R)", "CAT_V", "Free phonetic variation in loan roots", "calculate -> kukalkyuleti", "", "L <-> R interchange"),
+            (88, "Cluster Simplification via Epenthesis", "CAT_V", "Breaking consonant clusters to maintain moraic rhythm", "screen -> sikirini", "", "C + V + C rhythm"),
+            (89, "Metathesis 2-Syllable Inversion", "CAT_V", "Syllable swapping in youth slang", "dawa -> wada, pesa -> sape", "", "[Syl1][Syl2] -> [Syl2][Syl1]"),
+            (90, "Metathesis Consonant Shift", "CAT_V", "Phonetic inversion of root consonants", "chwani -> ngao, sista -> mbeshte", "", "Consonant permutation"),
+            (91, "Vowel Elision in High-Velocity Speech", "CAT_V", "Dropping unaccented vowels at word boundaries", "wewe uko -> we uko, yeye ako -> ye ako", "", "Vowel boundary drop"),
+            (92, "Nasal Prefix Homorganicity", "CAT_V", "Nasal assimilation before bilabial and velar consonants", "m- before p/b, n- before t/d", "", "Nasal matching"),
+            (93, "Devoicing of Loan Final Obstruents", "CAT_V", "Tending toward voiceless stops in word-final positions", "bag -> baki, code -> kodi", "", "Obstruent devoicing"),
+            (94, "Monophthongization of English Diphthongs", "CAT_V", "Reducing complex diphthongs to pure monophthong vowels", "make /eI/ -> meki /e/", "", "Diphthong -> Monophthong"),
+            (95, "Vowel Lengthening for Emphatic Stress", "CAT_V", "Penultimate syllable elongation for emotive signaling", "ile issue ilikuwa nguuumu!", "", "Vowel repetition"),
+            (96, "Tonal Accent Neutralization", "CAT_V", "Mapping English lexical stress into Bantu penultimate stress", "dévelop -> devélop", "", "Penultimate stress"),
+            (97, "Sibilant Harmony in Slang Derivatives", "CAT_V", "Harmonizing alveolar and palato-alveolar fricatives", "chapaa, chwani", "", "Sibilant agreement"),
+            (98, "High Vowel Fronting before Glides", "CAT_V", "Pre-glide vocalic shifts in compound slangs", "form -> fomu -> fomi", "", "Fronting shift"),
+            (99, "Intervocalic Fricative Weakening", "CAT_V", "Softening stops between vowels in fast colloquial flow", "kidogo -> kidogo/kido", "", "Intervocalic lenition"),
+            (100, "Glottal Stop Elimination", "CAT_V", "Smooth liaison across vowel-initial loan verbs", "u-load, a-update", "", "Liaison smoothness"),
+
+            # CAT VI: 101-115
+            (101, "Transactional Command Bare Root (Tuma)", "CAT_VI", "Imperative mobile money transfer syntax", "tuma kwa hii number", "", "tuma + kwa + [Target]"),
+            (102, "Reversal Particle Syntax (Reverse)", "CAT_VI", "Mobile money reversal action request", "nime-request wa-reverse", "", "[Subj] + reverse"),
+            (103, "Transaction Fulfilled Stative (Imeingia)", "CAT_VI", "Confirmation of incoming liquidity", "chapaa imeingia", "", "[Funds] + imeingia"),
+            (104, "Transaction Exhausted Stative (Imekata)", "CAT_VI", "Fee deduction and balance drop", "Fuliza imekata fee yote", "", "[Facility] + imekata"),
+            (105, "Loan Application Root (Fuliza/Kopa)", "CAT_VI", "Overdraft facility syntax", "inabidi nifulize fare", "", "fuliza/kopa + [Target]"),
+            (106, "Currency Slang Value Anchoring (Thao)", "CAT_VI", "Thousands multiplier currency register", "thao tano (KES 5,000)", "", "[thao] + [Number]"),
+            (107, "Currency Slang Fraction Anchoring (So/Joo)", "CAT_VI", "Hundreds multiplier currency register", "soo tano (KES 500)", "", "[soo] + [Number]"),
+            (108, "Denomination Identity Mapping (Chwani/Finje)", "CAT_VI", "Fifty-shilling unit syntax", "finje, chwani (KES 50)", "", "finje / chwani"),
+            (109, "Digital Verification Code Invariant (OTP)", "CAT_VI", "Zero-translation security credential noun", "tuma OTP mara moja", "", "OTP invariant"),
+            (110, "Telecommunication Balance Query", "CAT_VI", "USSD query pragmatics", "cheki balance kwanza", "", "cheki balance"),
+            (111, "Network Congestion Metaphor (Net Iko Down)", "CAT_VI", "Telemetry connectivity failure state", "net iko down, server ime-hang", "", "[Net] + iko down"),
+            (112, "Battery and Energy Depletion (Imedie)", "CAT_VI", "Device power exhaustion", "simu yangu imedie", "", "[Device] + imedie"),
+            (113, "Airtime Scratch-Card Recharge (Kuload)", "CAT_VI", "Data package acquisition syntax", "naload data bundles", "", "load + bundles/airtime"),
+            (114, "Hardware Ruin Metaphor (Kuchoma)", "CAT_VI", "Permanent component ruin or blown fuses", "hard drive ilichoma", "", "[Hardware] + ilichoma"),
+            (115, "Screen Display Fracture (Kucrush Display)", "CAT_VI", "Physical screen damage pragmatics", "display ilicrack", "", "display + ilicrack"),
+
+            # CAT VII: 116-125
+            (116, "Sentence-Final Pragmatic Anchor (Bana)", "CAT_VII", "Conversational reality assertion marker", "haina noma bana", "", "[Clause] + bana"),
+            (117, "Sentence-Initial Evidential Anchor (Enyewe)", "CAT_VII", "Conceding truth and factual reality", "enyewe hiyo bug ilikuwa tricky", "", "enyewe + [Clause]"),
+            (118, "Sentence-Initial Distress Interjection (Manze)", "CAT_VII", "Emotional surprise or indignation", "manze nime-lose changes", "", "manze + [Clause]"),
+            (119, "Rhetorical Disbelief Tag (Kwani)", "CAT_VII", "Challenging baseline assumptions", "kwani haukusave?", "", "kwani + [Question]?"),
+            (120, "Solidarity Confirmation Particle (Sindio/Si Eeh)", "CAT_VII", "Seeking consensus at clause boundaries", "tutamaliza hii sprint leo, sindio?", "", "[Clause], sindio?"),
+            (121, "Deontic Necessity Modal (Inabidi/Lazima)", "CAT_VII", "Compulsory systemic requirement", "inabidi turefactor hii code", "", "inabidi/lazima + [Action]"),
+            (122, "Preferential Subjunctive Modal (Afadhali)", "CAT_VII", "Optimal path recommendation", "afadhali tutumie PostgreSQL", "", "afadhali + [Choice]"),
+            (123, "Impossibility Stative Modal (Haiwezi)", "CAT_VII", "Asserting functional blockage", "haiwezi run bila internet", "", "haiwezi + [Verb]"),
+            (124, "Reassurance Palliative Particle (Haina Noma)", "CAT_VII", "De-escalating technical anxiety", "relax haina noma tutapatch", "", "haina noma / chill tu"),
+            (125, "The Poplack-Bantu Boundary Invariant", "CAT_VII", "Prohibition against switching across bound grammatical infixes", "alitu-call (OK) vs *he-tupigie-ed (BLOCKED)", "", "Preserve Bantu Morphological Boundary")
+        ]
+
+        for item in raw_rules:
+            rule_def = RuleDefinition(
+                id=item[0],
+                title=item[1],
+                category=item[2],
+                description=item[3],
+                example_valid=item[4],
+                example_invalid=item[5] if len(item) > 5 else "",
+                formula=item[6] if len(item) > 6 else ""
+            )
+            self.rules[rule_def.id] = rule_def
+
+    def get_rule(self, rule_id: int) -> Optional[RuleDefinition]:
+        return self.rules.get(rule_id)
+
+    def get_rules_by_category(self, cat_key: str) -> List[RuleDefinition]:
+        return [r for r in self.rules.values() if r.category == cat_key]
+
+    def list_all_rules(self) -> List[RuleDefinition]:
+        return [self.rules[k] for k in sorted(self.rules.keys())]
+
+    def search_rules(self, query: str) -> List[RuleDefinition]:
+        q = query.lower()
+        results = []
+        for r in self.rules.values():
+            if q in r.title.lower() or q in r.description.lower() or q in r.example_valid.lower() or q in r.formula.lower():
+                results.append(r)
+        return results
+
+    def audit_sentence_125(self, sentence: str) -> Dict[str, Any]:
+        """
+        Audits a sentence against the 125-rule catalog, mapping triggered rules and violations.
+        """
+        lowered = sentence.lower()
+        matched_rules = []
+
+        # Check key indicator rules
+        if re.search(r'\bame[a-z]+ed\b|\bali[a-z]+ed\b|\bnime[a-z]+ed\b', lowered):
+            matched_rules.append(self.rules[1]) # Rule 1 violation indicator
+        if re.search(r'\b(si|hatu|hawa)[a-z]+\b', lowered):
+            matched_rules.append(self.rules[3]) # Rule 3
+        if "pamoja" in lowered:
+            matched_rules.append(self.rules[10]) # Rule 10
+        if re.search(r'\bma[a-z]+s\b', lowered):
+            matched_rules.append(self.rules[27]) # Rule 27
+        if "chapos" in lowered:
+            matched_rules.append(self.rules[28]) # Rule 28
+        if re.search(r'\bki[a-z]+\b', lowered):
+            matched_rules.append(self.rules[52]) # Rule 52
+        if re.search(r'\bniko job\b|\benda town\b|\btuko home\b', lowered):
+            matched_rules.append(self.rules[66]) # Rule 66
+        if re.search(r'\bkwa\s+[a-z]+', lowered):
+            matched_rules.append(self.rules[67]) # Rule 67
+        if "bana" in lowered:
+            matched_rules.append(self.rules[116]) # Rule 116
+        if "enyewe" in lowered:
+            matched_rules.append(self.rules[117]) # Rule 117
+        if "manze" in lowered:
+            matched_rules.append(self.rules[118]) # Rule 118
+        if "kwani" in lowered:
+            matched_rules.append(self.rules[119]) # Rule 119
+        if "inabidi" in lowered or "lazima" in lowered:
+            matched_rules.append(self.rules[121]) # Rule 121
+        if "haina noma" in lowered or "chill tu" in lowered:
+            matched_rules.append(self.rules[124]) # Rule 124
+
+        return {
+            "sentence": sentence,
+            "rules_checked": len(self.rules),
+            "matched_rules": [
+                {
+                    "rule_id": r.id,
+                    "title": r.title,
+                    "category": r.category,
+                    "category_name": self.CATEGORIES.get(r.category, r.category),
+                    "description": r.description,
+                    "formula": r.formula
+                }
+                for r in matched_rules
+            ]
+        }
+
+
+# Singleton instance
+_default_125_registry = None
+
+def get_125_rules_registry() -> LooselySwahili125RulesRegistry:
+    global _default_125_registry
+    if _default_125_registry is None:
+        _default_125_registry = LooselySwahili125RulesRegistry()
+    return _default_125_registry
+

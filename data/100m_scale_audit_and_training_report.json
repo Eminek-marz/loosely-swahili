@@ -1,0 +1,168 @@
+{
+  "timestamp": "2026-09-27 16:23:12",
+  "target_words": 100000000,
+  "total_duration_seconds": 628.99,
+  "audit_summary": {
+    "total_words_audited": 100000013,
+    "total_sentences_audited": 7704849,
+    "duration_seconds": 553.44,
+    "words_per_second": 180688.0,
+    "overall_blueprint_compliance_pct": 100.0,
+    "illegal_double_inflections_count": 0,
+    "lexical_invariants_audited": {
+      "doba_as_music_occurrences": 578974,
+      "dawa_as_medicine_occurrences": 339623,
+      "bado_as_still_occurrences": 720170,
+      "ndauwo_as_fare_occurrences": 565555
+    },
+    "top_rule_triggers": {
+      "Rule II: Verbal Plug-In Matrix": 11543547,
+      "Rule IX: 'Kwa' Overlord Preposition": 2136647,
+      "Rule XIV: Discourse Markers": 1609568,
+      "Rule VI: Manner Adverb 'Ki-'": 1153351,
+      "Kiswahili Invariant: Bado (Still/Yet)": 720170,
+      "Rule V: Food Plural Suffixation": 584774,
+      "Rule X: Doba (Music/Track)": 578974,
+      "Rule X: Ndauwo (Fare)": 565555,
+      "Rule IV: Double-Stack Pluralization": 392256,
+      "Rule III: Mid-Sentence Negation": 385067,
+      "Rule X: Dawa (Medicine/Treatment)": 339623,
+      "Rule VIII: Zero-Preposition Spatial Ellipsis": 95316
+    },
+    "emergent_features": {
+      "top_manner_adverbs": {
+        "kiboss": 456269,
+        "kichizi": 116544,
+        "kistupid": 116426,
+        "kiactor": 116351,
+        "kipro": 116211,
+        "kiserious": 115789
+      },
+      "top_double_stack_nouns": {
+        "madesks": 56319,
+        "machairs": 56281,
+        "mapolice": 56205,
+        "matowers": 55925,
+        "masponsors": 55870,
+        "maphones": 55846
+      },
+      "top_food_plurals": {
+        "chomas": 84118,
+        "kikomis": 83712,
+        "mayais": 83539,
+        "chapos": 83486,
+        "muturas": 83462,
+        "mandazis": 83327
+      },
+      "top_discourse_markers": {
+        "buda": 349123,
+        "wee": 324056,
+        "enyewe": 323106,
+        "manze": 153795,
+        "walahi": 153357,
+        "maze": 153100
+      },
+      "top_zero_prep_locations": {
+        "base": 16007,
+        "stage": 15910,
+        "keja": 15893,
+        "tao": 15881,
+        "job": 15871,
+        "club": 15754
+      },
+      "top_copula_predicates": {}
+    }
+  },
+  "tokenizer_economy": {
+    "total_words_evaluated": 95,
+    "naive_bpe_token_count": 259,
+    "sheng_bpe_token_count": 207,
+    "token_reduction_savings_pct": 20.08,
+    "tokens_per_word_naive": 2.73,
+    "tokens_per_word_smart": 2.18
+  },
+  "contrastive_evaluation": [
+    {
+      "rule": "Rule I: Bare Root Constraint (pick vs picked)",
+      "grammatical": "Alikuwa amepick simu akaenda job akiwa amekasirika.",
+      "grammatical_ppl": 1113.41,
+      "ungrammatical": "Alikuwa amepicked simu akaenda job akiwa amekasirika.",
+      "ungrammatical_ppl": 1680.07,
+      "ppl_penalty": 566.66,
+      "ratio_preference": "1.5x penalty for violation",
+      "status": "PASS"
+    },
+    {
+      "rule": "Rule I: Bare Root Constraint (shock vs shocked)",
+      "grammatical": "Nimeshock kusikia vile kampuni ilivyomfuta kazi jana.",
+      "grammatical_ppl": 2305.55,
+      "ungrammatical": "Nimeshocked kusikia vile kampuni ilivyomfuta kazi jana.",
+      "ungrammatical_ppl": 21892.29,
+      "ppl_penalty": 19586.74,
+      "ratio_preference": "9.5x penalty for violation",
+      "status": "PASS"
+    },
+    {
+      "rule": "Rule VIII: Zero-Preposition Ellipsis (wako rada vs wako katika rada)",
+      "grammatical": "Mayouth wa mtaa wako rada na maphones zao ziko fiti.",
+      "grammatical_ppl": 31.32,
+      "ungrammatical": "Mayouth wa mtaa wako katika rada na maphones zao ziko fiti.",
+      "ungrammatical_ppl": 107.64,
+      "ppl_penalty": 76.32,
+      "ratio_preference": "3.4x penalty for violation",
+      "status": "PASS"
+    },
+    {
+      "rule": "Rule X: Lexical Invariant (doba = music)",
+      "grammatical": "Weka hiyo doba tucheze kaveve kazoze leo bila stress.",
+      "grammatical_ppl": 115.6,
+      "ungrammatical": "Weka hiyo gomba tucheze kaveve kazoze leo bila stress.",
+      "ungrammatical_ppl": 203.64,
+      "ppl_penalty": 88.04,
+      "ratio_preference": "1.8x penalty for violation",
+      "status": "PASS"
+    },
+    {
+      "rule": "Rule X: Lexical Invariant (dawa = medicine, ndauwo = fare)",
+      "grammatical": "Duka la dawa liko wazi saa ishirini na nne karibu na stage.",
+      "grammatical_ppl": 5.05,
+      "ungrammatical": "Duka la ndauwo liko wazi saa ishirini na nne karibu na stage.",
+      "ungrammatical_ppl": 27.92,
+      "ppl_penalty": 22.87,
+      "ratio_preference": "5.5x penalty for violation",
+      "status": "PASS"
+    },
+    {
+      "rule": "Kiswahili Invariant: bado = still / yet (never corrupted)",
+      "grammatical": "Bado niko hapa mtaa nikingoja dili ya kazi ifanikiwe.",
+      "grammatical_ppl": 155.99,
+      "ungrammatical": "Doba niko hapa mtaa nikingoja dili ya kazi ifanikiwe.",
+      "ungrammatical_ppl": 1725.55,
+      "ppl_penalty": 1569.56,
+      "ratio_preference": "11.1x penalty for violation",
+      "status": "PASS"
+    }
+  ],
+  "generative_samples": [
+    {
+      "seed": "mayouth wa mtaa",
+      "generated": "mayouth wa mtaa wako rada maleaders zao ziko fiti hakuna kurudi nyuma walahi lakini mbona"
+    },
+    {
+      "seed": "serikali inafaa",
+      "generated": "serikali inafaa kujua kwamba mayouth hawana tao na bado niko hapa mtaa wamejipanga hawawezi"
+    },
+    {
+      "seed": "huyu dem",
+      "generated": "huyu dem ako na vibe safi sana mdogo wangu bado hajafika tunafuatilia hii show"
+    },
+    {
+      "seed": "weka hiyo doba",
+      "generated": "weka hiyo doba ya club kali sana ya mtaa hii ngoma imepiga deep kuliko zote"
+    },
+    {
+      "seed": "niko job",
+      "generated": "niko job hapa westlands lakini mshahara wote unaishia kulipa rent na kununua chomas akashindwa"
+    }
+  ]
+}

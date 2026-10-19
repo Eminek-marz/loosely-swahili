@@ -84,50 +84,96 @@ Standard BPE Tokenizer:
 
 ```
 ├── data/
-│   ├── sheng_lexicon.json            # High-fidelity semantic dictionary with morphological metadata
-│   ├── kenyan_code_switch_corpus.jsonl # Parallel dataset: Sheng <-> Sanifu Swahili <-> English
+│   ├── sheng_lexicon.json            # Semantic dictionary with phonetic variants & syntactic classes
+│   ├── kenyan_code_switch_corpus.jsonl # Parallel corpus: Sheng <-> Sanifu Swahili <-> English
 │   ├── sheng_tokenizer_vocab.json    # Hugging Face compatible tokenizer vocabulary
 │   └── vocab.txt                     # Plain text vocabulary list
 ├── src/
-│   ├── __init__.py
+│   ├── __init__.py                   # Top-level API: ls.fuse(), ls.deconstruct(), ls.analyze(), ls.audit()
+│   ├── fusion_engine.py              # Bantu-English 4D Morphotactic Matrix & phonotactic phonology
 │   ├── morphology.py                 # Bantu affix deconstructor & intra-word hybrid parser
-│   ├── lexicon_manager.py            # O(1) Trie/dictionary lookup & phonetic normalizer
+│   ├── lexicon_manager.py            # O(1) indexed lookup, phonetic normalizer, multi-word idioms
 │   ├── tokenizer.py                  # ShengCodeSwitchTokenizer & BPE comparison simulator
-│   └── normalizer.py                 # End-to-end normalization & translation pipeline
+│   ├── normalizer.py                 # End-to-end normalization & translation pipeline
+│   ├── loosely_swahili_engine.py     # Master Blueprint 17-pillar linguistic rule engine & validator
+│   ├── concept_recreation_engine.py  # Tri-set philosophical & technical concept recreation
+│   └── mass_100m_auditor.py          # High-throughput streaming corpus validator
 ├── web/
-│   ├── index.html                    # Interactive playground UI (Tailwind CSS)
+│   ├── index.html                    # Interactive Web Studio (Tailwind CSS, 5 explorer tabs)
 │   └── server.py                     # Zero-dependency local REST API & web server
 ├── tests/
+│   ├── test_fusion_engine.py         # Unit tests for morphotactic fusion & phonotactic rules
+│   ├── test_loosely_swahili_rules.py # Unit tests for the 17 Master Blueprint linguistic pillars
 │   ├── test_sheng_nlp.py             # Unit tests for morphology, lexicon, and tokenizer
-│   └── test_api.py                   # REST endpoint tests
-└── export_hf_tokenizer.py            # Hugging Face export utility
+│   └── test_api.py                   # REST API endpoint tests
+├── app.py                            # Standalone deployment entrypoint (Hugging Face / Render / Railway)
+├── pyproject.toml                    # PEP 517/621 packaging configuration
+└── export_hf_tokenizer.py            # Hugging Face tokenizer export utility
 ```
 
 ---
 
-## 🚀 4. Quick Start & Interactive Demo
+## ⚡ 4. The Bantu-English Morphotactic Fusion Matrix (v0.2.0)
 
-### Run the Interactive Web Playground:
-Launch the built-in web server:
+Kenyan bilingual speakers intuitively graft English verbs onto the agglutinative Bantu inflectional skeleton of Kiswahili. The **Bantu-English Morphotactic Fusion Engine** (`src/fusion_engine.py`) models this phenomenon across a **4-dimensional grammatical matrix**:
+
+```
+ ┌─────────────────┐   ┌─────────────────┐   ┌─────────────────┐   ┌─────────────────┐
+ │      WHO?       │   │      WHEN?      │   │     WHERE?      │   │      HOW?       │
+ │ Subject/Object  │ + │  Tense / Aspect │ + │ Locative Clitic │ + │  Bantu Extension│ + [English Root]
+ │ (Ni-, U-, A-,   │   │ (-na-, -li-,    │   │ (-po-, -ko-,    │   │ (Minyambuliko:  │
+ │  Tu-, M-, Wa-)  │   │  -ta-, -me-)    │   │  -mo-)          │   │  -ea, -wa, -eka)│
+ └─────────────────┘   └─────────────────┘   └─────────────────┘   └─────────────────┘
+```
+
+### Phonotactic Harmony & Street Orthography Rules
+
+1. **Vowel-Drop + Epenthetic `i` (*Kutendwa* Passive & *Kutendeka* Stative)**:
+   - English loan stems ending in silent `-e` drop the terminal vowel and insert an epenthetic `i` before Bantu extensions:
+     - `fire` $\rightarrow$ `alifiriwa` *(he was fired)*
+     - `solve` $\rightarrow$ `inasolvika` *(it is solvable)*
+     - `cane` $\rightarrow$ `alicaniwa` *(he was caned)*
+     - `confuse` $\rightarrow$ `ananiconfuse` / `aliconfusiwa`
+
+2. **Euphonic `r` Epenthesis (Vowel-Final Stems)**:
+   - Verbs ending in open vowel sounds insert a euphonic `r` before passive/applicative suffixes to preserve syllable structure:
+     - `share` $\rightarrow$ `tutashareriwa` *(we will be shared with)*
+
+3. **Periphrastic Reciprocal (`pamoja` Rule)**:
+   - **Crucial Sociolinguistic Discovery**: Urban youth in Kenya do **not** say textbook `*tunachillana` or `*wanashareana`. The English loan root remains intact and is combined with the post-verbal adverbial modifier **`pamoja`**:
+     - `vibe` $\rightarrow$ `tunavibe pamoja` *(we are vibing together)*
+     - `chill` $\rightarrow$ `tunachill pamoja` *(we are chilling together)*
+     - `date` $\rightarrow$ `wanadate pamoja` *(they are dating)*
+     - `share` $\rightarrow$ `wanashare pamoja` *(they are sharing together)*
+
+4. **Semantic Transitivity Validation**:
+   - Intransitive English verbs (e.g., `chill`, `retire`, `resign`, `vibe`) are programmatically restricted from taking passive voice (`*alichillwa` is blocked), maintaining semantic integrity.
+
+---
+
+## 🚀 5. Quick Start & Interactive Demo
+
+### Run the Interactive Web Studio:
 ```bash
+# Option A: Standalone deployment entrypoint
+python app.py
+
+# Option B: Direct server invocation with custom port
 python web/server.py 8080
 ```
-Then open your browser to **`http://localhost:8080`**.
+Then navigate to **`http://localhost:8080`** (or `http://localhost:7860`).
 
-Features in the playground:
-- **Interactive Sentence Analyzer**: Type any Kenyan Sheng phrase and see live translation into Formal Swahili and English.
-- **Tokenizer Fragmentation Visualizer**: See standard BPE tokenizer shattering side-by-side with our Sheng-aware tokenizer.
-- **Sheng Lexicon Explorer**: Search slang words by category (Lifestyle, Finance/M-Pesa, Transport, Social, Verbs).
-- **Crowdsource New Words**: Submit new Sheng words directly from the browser; it immediately updates `sheng_lexicon.json` and retrains the tokenizer!
+### Features in the Web Studio:
+- **🔤 Morphotactic Fusion Matrix**: Interactively compose English verbs with Bantu Subject, Tense, Object, Locative, and Extension dropdowns with live phonotactic synthesis.
+- **🔍 Sentence Analyzer**: Type any mixed Sheng/Swahili sentence for real-time decomposition into Formal Kiswahili (Sanifu) and English.
+- **⚡ Tokenizer Shattering Visualizer**: Direct side-by-side comparison of standard BPE token explosion vs. Sheng-aware morpheme preservation.
+- **📚 Sheng Lexicon Explorer**: Search categories, phonetic variants, and submit new street slang to the active dictionary.
+- **🧠 Concept Recreation Studio**: Translate complex technical and philosophical abstractions into parallel Tri-Sets (Pure English, Sanifu Swahili, Kenyan Code-Switch).
 
-### Run Python Tests:
+### Run Test Suite:
 ```bash
-python tests/test_sheng_nlp.py
-```
-
-### Export Hugging Face Tokenizer Vocab:
-```bash
-python export_hf_tokenizer.py
+python -m unittest discover tests
+# 38 passing unit tests across morphology, rules, fusion, and API in <0.2s
 ```
 
 ### 📦 Official Hugging Face Datasets
@@ -139,39 +185,67 @@ from datasets import load_dataset
 
 # 1. Multi-Task Instruction Dataset (50,000 pairs: Tech, Health, Law, Finance, Street Slang)
 instruct_ds = load_dataset("Maxyelow/kenyan-code-switch-instruct-50k")
-print(instruct_ds["train"][0])
 
 # 2. Monolingual Pretraining Corpus (1,000,000 sentences / 17 Million words)
 pretrain_ds = load_dataset("Maxyelow/kenyan-code-switch-1m")
-print(pretrain_ds["train"][0])
 ```
 
 ---
 
-## 🛠️ 5. Using the Python API in Your Code
+## 🛠️ 6. Using the Python API in Your Code
+
+`loosely-swahili` provides a clean, unified top-level API:
 
 ```python
-from src.normalizer import ShengNormalizerPipeline
-from src.tokenizer import ShengCodeSwitchTokenizer
+import loosely_swahili as ls
 
-pipeline = ShengNormalizerPipeline()
+# -------------------------------------------------------------
+# 1. Morphotactic Fusion: Synthesize English Verbs into Sheng
+# -------------------------------------------------------------
+# Natural Reciprocal with 'pamoja'
+res = ls.fuse("vibe", who_subj="1p", when_tense="present", how_ext="kutendana")
+print(res.fused_verb)
+# Output: 'tunavibe pamoja'
 
-# 1. Normalize code-switched text
-result = pipeline.process("Niko mtaani na mayouth tukipiga luku safi.")
+# Vowel-drop + epenthetic 'i' passive
+res_passive = ls.fuse("fire", who_subj="3s", when_tense="past", how_ext="kutendwa")
+print(res_passive.fused_verb)
+# Output: 'alifiriwa'
 
+# Applicative with Object Marker
+res_appl = ls.fuse("book", who_subj="3p", who_obj="1p", when_tense="past", how_ext="kutendea")
+print(res_appl.fused_verb)
+# Output: 'walitubookia'
+
+# Euphonic 'r' epenthesis
+res_euphonic = ls.fuse("share", who_subj="1p", when_tense="future", how_ext="kutendwa")
+print(res_euphonic.fused_verb)
+# Output: 'tutashareriwa'
+
+# -------------------------------------------------------------
+# 2. Deconstruction: Reverse-Engineer Any Fused Verb
+# -------------------------------------------------------------
+decomp = ls.deconstruct("walitubookia")
+print(decomp.who_subject)       # '3p (wao / they)'
+print(decomp.who_object)        # '1p (sisi / us)'
+print(decomp.tense)             # 'past (-li-)'
+print(decomp.root_english)      # 'book'
+print(decomp.how_extension)     # 'kutendea (applicative -ia)'
+
+# -------------------------------------------------------------
+# 3. Analyze, Normalize & Translate Code-Switched Sentences
+# -------------------------------------------------------------
+result = ls.analyze("Niko mtaani na mayouth tukipiga luku safi.")
 print("Standard Swahili:", result.normalized_swahili)
-# Output: Niko katika mtaa na vijana tukiwa tumependeza maridadi.
+# Output: 'niko katika mtaa na vijana...'
+print("English Translation:", result.english_translation)
+# Output: 'I am in neighborhood and youths...'
 
-print("English:", result.english_translation)
-# Output: I am in the hood and youths looking clean.
-
-# 2. Inspect tokenizer efficiency
-tokenizer = ShengCodeSwitchTokenizer()
-comp = tokenizer.compare_efficiency("Bro unaniconfuse, hiyo form ilichoma kitambo.")
-
-print("Standard BPE count:", comp["standard_bpe_count"])   # ~24 tokens
-print("Sheng-Aware count:", comp["sheng_aware_count"])     # ~8 tokens
-print("Token Savings:", comp["token_reduction_savings_pct"], "%")
+# -------------------------------------------------------------
+# 4. Master Blueprint Rule Auditing (17 Linguistic Pillars)
+# -------------------------------------------------------------
+report = ls.audit("Alikuwa amepick mabooks zangu coz niko job.")
+print("Compliant:", report["compliant"])  # True
 ```
 
 ---
@@ -299,6 +373,69 @@ python src/hybrid_trainer.py
 
 ---
 
+---
+
+## 🧠 9. The Official 125 Rules Specification (v0.3.0)
+
+In `v0.3.0`, `loosely-swahili` codifies the comprehensive **125 Linguistic & Generative Grammar Rules of East African Code-Switching**, spanning all morphosyntactic, phonotactic, syntactic, semantic, pragmatic, and sociolinguistic levels:
+
+| Category | Description | Rule Scope | Key Invariants |
+|---|---|---|---|
+| **CAT I** | Morphosyntactic Verbal Agglutination | Rules 1 – 25 | Bare Root Invariant, Subject-Tense-Object Plug-in, Epenthetic `i`, Euphonic `r`, `Pamoja` Reciprocal |
+| **CAT II** | Nominal Classes & Pluralization | Rules 26 – 45 | A-WA vs I-ZI Collapse, Double-Stack Plural (`maphones`), `Chapos` Food Economy, Kinship Groups |
+| **CAT III** | Deixis, Demonstratives & Modifiers | Rules 46 – 65 | Proximal/Distal Compression (`hii`/`iyo`), Ki-/Vi- Manner Adverbs, Post-Nominal Possessives, Reduplication |
+| **CAT IV** | Syntax, Locatives & Prepositions | Rules 66 – 85 | Zero-Preposition Locative (`niko job`), Universal `Kwa` Overlord, WH-Fronting (`nani`), Temporal `By` |
+| **CAT V** | Phonology, Metathesis & Epenthesis | Rules 86 – 100 | Open-Vowel CV Constraint (`look` $\rightarrow$ `luku`), Metathesis Inversions (`dawa` $\rightarrow$ `wada`), Liaison |
+| **CAT VI** | Digital, Financial & M-Pesa Pragmatics | Rules 101 – 115 | Transactional Bare Roots (`tuma`), Reversals, Fuliza Overdrafts, Value Slang (`thao`, `finje`, `chwani`), OTP |
+| **CAT VII** | Discourse Anchors & Modals | Rules 116 – 125 | `Bana`, `Enyewe`, `Manze`, `Kwani`, Deontic `Inabidi`, Poplack-Bantu Boundary Invariant |
+
+### Python API: Auditing Against the 125 Rules
+```python
+import loosely_swahili as ls
+
+# Audit any text against all 125 rules
+report = ls.audit_125_rules("Manze niko job na maservers zote zimecrash, inabidi turesolve bana.")
+for rule in report["matched_rules"]:
+    print(f"[Rule {rule['rule_id']}] {rule['title']} ({rule['category_name']})")
+    print(f"  Formula: {rule['formula']}")
+
+# Look up specific rules by ID
+rule_125 = ls.get_125_rule(125)
+print(f"Rule 125: {rule_125.title} -> {rule_125.description}")
+
+# Bidirectional English to Kenyan Code-Switching Translation
+res = ls.translate_to_codeswitch("Although the server was delayed, the payment was processed.")
+print("Kenyan Code-Switch:", res.kenyan_codeswitch)
+# -> "Hata kama server ilidelayiwa, malipo yaliprocessiwa."
+```
+
+---
+
+## 🤖 10. Autonomous Agentic Workbench & Code Synthesis (Anjiru AI)
+
+Beyond standard linguistic tokenization, `loosely-swahili` powers **Anjiru AI**—an autonomous indigenous computational workbench and IDE extension:
+
+- **Two-Pass Architecture:**
+  - *Pass 1 (Architect):* Semantic intent classifier (`[FRAMEWORK]` vs `[SCRIPT]`) and schema-enforced structural JSON blueprint (`[ARCHITECTURE_PLAN]`).
+  - *Pass 2 (Builder):* Dynamic multi-file scaffolding, package init generation, and complete production code synthesis.
+- **Self-Healing Sandbox:** Runs commands natively in workspace sandboxes, catches traceback exceptions, auto-patches missing dependencies, and runs automated test suites (`python manage.py check/test`).
+- **Persistent Agent Memory:** Disk-persisted memory states with telemetry checkpoints (`memory_points/`).
+
+```python
+import loosely_swahili as ls
+
+# Access the sovereign Anjiru agent programmatically
+agent = ls.get_agent()
+orchestrator = ls.get_orchestrator()
+
+# Sanitize prompts and classify intent
+clean_prompt = ls.sanitize_user_prompt("hello please create a django project for student management system")
+intent = ls.classify_intent(clean_prompt)
+print(intent)  # {'intent': 'framework_scaffold', 'framework': 'django', 'domain': 'student_management'}
+```
+
+---
+
 ## 👥 Authors & Maintainers
 
 - **Maxwell Ng'ang'a** - *Lead Researcher & Creator*
@@ -310,14 +447,14 @@ python src/hybrid_trainer.py
 
 ## 📜 Citation
 
-If you use `loosely-swahili`, its morphological engine, or the accompanying Hugging Face datasets in your academic research or engineering applications, please cite:
+If you use `loosely-swahili`, its 125 morphological rules, or the accompanying Hugging Face datasets in your academic research or engineering applications, please cite:
 
 ```bibtex
 @software{loosely_swahili_2026,
   author = {Maxwell Ng'ang'a},
-  title = {loosely-swahili: The Premier NLP Toolkit and Morphological Engine for East African Kenyan Code-Switching and Sheng},
+  title = {loosely-swahili: The Premier NLP Toolkit, 125-Rule Morphological Engine, and Agentic Workbench for East African Kenyan Code-Switching and Sheng},
   year = {2026},
-  version = {0.1.3},
+  version = {0.3.0},
   url = {https://github.com/Eminek-marz/loosely-swahili},
   publisher = {Python Package Index & Hugging Face}
 }

@@ -1,0 +1,129 @@
+{
+  "approach": "Option B (Hybrid: Real Human Ground Truth + Rule-Constrained Scale)",
+  "real_human_stats": {
+    "real_lyrics_lines": 1130,
+    "real_social_lines": 395,
+    "real_forum_lines": 280,
+    "real_podcast_lines": 430,
+    "total_real_human_lines": 2235,
+    "total_real_human_words": 27298
+  },
+  "empirical_evidence": {
+    "unique_verbal_plugins_found": [
+      {
+        "token": "unaniconfuse",
+        "line": "Hapo kwa 'unaniconfuse' Mejja amegonga ndipo, madem wa Kanairo ni hatari."
+      },
+      {
+        "token": "alifiriwa",
+        "line": "Nilicheka sana vile alielezea vile alifiriwa kwa hiyo kampuni ya kwanza bila notice."
+      },
+      {
+        "token": "alimghost",
+        "line": "Huyo dem alimghost jamaa baada ya kumpeleka date ya kifahari huko Kilimani."
+      },
+      {
+        "token": "usinipass",
+        "line": "Yoh, busy streets, hizi steps, usinipass usinitrace"
+      },
+      {
+        "token": "usinitrace",
+        "line": "Yoh, busy streets, hizi steps, usinipass usinitrace"
+      },
+      {
+        "token": "inanistress",
+        "line": "Strength inanistress, yet I&#8217;m the best"
+      },
+      {
+        "token": "akiniforgive",
+        "line": "Bado ndio ilifanyanga wife ashinde akiniforgive"
+      },
+      {
+        "token": "alipromotiwa",
+        "line": "Alipromotiwa kuwa meneja wa masoko baada ya kampeni yake ya mtandaoni kuvutia wateja wengi wapya."
+      },
+      {
+        "token": "amecaniwa",
+        "line": "Amecaniwa shuleni kwa kukataa kufanya kazi ya ziada aliyopewa na mwalimu wake wa hesabu."
+      },
+      {
+        "token": "ilifriziwa",
+        "line": "Wakenya kwenye Twitter walisema kuwa akaunti yake ya benki ilifriziwa na wachunguzi wa jinai za kiuchumi kwa tuhuma za utakatishaji fedha."
+      }
+    ],
+    "bado_still_sample": [
+      "Farasi bado haijapatikana",
+      "Bado mapambano (maandamano)",
+      "They killin&#8217; us kwa protest, si bado tunamarch on",
+      "Bado mapambano (maandamano)",
+      "Na mistari zako bado zinaeza geuzwa"
+    ],
+    "bado_count": 14,
+    "dawa_medicine_sample": [
+      "I'm addicted Angela my dawa",
+      "Seti on a daily hii ni dawa hii ni dose",
+      "Tulipanda nduthi usiku kucha tukitafuta duka la dawa lililofunguliwa ili kupata huduma ya kwanza."
+    ],
+    "dawa_count": 3,
+    "ndauwo_fare_sample": [
+      "Tulitembea kutoka Dandora hadi CBD juu hatukuwa na ndauwo ya matatu lakini hatukukata tamaa."
+    ],
+    "ndauwo_count": 1,
+    "manner_sample": [
+      {
+        "token": "kiboss",
+        "line": "Ngoma inapiga doba kali, mayouth wanaruka kwa stage kiboss bila wasiwasi."
+      }
+    ]
+  },
+  "token_economy_on_real_lyrics": {
+    "total_words_evaluated": 73,
+    "naive_bpe_token_count": 284,
+    "sheng_bpe_token_count": 153,
+    "token_reduction_savings_pct": 46.13,
+    "tokens_per_word_naive": 3.89,
+    "tokens_per_word_smart": 2.1
+  },
+  "real_contrastive_eval": [
+    {
+      "rule": "Rule I: Real Lyric Bare Root ('naneed' vs '*naneeded')",
+      "grammatical": "One dance tu ndio naneed kwa club.",
+      "grammatical_ppl": 35.28,
+      "ungrammatical": "One dance tu ndio naneeded kwa club.",
+      "ungrammatical_ppl": 76.36,
+      "ppl_penalty": 41.08,
+      "ratio_preference": "2.2x penalty for violation",
+      "status": "PASS"
+    },
+    {
+      "rule": "Rule I: Real Lyric Bare Root ('inanistress' vs '*inanistressed')",
+      "grammatical": "Hii strength inanistress sana.",
+      "grammatical_ppl": 417.96,
+      "ungrammatical": "Hii strength inanistressed sana.",
+      "ungrammatical_ppl": 874.44,
+      "ppl_penalty": 456.48,
+      "ratio_preference": "2.1x penalty for violation",
+      "status": "PASS"
+    },
+    {
+      "rule": "Kiswahili Invariant: Real Lyric ('bado' vs '*doba')",
+      "grammatical": "Starring bado mi kadere naenda mtaa.",
+      "grammatical_ppl": 212.53,
+      "ungrammatical": "Starring doba mi kadere naenda mtaa.",
+      "ungrammatical_ppl": 997.64,
+      "ppl_penalty": 785.11,
+      "ratio_preference": "4.7x penalty for violation",
+      "status": "PASS"
+    },
+    {
+      "rule": "Rule X: Real Social Feed ('dawa' vs '*ndauwo')",
+      "grammatical": "Tulipata duka la dawa lililofunguliwa.",
+      "grammatical_ppl": 49.77,
+      "ungrammatical": "Tulipata duka la ndauwo lililofunguliwa.",
+      "ungrammatical_ppl": 577.5,
+      "ppl_penalty": 527.73,
+      "ratio_preference": "11.6x penalty for violation",
+      "status": "PASS"
+    }
+  ]
+}

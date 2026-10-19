@@ -13,8 +13,15 @@ Applies Master Blueprint Linguistic Invariants:
 """
 
 import sys
+import os
 import re
-from typing import Dict, List, Tuple, Any
+import json
+import time
+import datetime
+from pathlib import Path
+from typing import Dict, List, Tuple, Any, Optional
+
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
 if sys.platform == "win32":
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
@@ -517,6 +524,75 @@ class ConceptRecreationEngine:
     def __init__(self):
         self.term_map = SWAHILI_TO_CODESWITCH_TERM_MAP
         self.corpus = CONCEPT_RECREATION_CORPUS
+        self.learned_file = PROJECT_ROOT / "data" / "dynamic_learned_memory.json"
+        self.learned_concepts = self._load_learned_concepts()
+        from .english_to_codeswitch import EnglishToKenyanCodeSwitcher
+        self.english_switcher = EnglishToKenyanCodeSwitcher()
+
+    def _load_learned_concepts(self) -> Dict[str, Any]:
+        if self.learned_file.exists():
+            try:
+                with open(self.learned_file, "r", encoding="utf-8") as f:
+                    data = json.load(f)
+                    return data.get("discovered_concepts", {})
+            except Exception:
+                pass
+        return {}
+
+    def _save_learned_concepts(self):
+        try:
+            data = {}
+            if self.learned_file.exists():
+                with open(self.learned_file, "r", encoding="utf-8") as f:
+                    data = json.load(f)
+            data["discovered_concepts"] = self.learned_concepts
+            with open(self.learned_file, "w", encoding="utf-8") as f:
+                json.dump(data, f, indent=2, ensure_ascii=False)
+        except Exception:
+            pass
+
+    def lookup_learned_concept(self, text: str) -> Optional[Dict[str, Any]]:
+        clean = text.strip().lower()
+        if clean in self.learned_concepts:
+            return self.learned_concepts[clean]
+        for k, v in self.learned_concepts.items():
+            if clean in k or k in clean:
+                min_l = min(len(clean), len(k))
+                max_l = max(len(clean), len(k))
+                if min_l / max(1, max_l) >= 0.70:
+                    return v
+        return None
+
+    def teach_concept(self, english: str, our_language: str, note: str = "") -> Dict[str, Any]:
+        en_key = english.strip().lower()
+        record = {
+            "english": english.strip(),
+            "our_language": our_language.strip(),
+            "note": note.strip() or "Observer-curated Kenyan Loosely Swahili phrasing",
+            "timestamp": datetime.datetime.now().isoformat()
+        }
+        self.learned_concepts[en_key] = record
+        self._save_learned_concepts()
+
+        # Append to kenyan_code_switch_corpus.jsonl
+        try:
+            corpus_path = PROJECT_ROOT / "data" / "kenyan_code_switch_corpus.jsonl"
+            with open(corpus_path, "a", encoding="utf-8") as f:
+                f.write(json.dumps({
+                    "id": f"OBS_{int(time.time())}",
+                    "sheng": our_language.strip(),
+                    "english": english.strip(),
+                    "source": "observer_workbench"
+                }, ensure_ascii=False) + "\n")
+        except Exception:
+            pass
+
+        return {
+            "status": "success",
+            "message": "Concept successfully committed to Learned Memory!",
+            "total_learned": len(self.learned_concepts),
+            "concept": record
+        }
 
     def get_benchmark_pairs(self) -> List[Dict[str, Any]]:
         """Returns all curated concept recreation benchmark pairs."""
@@ -578,7 +654,7 @@ class ConceptRecreationEngine:
 
         return best_match, best_lang, best_score
 
-    def reconstruct_concept(self, input_text: str) -> Dict[str, Any]:
+    def reconstruct_concept(self, input_text: str, dialect_mode: str = "urban_standard") -> Dict[str, Any]:
         """
         Reconstructs a technical concept into living Kenyan Code-Switching.
         Accepts either English technical descriptions OR Pure Swahili Sanifu sentences.
@@ -598,9 +674,31 @@ class ConceptRecreationEngine:
                 "conceptual_clarity_gain": "No input provided."
             }
 
+        # 0. Check Observer Learned Memory (Highest Priority: You & I Curated)
+        learned = self.lookup_learned_concept(clean_input)
+        if learned:
+            return {
+                "detected_input_language": "English (Observer Curated)",
+                "domain": "Observer Curated",
+                "concept": "Curated Concept",
+                "english_concept": clean_input,
+                "pure_swahili": "",
+                "original_pure_swahili": "",
+                "reconstructed_codeswitch": learned["our_language"],
+                "sheng_code_switch": learned["our_language"],
+                "our_language": learned["our_language"],
+                "terms_recreated_count": 1,
+                "recreated_mappings": [],
+                "applied_rules": ["Observer-Curated Authenticity", "Pillar I: Bare Root Constraint"],
+                "conceptual_clarity_gain": "Curated directly by human and assistant observers for 100% authentic Kenyan natural speech.",
+                "is_observer_curated": True,
+                "observer_note": learned.get("note", "")
+            }
+
         # 1. Check if input closely matches an authoritative benchmark
         match_bench, detected_lang, score = self._find_matching_benchmark(clean_input)
         if match_bench and score >= 0.75:
+            recreated_cs = match_bench.get("codeswitched_recreation", "")
             return {
                 "detected_input_language": detected_lang,
                 "domain": match_bench.get("domain", "General"),
@@ -608,7 +706,9 @@ class ConceptRecreationEngine:
                 "english_concept": match_bench.get("english_concept", ""),
                 "pure_swahili": match_bench.get("pure_swahili", ""),
                 "original_pure_swahili": match_bench.get("pure_swahili", ""),
-                "reconstructed_codeswitch": match_bench.get("codeswitched_recreation", ""),
+                "reconstructed_codeswitch": recreated_cs,
+                "sheng_code_switch": recreated_cs,
+                "our_language": recreated_cs,
                 "terms_recreated_count": len(match_bench.get("recreated_mappings", [])),
                 "recreated_mappings": match_bench.get("recreated_mappings", []),
                 "applied_rules": match_bench.get("applied_rules", []),
@@ -620,6 +720,8 @@ class ConceptRecreationEngine:
             from src.gemini_concept_client import query_gemini_tri_set
             neural_res = query_gemini_tri_set(clean_input)
             if neural_res and "reconstructed_codeswitch" in neural_res:
+                neural_res["our_language"] = neural_res["reconstructed_codeswitch"]
+                neural_res["sheng_code_switch"] = neural_res["reconstructed_codeswitch"]
                 return neural_res
         except Exception as e:
             # Fall back to local CPU morphotactics if offline or network unavailable
@@ -661,34 +763,45 @@ class ConceptRecreationEngine:
             is_english = vowel_end / max(1, len(tokens_lower)) < 0.65
 
         if is_english:
-            detected_lang = "English (Set B)"
+            detected_lang = "Vast English Concept"
             english_concept = clean_input
-            # Synthesize Kenyan code-switching from English
-            reconstructed, mappings = self._synthesize_codeswitch_from_english(clean_input)
-            pure_swahili = self._approximate_swahili_from_codeswitch(reconstructed)
+            # Synthesize Kenyan code-switching from English using Master Blueprint rules
+            reconstructed, raw_mappings = self._synthesize_codeswitch_from_english(clean_input, dialect_mode=dialect_mode)
+            pure_swahili = ""
+            extracted_rules = [m["recreated_codeswitch"] for m in raw_mappings if m.get("english") == "Master Blueprint"]
+            clean_mappings = [m for m in raw_mappings if m.get("english") != "Master Blueprint"]
+            applied_rules = list(dict.fromkeys(extracted_rules + [
+                "Pillar I: Bare Root Constraint (0% *-ed)",
+                "Rule IV: Double-Stack Pluralization",
+                "Rule IX: 'Kwa' Overlord Preposition",
+                "Discourse & Causal Linkers"
+            ]))
         else:
             detected_lang = "Kiswahili Sanifu (Set A)"
             pure_swahili = clean_input
-            reconstructed, mappings = self._transform_pure_swahili(clean_input)
-            english_concept = self._approximate_english_from_codeswitch(reconstructed, mappings)
-
-        return {
-            "detected_input_language": detected_lang,
-            "domain": "Technical Domain",
-            "concept": "User Submitted Concept",
-            "english_concept": english_concept,
-            "pure_swahili": pure_swahili,
-            "original_pure_swahili": pure_swahili,
-            "reconstructed_codeswitch": reconstructed,
-            "terms_recreated_count": len(mappings),
-            "recreated_mappings": mappings,
-            "applied_rules": [
+            reconstructed, clean_mappings = self._transform_pure_swahili(clean_input)
+            english_concept = self._approximate_english_from_codeswitch(reconstructed, clean_mappings)
+            applied_rules = [
                 "Pillar I: Bare Root Constraint (0% *-ed)",
                 "Rule IV: Double-Stack Pluralization",
                 "Rule IX: 'Kwa' Overlord Preposition",
                 "Explanatory Causal Linkers"
-            ],
-            "conceptual_clarity_gain": "Bridges formal documentation and textbook calques directly into high-register Kenyan engineering parlance."
+            ]
+
+        return {
+            "detected_input_language": detected_lang,
+            "domain": "Kenyan Explanatory Concept",
+            "concept": "Recreated Concept",
+            "english_concept": english_concept,
+            "pure_swahili": pure_swahili,
+            "original_pure_swahili": pure_swahili,
+            "reconstructed_codeswitch": reconstructed,
+            "sheng_code_switch": reconstructed,
+            "our_language": reconstructed,
+            "terms_recreated_count": len(clean_mappings),
+            "recreated_mappings": clean_mappings,
+            "applied_rules": applied_rules,
+            "conceptual_clarity_gain": "Bridges formal English concepts directly into living Kenyan engineering and explanatory parlance."
         }
 
     def _transform_pure_swahili(self, text: str) -> Tuple[str, List[Dict[str, str]]]:
@@ -763,7 +876,7 @@ class ConceptRecreationEngine:
             s = re.sub(pat, rep, s, flags=re.IGNORECASE)
         return s
 
-    def _synthesize_codeswitch_from_english(self, text: str) -> Tuple[str, List[Dict[str, str]]]:
+    def _synthesize_codeswitch_from_english(self, text: str, dialect_mode: str = "urban_standard") -> Tuple[str, List[Dict[str, str]]]:
         """
         Compositionally transforms ANY English technical, computational, or philosophical concept
         into authentic Kenyan Code-Switching discourse by decomposing Subject, Modal, Verb,
@@ -818,6 +931,16 @@ class ConceptRecreationEngine:
                 {"english": "is not worth living", "recreated_codeswitch": "haina maana ku-live", "pure_swahili": "hayastahili kuishi"}
             ]
             return cs_out, m_list
+
+        # 1.5. Universal Morphotactic Code-Switching Layer (17 Master Blueprint Pillars)
+        cs_res = self.english_switcher.code_switch_sentence(res, dialect_mode=dialect_mode)
+        res = cs_res.kenyan_codeswitch
+        for applied in cs_res.applied_rules:
+            mappings.append({
+                "english": "Master Blueprint",
+                "recreated_codeswitch": applied,
+                "pure_swahili": "Sheria ya Lugha"
+            })
 
         # 2. Multi-word domain phrases
         en_to_cs_phrases = [
@@ -921,8 +1044,8 @@ class ConceptRecreationEngine:
             (r"\bin the same ([a-z0-9_-]+)\b", r"kwa \1 ile ile", "in the same [Noun]", r"kwenye \1 uleule"),
             (r"\bthe same ([a-z0-9_-]+)\b", r"\1 ile ile", "the same [Noun]", r"\1 ileile"),
             (r"\bthe other ([a-z0-9_-]+)\b", r"hiyo \1 ingine", "the other [Noun]", r"hiyo \1 nyingine"),
-            (r"\b(in|inside|at)\s+the\s+([a-z0-9_-]+)\b", r"kwa \2", "in/at the [Noun]", r"kwenye \2"),
-            (r"\b(in|inside|at)\s+([a-z0-9_-]+)\b", r"kwa \2", "in/at [Noun]", r"kwenye \2"),
+            (r"\b(in|inside|at)\s+the\s+(?![12]\d{3}\b)([a-z0-9_-]+)\b", r"kwa \2", "in/at the [Noun]", r"kwenye \2"),
+            (r"\b(in|inside|at)\s+(?!(?:the\s+)?[12]\d{3}\b)(?!the\b)([a-z0-9_-]+)\b", r"kwa \2", "in/at [Noun]", r"kwenye \2"),
             (r"\bwithout ([a-z0-9_-]+)ing\b", r"bila ku-\1", "without [Verb]ing", r"bila ya ku-\1"),
             (r"\bwithout ([a-z0-9_-]+)\b", r"bila \1", "without [Noun]", r"bila \1"),
             (r"\bbefore ([a-z0-9_-]+)ing\b", r"kabla ya ku-\1", "before [Verb]ing", r"kabla ya ku-\1"),
@@ -1010,8 +1133,8 @@ class ConceptRecreationEngine:
                     "pure_swahili": sw_label
                 })
 
-        # E: Clean up residual standalone determiners (" the ")
-        res = re.sub(r"\bthe\s+", "", res, flags=re.IGNORECASE)
+        # E: Clean up residual standalone determiners (" the "), preserving spoken temporal patterns like "the 1905"
+        res = re.sub(r"\bthe\s+(?![12]\d{3}\b)", "", res, flags=re.IGNORECASE)
         res = re.sub(r"\s+", " ", res).strip()
 
         if res:

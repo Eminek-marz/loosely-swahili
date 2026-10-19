@@ -1,0 +1,10 @@
+[
+  {
+    "full_name": "lefras32/ai-gateway-orchestrator",
+    "stars": 0,
+    "description": "An asynchronous FastAPI gateway scaffold for OpenAI-compatible LLMs with exact Redis caching, semantic caching backed by PostgreSQL/pgvector, SSE responses, and a bounded ReAct agent runner.",
+    "html_url": "https://github.com/lefras32/ai-gateway-orchestrator",
+    "topics": [],
+    "default_branch": "main"
+  }
+]

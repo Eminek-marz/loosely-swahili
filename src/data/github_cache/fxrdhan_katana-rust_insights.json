@@ -1,0 +1,26 @@
+{
+  "repo": "fxrdhan/katana-rust",
+  "readme_summary": "# Katana (Rust)\n\nA fast, memory-safe, asynchronous web crawler for offensive-security automation \u2014 high-performance Rust port of [ProjectDiscovery Katana](https://github.com/projectdiscovery/katana).\n\n---\n\n## Attribution & Acknowledgements\n\nAll original crawling methodologies, heuristic pipelines, and architectural concepts were pioneered by the **[ProjectDiscovery](https://projectdiscovery.io)** team and open-source contributors. This project brings memory safety, zero-cost abstractions, deterministic concurrency, and raw throughput improvements of the Rust ecosystem to the Katana crawler.\n\n---\n\n## Highlights & Capabilities\n\n* **Standard HTTP Engine**: Asynchronous non-blocking HTTP crawling via `reqwest` & `tokio` with 10-step `enqueue()` validation funnel, adaptive host backoff, and cycle detection.\n* **JSLuice Semantic AST Parser**: High-accuracy JavaScript AST parsing for extracting API endpoints (`fetch`, `axios`, `$.ajax`, `open`, `WebSocket`), object properties, and template literals while filtering 100+ standard vendor libraries.\n* **Headless & Hybrid Browser Engines**: State-Graph navigation with DOM normalization/stripping, SimHash tolerance comparison ($\\le 2$), anti-bot stealth injection, and automated form filling (`-aff`).\n* **3-Layer Deduplication**: Structural URL fingerprinting, adaptive 2-tier promotion `PathTrie` (with LRU host eviction), and 64-bit Charikar SimHash (FNV-1a).\n* **Intelligence & Secret Scanner**: Automated API paradigm classification (REST, GraphQL, SOAP, WebSocket, XHR) and regular expression secret detection scanner for exposed credentials (AWS, GitHub, Google, Slack, Stripe, JWT).\n* **Custom Field Extraction (YAML DSL)**: Extract specific fields from response headers, bodies, or combined payloads using regex capture groups.\n* **Response Disk Storage & File Streaming**: Save raw HTTP responses to disk (`-sr`) and stream discovered endpoints directly to files (`-o`).\n* **Raw Request & Resume Checkpointing**: Seed crawling directl",
+  "dependencies": [
+    "[workspace]",
+    "resolver = \"2\"",
+    "members = [",
+    "\"crates/katana-core\",",
+    "\"crates/katana-similarity\",",
+    "\"crates/katana-parser\",",
+    "\"crates/katana-engine\",",
+    "\"crates/katana-cli\",",
+    "]",
+    "[workspace.package]",
+    "version = \"0.1.0\"",
+    "edition = \"2021\"",
+    "authors = [\"fxrdhan <fxrdhan@github>\"]",
+    "license = \"MIT\"",
+    "repository = \"https://github.com/fxrdhan/katana-rust\""
+  ],
+  "architecture_patterns": [
+    "RESTful API Gateway",
+    "Real-Time Stream / WebSocket",
+    "Asynchronous Concurrent Processing"
+  ]
+}

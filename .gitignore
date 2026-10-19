@@ -1,0 +1,46 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+*.egg
+MANIFEST
+
+# Virtual environments & secrets
+.env
+.venv
+env/
+venv/
+
+# Logs and debug files
+*.log
+logs/
+crash.log
+err_test.log
+*.sqlite3
+
+# Massive datasets (Hosted on Hugging Face: Maxyelow/kenyan-code-switch-1m and Maxyelow/kenyan-code-switch-instruct-50k)
+data/bulk_academic/
+data/corpus_1m/
+data/corpus_100m/
+data/hf_exports/
+data/huggingface_dataset/
+data/instruction_tuning/
+data/raw_inputs/
+data/real_harvested/
+data/*.jsonl
+*.docx
+
+# Local workspace scratch & test projects
+workspace/
+scratch/
+.tmp*
+.gemini/
+
+# OS generated files
+.DS_Store
+Thumbs.db

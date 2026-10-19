@@ -59,7 +59,9 @@ class StandardBPESimulator:
             "shown", "mean", "english", "rest", "perhaps", "certain", "six", "feel", "fire",
             "ready", "green", "yes", "built", "special", "ran", "full", "town", "complete",
             "oh", "person", "hot", "anything", "hold", "state", "list", "stood", "ten",
-            "fast", "felt", "ke", "na", "ya", "wa", "za", "la", "cha", "kwa", "ni"
+            "fast", "felt", "ke", "na", "ya", "wa", "za", "la", "cha", "kwa", "ni",
+            "ku", "tu", "ana", "ali", "ata", "ina", "zi", "hu", "sasa", "wapi",
+            "iko", "ziko", "ako", "wako", "chapaa", "pesa", "kununua", "dish"
         }
 
     def tokenize(self, text: str) -> List[str]:
@@ -132,7 +134,7 @@ class ShengCodeSwitchTokenizer:
 
         # Add Bantu prefixes & affixes
         affixes = [
-            "ma@@", "ku@@", "ni@@", "u@@", "a@@", "tu@@", "wa@@", "m@@",
+            "ma@@", "ku@@", "ni@@", "u@@", "a@@", "tu@@", "wa@@", "m@@", "i@@", "zi@@", "hu@@",
             "na@@", "li@@", "ta@@", "me@@", "ja@@", "ka@@",
             "@@ni", "@@ish", "@@ez"
         ]
@@ -147,6 +149,17 @@ class ShengCodeSwitchTokenizer:
             if stem not in self.vocab:
                 self.vocab[stem] = current_id
                 self.inv_vocab[current_id] = stem
+                current_id += 1
+
+        # Add common seamless agglutinated verbs
+        common_agglutinations = [
+            "kuistop", "kuzistop", "tuzimonitor", "tuwacall", "tumcall",
+            "huwork", "kurun", "kuchange", "kuclear", "kumonitor"
+        ]
+        for term in common_agglutinations:
+            if term not in self.vocab:
+                self.vocab[term] = current_id
+                self.inv_vocab[current_id] = term
                 current_id += 1
 
     def tokenize(self, text: str) -> List[str]:

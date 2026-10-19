@@ -1,0 +1,196 @@
+{
+  "status": "success",
+  "timestamp": "2026-09-27T16:44:26Z",
+  "target_sentences": 1000000,
+  "total_sentences_generated": 1000000,
+  "total_words_generated": 16990653,
+  "total_duration_seconds": 183.39,
+  "corpus_files": {
+    "jsonl_path": "C:\\Users\\USER\\Downloads\\LOOSELY SWAHILI NATURAL LEARNING PROCESSING\\data\\corpus_1m\\kenyan_code_switch_corpus_1m.jsonl",
+    "jsonl_size_mb": 203.64,
+    "txt_path": "C:\\Users\\USER\\Downloads\\LOOSELY SWAHILI NATURAL LEARNING PROCESSING\\data\\corpus_1m\\kenyan_code_switch_corpus_1m.txt",
+    "txt_size_mb": 113.3
+  },
+  "audit_report": {
+    "total_words_audited": 17004443,
+    "total_sentences_audited": 1000000,
+    "duration_seconds": 148.39,
+    "words_per_second": 114589.0,
+    "overall_blueprint_compliance_pct": 100.0,
+    "illegal_double_inflections_count": 0,
+    "affect_contradiction_violations_count": 0,
+    "food_plural_violations_count": 0,
+    "affective_polarity_metrics": {
+      "soft_target_diminutive_infix_ka_occurrences": 28355,
+      "disgust_forced_ki_collapse_occurrences": 27157,
+      "mutual_exclusion_enforced": true
+    },
+    "lexical_invariants_audited": {
+      "doba_as_music_occurrences": 41690,
+      "dawa_as_medicine_occurrences": 48189,
+      "bado_as_still_occurrences": 48261,
+      "ndauwo_as_fare_occurrences": 37731
+    },
+    "top_rule_triggers": {
+      "Rule II: Verbal Plug-In Matrix": 1512974,
+      "Rule IX: 'Kwa' Overlord Preposition": 318566,
+      "Rule XIV: Discourse Markers": 117093,
+      "Rule VI: Manner Adverb 'Ki-'": 78333,
+      "Kiswahili Invariant: Bado (Still/Yet)": 48261,
+      "Rule X: Dawa (Medicine/Treatment)": 48189,
+      "Rule X: Doba (Music/Track)": 41690,
+      "Rule V: Food Plural Suffixation": 39182,
+      "Rule X: Ndauwo (Fare)": 37731,
+      "Rule XVIII: Soft-Target Diminutive Infix (-ka-)": 28355,
+      "Rule XIX: Sarcastic Disgust Forced Ki- Collapse": 27157,
+      "Rule III: Mid-Sentence Negation": 24113,
+      "Rule VIII: Zero-Preposition Spatial Ellipsis": 6781,
+      "Rule IV: Double-Stack Pluralization": 5305,
+      "Rule XII: Copula-Predicate Chains": 266
+    },
+    "emergent_features": {
+      "top_manner_adverbs": {
+        "kiboss": 31258,
+        "kiactor": 8013,
+        "kipro": 7975,
+        "kiserious": 7848,
+        "kiclass": 7833,
+        "kistupid": 7811
+      },
+      "top_double_stack_nouns": {
+        "matowers": 785,
+        "masponsors": 783,
+        "maboys": 782,
+        "madesks": 768,
+        "maphones": 735,
+        "machairs": 731
+      },
+      "top_food_plurals": {
+        "mandazis": 5694,
+        "mayais": 5687,
+        "chomas": 5661,
+        "muturas": 5592,
+        "kikomis": 5524,
+        "smochas": 5519
+      },
+      "top_discourse_markers": {
+        "buda": 25951,
+        "enyewe": 22168,
+        "wee": 21415,
+        "bana": 12398,
+        "manze": 12372,
+        "maze": 11405
+      },
+      "top_zero_prep_locations": {
+        "stage": 1175,
+        "job": 1145,
+        "keja": 1133,
+        "base": 1119,
+        "tao": 1111,
+        "club": 1098
+      },
+      "top_copula_predicates": {
+        "tuko serious": 190,
+        "niko busy": 38,
+        "uko busy": 38
+      }
+    }
+  },
+  "token_economy": {
+    "standard_naive_tokens": 187,
+    "sheng_morpheme_tokens": 146,
+    "savings_pct": 21.93
+  },
+  "contrastive_perplexity_evaluation": [
+    {
+      "test": "Pillar I: Bare Root Constraint (Music Drill)",
+      "real_sentence": "One dance tu ndio naneed kwa club.",
+      "real_ppl": 17.12,
+      "violation_sentence": "One dance tu ndio naneeded kwa club.",
+      "violation_ppl": 48.74,
+      "penalty_ratio": 2.85,
+      "preference_passed": true
+    },
+    {
+      "test": "Rule XVIII: Soft-Target Infix (-ka- Bare Root)",
+      "real_sentence": "Huyo dem ni mcute sana jamaa alikaapproach kwa upole.",
+      "real_ppl": 54.23,
+      "violation_sentence": "Huyo dem ni mcute sana jamaa alikaapproached kwa upole.",
+      "violation_ppl": 71.2,
+      "penalty_ratio": 1.31,
+      "preference_passed": true
+    },
+    {
+      "test": "Rule XIX & XX: Forced Ki- Disgust vs Affect Clash",
+      "real_sentence": "Cheki fala vile kinasurrender hapo nje bila aibu.",
+      "real_ppl": 200.38,
+      "violation_sentence": "Cheki fala vile kinakasurrender hapo nje bila aibu.",
+      "violation_ppl": 367.53,
+      "penalty_ratio": 1.83,
+      "preference_passed": true
+    },
+    {
+      "test": "Rule V: Food Pluralization Rule",
+      "real_sentence": "Tulikula chapos mbili na maharagwe kwa kibanda.",
+      "real_ppl": 529.9,
+      "violation_sentence": "Tulikula machapo mbili na maharagwe kwa kibanda.",
+      "violation_ppl": 1095.95,
+      "penalty_ratio": 2.07,
+      "preference_passed": true
+    },
+    {
+      "test": "Rule X: Semantic Invariant 'doba' (Music)",
+      "real_sentence": "Weka hiyo doba tucheze kaveve kazoze mtaani.",
+      "real_ppl": 18.79,
+      "violation_sentence": "Weka hiyo dawa tucheze kaveve kazoze mtaani.",
+      "violation_ppl": 82.43,
+      "penalty_ratio": 4.39,
+      "preference_passed": true
+    },
+    {
+      "test": "Engineering Domain: Bare Root Constraint",
+      "real_sentence": "Fundi aliamua ku-calibrate transformer ili kuzuia circuit isiharibike.",
+      "real_ppl": 1332.69,
+      "violation_sentence": "Fundi aliamua ku-calibrated transformer ili kuzuia circuit isiharibike.",
+      "violation_ppl": 2225.92,
+      "penalty_ratio": 1.67,
+      "preference_passed": true
+    },
+    {
+      "test": "Tech Systems Domain: Bare Root Constraint",
+      "real_sentence": "DevOps engineer alitaka ku-deploy microservices zote kwenye Kubernetes cluster.",
+      "real_ppl": 555.87,
+      "violation_sentence": "DevOps engineer alitaka ku-deployed microservices zote kwenye Kubernetes cluster.",
+      "violation_ppl": 1159.01,
+      "penalty_ratio": 2.09,
+      "preference_passed": true
+    },
+    {
+      "test": "Medicine Domain: Invariant & Bare Root",
+      "real_sentence": "Daktari wa triage aliamua ku-diagnose mgonjwa na kumpa dawa sahihi.",
+      "real_ppl": 671.86,
+      "violation_sentence": "Daktari wa triage aliamua ku-diagnosed mgonjwa na kumpa dawa sahihi.",
+      "violation_ppl": 1230.48,
+      "penalty_ratio": 1.83,
+      "preference_passed": true
+    },
+    {
+      "test": "Finance Domain: Bare Root Constraint",
+      "real_sentence": "Benki ililazimika ku-liquidate collateral ili kufidia deni la mteja.",
+      "real_ppl": 1180.06,
+      "violation_sentence": "Benki ililazimika ku-liquidated collateral ili kufidia deni la mteja.",
+      "violation_ppl": 14673.43,
+      "penalty_ratio": 12.43,
+      "preference_passed": true
+    },
+    {
+      "test": "Politics Domain: Bare Root Constraint",
+      "real_sentence": "Kamati ya bunge ilipanga ku-amend mswada wa fedha baada ya public participation.",
+      "real_ppl": 732.24,
+      "violation_sentence": "Kamati ya bunge ilipanga ku-amended mswada wa fedha baada ya public participation.",
+      "violation_ppl": 2100.02,
+      "penalty_ratio": 2.87,
+      "preference_passed": true
+    }
+  ]
+}

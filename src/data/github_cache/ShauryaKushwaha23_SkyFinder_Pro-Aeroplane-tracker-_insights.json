@@ -1,0 +1,6 @@
+{
+  "repo": "ShauryaKushwaha23/SkyFinder_Pro-Aeroplane-tracker-",
+  "readme_summary": "# SkyFinder_Pro-Aeroplane-tracker-\nSkyFinder Pro is a real-time aircraft radar web application built with Python and Streamlit that visualizes live global air traffic using the OpenSky Network API. It provides an interactive, map-based experience for tracking flights worldwide with live updates, filters, and analytics.\n<img width=\"1920\" height=\"1080\" alt=\"SkyFinder_Pro Trials 5(Full window display)\" src=\"https://github.com/user-attachments/assets/07a054db-116c-490c-8ca4-494676681b2c\" />\n<img width=\"1902\" height=\"886\" alt=\"SkyFinder_Pro Trials 4(Tracker close up)\" src=\"https://github.com/user-attachments/assets/b13755e1-03e9-48cb-a2ec-b23737944a03\" />\n",
+  "dependencies": [],
+  "architecture_patterns": []
+}

@@ -1,0 +1,148 @@
+{
+  "version": "1.0-self-learning",
+  "iterations_completed": 2,
+  "discovered_verbs": {
+    "refactor": 1,
+    "sandbox": 1,
+    "catheterize": 1,
+    "drain": 1,
+    "sync": 1,
+    "predict": 1,
+    "provision": 1,
+    "dispense": 1,
+    "hedge": 1,
+    "hike": 1,
+    "audit": 1,
+    "reconcile": 1,
+    "generate": 1,
+    "anticipate": 1,
+    "guide": 1
+  },
+  "discovered_double_stack_nouns": {
+    "mavouchers": 1
+  },
+  "discovered_concepts": {
+    "the database caches data in local memory to prevent the main server from being overloaded.": {
+      "english": "The database caches data in local memory to prevent the main server from being overloaded.",
+      "our_language": "Database ina-cache data kwa local memory ndio main server isi-overload.",
+      "note": "Observer verified: using ndio is more natural Nairobi flow",
+      "timestamp": "2026-09-28T23:24:55.987272"
+    },
+    "kafka streams real-time telemetry events directly into analytics pipelines.": {
+      "english": "Kafka streams real-time telemetry events directly into analytics pipelines.",
+      "our_language": "Kafka ina-stream telemetry events za real-time moja kwa moja kwa mapipeline za analytics.",
+      "note": "Observer curation for stream processing systems",
+      "timestamp": "2026-09-28T23:44:01.492664"
+    },
+    "although the rain was pouring down heavily, the outdoor market was canceled.\"": {
+      "english": "Although the rain was pouring down heavily, the outdoor market was canceled.\"",
+      "our_language": "Hata kama mvua ilikuwa inanyesha heavLy sana, outdoor market ilicanceliwa.\"",
+      "note": "Observer-curated Kenyan Loosely Swahili phrasing",
+      "timestamp": "2026-09-28T23:47:57.873447"
+    },
+    "by linking neural activity to boolean logic gates (and, or, not), it proved that networks of simplified artificial neurons could compute any logical function.": {
+      "english": "By linking neural activity to Boolean logic gates (AND, OR, NOT), it proved that networks of simplified artificial neurons could compute any logical function.",
+      "our_language": "Kwa kulink neural activity na Boolean logic gates(AND, OR,NOT), iliproove that networks za simplified artificial neurons zingecompute logical function yoyote",
+      "note": "Observer-curated Kenyan Loosely Swahili phrasing",
+      "timestamp": "2026-09-28T23:55:56.453608"
+    },
+    "the act of the 10th of april, 1816, ch. 44, to \"incorporate the subscribers to the bank of the united states\" is a law made in pursuance of the constitution.\nthe government of the union, though limited in its powers, is supreme within its sphere of action, and its laws, when made in pursuance of the constitution, form the supreme law of the land.\nthere is nothing in the constitution of the united states similar to the articles of confederation, which exclude incidental or implied powers.\nif the end be legitimate, and within the scope of the constitution, all the means which are appropriate, which are plainly adapted to that end, and which are not prohibited, may constitutionally be employed to carry it into effect.\nthe power of establishing a corporation is not a distinct sovereign power or end of government, but only the means of carrying into effect other powers which are sovereign. whenever it becomes an appropriate means of exercising any of the powers given by the constitution to the government of the union, it may be exercised by that government.": {
+      "english": "The Act of the 10th of April, 1816, ch. 44, to \"incorporate the subscribers to the Bank of the United States\" is a law made in pursuance of the Constitution.\nThe Government of the Union, though limited in its powers, is supreme within its sphere of action, and its laws, when made in pursuance of the Constitution, form the supreme law of the land.\nThere is nothing in the Constitution of the United States similar to the Articles of Confederation, which exclude incidental or implied powers.\nIf the end be legitimate, and within the scope of the Constitution, all the means which are appropriate, which are plainly adapted to that end, and which are not prohibited, may constitutionally be employed to carry it into effect.\nThe power of establishing a corporation is not a distinct sovereign power or end of Government, but only the means of carrying into effect other powers which are sovereign. Whenever it becomes an appropriate means of exercising any of the powers given by the Constitution to the Government of the Union, it may be exercised by that Government.",
+      "our_language": "Act ya 10th of April,1816, ch. 44, ya \" kuincoperate subscribers wa Bank of the United States\" ni law ilimakiwa kwa kufuata  katiba\nGovernment ya Muungano, hata kama iko na limitations kwa powers zake, bado iko supreme kwenye sphere yake ya action. Na hizo laws zake, zikiwa made kuenda na Katiba, ndio zinakuwa supreme law ya hii nchi.\nConstitution/Katiba ya US haiko kama zile Articles ya Confederation, zenye zilikuwa zina-exclude hizi incidental au implied powers. \nKama end goal ni legitimate na iko ndani ya scope ya Katiba,  means zote zenye ziko appropriate, zenye zina-adapt vizuri kwa hiyo end, na zenye hazijakuwa prohibited, zinaweza kuwa employed constitutionally/kikatiba kuifanya iwe effective. Kuanzisha corporation si distinct sovereign power au end goal ya Government—ni means tu ya ku-carry into effect zile powers zingine zenye ni sovereign. Wakati wowote ikikuwa appropriate means ya ku-exercise power yoyote yenye Katiba imepea Government ya Muungano, basi hiyo Government inaweza kuitumia.",
+      "note": "Observer-curated Kenyan Loosely Swahili phrasing",
+      "timestamp": "2026-09-29T00:29:30.203368"
+    },
+    "who really runs the world? who controls the money, the politics, and almost every facet of life without you knowing a thing about it? is such a thing possible? maxwell grew up in a family that had high-ranking insiders in international politics and religion, so had access to information that few people could imagine.": {
+      "english": "Who really runs the world? Who controls the money, the politics, and almost every facet of life without you knowing a thing about it? Is such a thing possible? Maxwell grew up in a family that had high-ranking insiders in international politics and religion, so had access to information that few people could imagine.",
+      "our_language": "Nani really anarun hii dunia? Nani anacontrol chapaa, politics, na almost kila facet ya life bila wewe kujua kitu kuihusu? Kitu kama hiyo ni possible, kweli? Maxwell alilelewa kwa family yenye ilikuwa na high-ranking insiders kwa international politics na religion, so alikuwa na access to information that wasee wachache wangeimagine.",
+      "note": "Observer-curated investigative code-switching rules",
+      "timestamp": "2026-09-29T01:02:59.931463"
+    },
+    "jordan maxwell uncovers how secret societies use symbols to veil hidden knowledge that shapes our reality. exploring ancient wisdom, he challenges the conventional view of consciousness, suggesting that reality is influenced by deeper psychological constructs. ...": {
+      "english": "Jordan Maxwell uncovers how secret societies use symbols to veil hidden knowledge that shapes our reality. Exploring ancient wisdom, he challenges the conventional view of consciousness, suggesting that reality is influenced by deeper psychological constructs. ...",
+      "our_language": "Jordan Maxwell  anauncover venye secret societies hutumia symbols kuveil hidden knowledge enye inashape reality yetu . Exploring ancient wisdom, yeye anachallenge conventional view ya consciousness, suggesting iyo reality inainfluenciwa na deeper psychological constructs. ...",
+      "note": "Observer-curated Kenyan Loosely Swahili phrasing",
+      "timestamp": "2026-09-29T02:16:01.847201"
+    }
+  },
+  "verified_invariants": {
+    "doba": "music/audio",
+    "dawa": "medicine/treatment",
+    "bado": "still/yet",
+    "ndauwo": "transit_fare"
+  },
+  "confidence_scores": {
+    "timestamp": "2026-09-27T17:02:25Z",
+    "battery_tests": {
+      "morphotactic_parsing_accuracy": {
+        "score_pct": 100.0,
+        "passed": true,
+        "details": "8/8 verb inflections correctly parsed and bounded."
+      },
+      "semantic_invariant_guarding": {
+        "score_pct": 100.0,
+        "passed": true,
+        "details": "6/6 invariant boundary assertions held."
+      },
+      "affective_polarity_mutual_exclusion": {
+        "score_pct": 100.0,
+        "passed": true,
+        "details": "4/4 polarity conflict tests passed."
+      },
+      "concept_recreation_fidelity": {
+        "score_pct": 100.0,
+        "passed": true,
+        "details": "11/11 technical concept pairs accurately transformed."
+      },
+      "contrastive_discriminator_calibration": {
+        "score_pct": 100.0,
+        "passed": true,
+        "details": "4/4 contrastive pairs cleanly discriminated with perplexity penalty."
+      }
+    },
+    "overall_competence_pct": 100.0,
+    "status": "CERTIFIED"
+  },
+  "adversarial_benchmarks": [
+    {
+      "original": "Cloud engineer alitaka ku-provision Kubernetes cluster kwa maserver zetu.",
+      "self_generated_violation": "Cloud engineer ali-takaed ku--provisioned Ku-bernetesed cluster kwa maserver zetu.",
+      "real_ppl": 2.77,
+      "violation_ppl": 60.32,
+      "penalty_ratio": 21.78,
+      "self_correction_passed": true
+    },
+    {
+      "original": "Pharmacist alikataa ku-dispense dawa bila prescription ya daktari.",
+      "self_generated_violation": "Pharmacist ali-taaed ku--dispenseed dawa bila prescription ya daktari.",
+      "real_ppl": 2.6,
+      "violation_ppl": 26.51,
+      "penalty_ratio": 10.2,
+      "self_correction_passed": true
+    },
+    {
+      "original": "Surveyor anapofanya mapping lazima a-calibrate GPS antenna kwa site.",
+      "self_generated_violation": "Surveyor ana-pofanyaed mapping lazima a-calibrate GPS antenna kwa site.",
+      "real_ppl": 2.33,
+      "violation_ppl": 7.0,
+      "penalty_ratio": 3.0,
+      "self_correction_passed": true
+    },
+    {
+      "original": "Equity traders wanataka ku-hedge portfolio zao kabla ya Fed ku-hike interest rates.",
+      "self_generated_violation": "Equity traders wana-takaed ku--hedgeed portfolio zao kabla ya Fed ku--hikeed interest rates.",
+      "real_ppl": 2.59,
+      "violation_ppl": 30.09,
+      "penalty_ratio": 11.62,
+      "self_correction_passed": true
+    },
+    {
+      "original": "KRA inataka ku-audit eTIMS system ili ku-reconcile vat invoices.",
+      "self_generated_violation": "KRA ina-takaed ku--audited eTIMS system ili ku--reconcileed vat invoices.",
+      "real_ppl": 2.77,
+      "violation_ppl": 67.13,
+      "penalty_ratio": 24.23,
+      "self_correction_passed": true
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "repo": "SatguruSaran1/Emergency-Hospital-and-Bed-Management-System",
+  "readme_summary": "# Emergency Hospital Resource and Bed Management System\n\nThis is a comprehensive full-stack web application designed to manage critical hospital operations. It features a robust Python/FastAPI backend, a dynamic Vanilla JS/HTML/CSS frontend, and a highly optimized MySQL relational database utilizing embedded SQL queries, triggers, and scheduled events in place of an ORM.\n\n## Features\n- **Patient & Admission Management:** Admit patients based on emergency severity (Critical, High, Medium, Low) and allocate appropriate doctors and beds.\n- **Smart Bed Allocation:** Track bed availability across different wards (General, ICU, Emergency).\n- **Automated Doctor Fatigue Engine:** Automatically sets doctors to 'Fatigued' status after handling a certain number of critical patients and clears it after a rest period via MySQL scheduled events.\n- **Real-Time Inventory Alerts:** Database triggers monitor critical medical stock and automatically generate system alerts when items fall below their threshold levels.\n- **Role-Based Access Control:** Secure SHA-256 password hashing for Admin and Doctor roles with tailored interactive dashboards.\n\n## Prerequisites\nBefore you begin, ensure you have the following installed:\n- **Python 3.8+**\n- **MySQL Server 8.0+**\n\n## Installation & Setup\n\n### 1. Download the Project\nClone this repository to your local machine:\n```bash\ngit clone https://github.com/SatguruSaran1/Emergency-Hospital-and-Bed-Management-System.git\ncd Emergency-Hospital-and-Bed-Management-System\n```\n\n### 2. Set Up a Virtual Environment\n```bash\npython -m venv venv\n# On Windows\nvenv\\Scripts\\activate\n# On macOS/Linux\nsource venv/bin/activate\n```\n\n### 3. Install Dependencies\nInstall the required Python packages using pip:\n```bash\npip install -r requirements.txt\n```\n\n### 4. Database Configuration\n1. Open your MySQL client (e.g., MySQL Workbench or terminal).\n2. Create the database and tables by importing the `init_db.sql` or `database_dump.sql` file provided in the repository:\n   `",
+  "dependencies": [
+    "fastapi",
+    "uvicorn",
+    "mysql-connector-python",
+    "python-multipart",
+    "python-dotenv"
+  ],
+  "architecture_patterns": [
+    "RESTful API Gateway",
+    "Real-Time Stream / WebSocket",
+    "ACID Relational Persistence"
+  ]
+}

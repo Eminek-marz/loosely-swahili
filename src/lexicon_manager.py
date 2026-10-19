@@ -11,7 +11,9 @@ from typing import Dict, List, Optional, Any, Union, Tuple
 class ShengLexiconManager:
     def __init__(self, lexicon_path: Optional[Union[str, Path]] = None):
         if lexicon_path is None:
-            lexicon_path = Path(__file__).resolve().parent.parent / "data" / "sheng_lexicon.json"
+            pkg_data = Path(__file__).resolve().parent / "data" / "sheng_lexicon.json"
+            repo_data = Path(__file__).resolve().parent.parent / "data" / "sheng_lexicon.json"
+            lexicon_path = pkg_data if pkg_data.exists() else repo_data
         self.lexicon_path = Path(lexicon_path)
         self.entries_by_term: Dict[str, Dict[str, Any]] = {}
         self.multiword_idioms: Dict[str, Dict[str, Any]] = {}
